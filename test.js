@@ -1,2 +1,2 @@
 let commitWork
-'just work'
+'just work please'
