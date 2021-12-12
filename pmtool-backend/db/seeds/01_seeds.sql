@@ -1,3 +1,5 @@
+--command to add seeds (from inside db folder)
+-- \i seeds/01_seeds.sql;
 
 -- DELETE FROM users;
 -- DELETE FROM projects;
