@@ -1,0 +1,23 @@
+{
+  "name": "pm-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Freem11/PMSys.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Freem11/PMSys/issues"
+  },
+  "homepage": "https://github.com/Freem11/PMSys#readme",
+  "dependencies": {
+    "pg": "^8.7.1"
+  }
+}
