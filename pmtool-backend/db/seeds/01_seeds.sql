@@ -1,11 +1,11 @@
 --command to add seeds (from inside db folder)
 -- \i seeds/01_seeds.sql;
 
--- DELETE FROM users;
--- DELETE FROM projects;
+DELETE FROM users;
+DELETE FROM projects;
 
--- ALTER SEQUENCE users_id_seq RESTART WITH 1;
--- ALTER SEQUENCE projects_id_seq RESTART WITH 1;
+ALTER SEQUENCE users_id_seq RESTART WITH 1;
+ALTER SEQUENCE projects_id_seq RESTART WITH 1;
 
 INSERT INTO users(email, password)
 VALUES ('jerry@gmail.com', 'jerry'),

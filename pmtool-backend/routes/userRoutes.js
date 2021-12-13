@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../lib/userQueries.js')
 
-router.get("/", (req, res) => {
+const getUsers = router.get("/users", (req, res) => {
+
     db.getAllUsers()
     .then(users => {
+        console.log("this stuff", users)
         res.json(users);
     })
     .catch(err => {
@@ -14,4 +15,18 @@ router.get("/", (req, res) => {
     });
 });
 
-module.exports = router
+const getUser = router.get("/users/:id", (req, res) => {
+
+    db.getAllUsers()
+    .then(users => {
+        console.log("this stuff", users)
+        res.json(users);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message});
+    });
+});
+
+module.exports = { getUsers, getUser }
