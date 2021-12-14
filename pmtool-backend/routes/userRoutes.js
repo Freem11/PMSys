@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../lib/userQueries.js')
 
 const getUsers = router.get("/users", (req, res) => {
 

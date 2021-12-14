@@ -1,0 +1,65 @@
+
+body {
+    background-color: #66758F;
+}
+
+.box1 {
+    display: flex;
+    margin: auto;
+}
+
+.box2 {
+    display: flex;
+    margin: auto;
+}
+
+.regButton {
+    width: 180px;
+    height: 40px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    background-color:#2B2D42;
+    border-radius: 10px;
+    font-weight: bolder;
+    color: #FFFFF2;
+    border-color:  #66758F;
+    border: transparent;
+    margin-left: 14%;
+}
+
+.inpt {
+    width: 250px;
+    height: 30px;
+    margin: auto;
+    margin-top: 10px;
+    background-color:#FFFFF2;
+    border-radius: 10px;
+    text-align: center;
+    
+}
+
+::-webkit-input-placeholder {
+    text-align: center;
+}
+
+.maindiv {
+    display: flex;
+    flex-direction: column;
+}
+
+.subHead {
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: #292929;
+    text-align: center;
+   
+}
+
+.head {
+    margin: auto;
+    margin-top: 250px;
+    margin-bottom: 40px;
+    color: #292929;
+    font-size: 45px;
+}

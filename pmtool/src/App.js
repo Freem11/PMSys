@@ -1,20 +1,28 @@
 
 import './App.css';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { React, useEffect } from 'react';
+import LoginPage from './components/loginPage';
 
 function App() {
 
   useEffect(() => {
     return axios.get("http://localhost:5000/users")
     .then(response => {
-        console.log("hmmm?", response.data)
+        console.log("users:", response.data)
+    })
+  }, [])
+
+  useEffect(() => {
+    return axios.get("http://localhost:5000/projects")
+    .then(response => {
+        console.log("projects:", response.data)
     })
   }, [])
 
   return (
-    <div className="App">
-        <p>arrghhh</p>
+    <div>
+       <LoginPage/>
     </div>
   );
 }
