@@ -2,13 +2,10 @@ const express = require('express');
 const router = express.Router();
 const db = require('../lib/userQueries.js')
 
-const getUser = router.post("/users", (req, res) => {
-
-    console.log("helloo", req.body)
+const getUser = router.post("/session", (req, res) => {
 
     db.getSingleUser(req.body.email, req.body.pass)
     .then(user => {
-        console.log("found user:", user)
         res.json(user);
     })
     .catch(err => {
@@ -18,14 +15,11 @@ const getUser = router.post("/users", (req, res) => {
     });
 });
 
+const addUser = router.post("/register", (req, res) => {
 
-
-const getUsers = router.get("/users/:id", (req, res) => {
-
-    db.getAllUsers()
-    .then(users => {
-        console.log("this stuff", users)
-        res.json(users);
+    db.createUser(req.body.email, req.body.pass)
+    .then(user => {
+        res.json(user);
     })
     .catch(err => {
         res
@@ -34,4 +28,4 @@ const getUsers = router.get("/users/:id", (req, res) => {
     });
 });
 
-module.exports = { getUser }
+module.exports = { getUser, addUser }

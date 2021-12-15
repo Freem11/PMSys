@@ -3,10 +3,8 @@ const db = require("./db");
 
 const getSingleUser = (email, pass) => {
 
-    console.log("keys are:", email, pass)
     return db.query(`SELECT * FROM users WHERE email = $1 AND password = $2;`, [email, pass])
     .then((response) => {
-        console.log("user is:", response.rows)
         return response.rows;
     })
     .catch((error) => {
@@ -14,8 +12,9 @@ const getSingleUser = (email, pass) => {
     })
 }
 
-const getAllUsers = () => {
-    return db.query(`SELECT * FROM users`)
+const createUser = (email, password) => {
+    return db.query(`INSERT INTO users (email, password)
+    VALUES ($1, $2) RETURNING *;`, [email, password])
     .then((response) => {
         return response.rows;
     })
@@ -24,4 +23,4 @@ const getAllUsers = () => {
     })
 }
 
-module.exports = { getAllUsers, getSingleUser }
+module.exports = { createUser, getSingleUser }

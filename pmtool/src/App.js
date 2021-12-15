@@ -6,13 +6,6 @@ import LoginPage from './components/loginPage';
 
 function App() {
 
-  // useEffect(() => {
-  //   return axios.get("http://localhost:5000/users")
-  //   .then(response => {
-  //       console.log("users:", response.data)
-  //   })
-  // }, [])
-
   useEffect(() => {
     return axios.get("http://localhost:5000/projects")
     .then(response => {
