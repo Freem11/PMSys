@@ -83,3 +83,23 @@ body {
     margin:auto;
     text-align: center;
 }
+
+.btn2 {
+    background-color: transparent;
+    border-color: #FFFFF2;
+    color: #FFFFF2;
+    border-radius: 10px;
+    font-weight: bolder;
+    width: 80px;
+    margin-right: 10px;
+}
+
+.bottom-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 95%;
+    margin-right: 10%;
+    margin-bottom: 10%;
+    margin-top: 5%;
+}

@@ -3,7 +3,7 @@ const express = require("express"),
   port = process.env.PORT || 5000,
   cors = require("cors");
   const bodyParser = require("body-parser")
-  const { getUser, addUser } = require('./userRoutes')
+  const { getUser, addUser, getUserEmail } = require('./userRoutes')
   const { getProjects } = require('./projectRoutes')
 
 app.use(express.urlencoded({ extended: true}));
@@ -14,6 +14,7 @@ app.use(cors());
 app.listen(port, () => console.log("Backend server live on " + port));
 
 app.use(getUser)
+app.use(getUserEmail)
 app.use(addUser)
 
 app.use(getProjects)

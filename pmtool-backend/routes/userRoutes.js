@@ -15,6 +15,19 @@ const getUser = router.post("/session", (req, res) => {
     });
 });
 
+const getUserEmail = router.post("/sessions", (req, res) => {
+
+    db.getSingleUserByEmail(req.body.email)
+    .then(user => {
+        res.json(user);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message});
+    });
+});
+
 const addUser = router.post("/register", (req, res) => {
 
     db.createUser(req.body.email, req.body.pass)
@@ -28,4 +41,4 @@ const addUser = router.post("/register", (req, res) => {
     });
 });
 
-module.exports = { getUser, addUser }
+module.exports = { getUser, addUser, getUserEmail }

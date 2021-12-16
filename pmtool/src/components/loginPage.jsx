@@ -1,4 +1,5 @@
 import { useReducer } from "react";
+import { useNavigate } from "react-router-dom"
 import { Button, Form, FormGroup, Input } from "reactstrap";
 import "./loginPage.scss";
 import axios from "axios";
@@ -47,6 +48,18 @@ function loginReducer(state, action) {
         regPassword: "",
       };
     }
+    case "error3": {
+      return {
+        ...state,
+        error:
+          "Please supply both Email and Password",
+        email: "",
+        password: "",
+        isLoggedIn: false,
+        regEmail: "",
+        regPassword: "",
+      };
+    }
     case "logout": {
       return {
         ...state,
@@ -87,6 +100,21 @@ function login({ email, password }) {
     });
 }
 
+function checkEmail({ email }) {
+
+  return axios
+    .post("http://localhost:5000/sessions", { email })
+    .then((response) => {
+      console.log(response.data)
+      if (response.data[0]) {
+        return true;
+      }
+    })
+    .catch((err) => {
+      return err;
+    });
+}
+
 function register({ regEmail, regPassword }) {
   
   return axios
@@ -101,25 +129,37 @@ function register({ regEmail, regPassword }) {
     });
 }
 
+
+
 const LoginPage = () => {
+  let navigate = useNavigate()
   const [state, dispatch] = useReducer(loginReducer, initialState);
   const { regEmail, regPassword, email, password, error, error2 } = state;
+  
 
   const onSubmitLogin = async (e) => {
     e.preventDefault();
 
     dispatch({ type: "login" });
 
-    try {
-      let log = await register({ regEmail, regPassword });
+    if (!email || !password) {
+      dispatch({ type: "error3" });
+    } else {
 
+    try {
+      let log = await login({ email, password });
+        console.log("log is" , log)
       if (log === undefined) {
         dispatch({ type: "error" });
+      } else {
+        dispatch({ Type: "success" });
+        navigate("/projects")
       }
-      dispatch({ Type: "success" });
+      
     } catch (error) {
       dispatch({ Type: "error" });
     }
+  }
   };
 
   const onSubmitRegister = async (e) => {
@@ -127,19 +167,25 @@ const LoginPage = () => {
 
     dispatch({ type: "login" });
 
+    if (!regEmail || !regPassword) {
+      dispatch({ type: "error3" });
+    } else {
+
     try {
-      let logs = await login({ email: regEmail, password: regPassword });
+      let logs = await checkEmail({ email: regEmail });
 
       if (logs === true) {
         dispatch({ type: "error2" });
       } else{
         dispatch({ Type: "success" });
         register({regEmail, regPassword})
+        navigate("/projects")
       }
       
     } catch (error) {
       dispatch({ Type: "error" });
     }
+  }
   };
 
   const registryForm = (
@@ -219,6 +265,11 @@ const LoginPage = () => {
       <h1 className="head">Welcome</h1>
       <div className="box1">{registryForm}</div>
       <div className="box2">{loginForm}</div>
+      <div className="bottom-box">
+      <button type="button" className="btn2">Login</button>
+      <button type="button" className="btn2">Register</button>
+      </div>
+      
     </div>
   );
 };
