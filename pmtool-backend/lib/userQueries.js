@@ -1,9 +1,9 @@
 const { response } =require("express");
 const db = require("./db");
 
-const getSingleUser = (email, pass) => {
+const getSingleUser = (email) => {
 
-    return db.query(`SELECT * FROM users WHERE email = $1 AND password = $2;`, [email, pass])
+    return db.query(`SELECT * FROM users WHERE email = $1;`, [email])
     .then((response) => {
         return response.rows;
     })

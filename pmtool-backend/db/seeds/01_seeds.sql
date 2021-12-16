@@ -8,8 +8,8 @@ ALTER SEQUENCE users_id_seq RESTART WITH 1;
 ALTER SEQUENCE projects_id_seq RESTART WITH 1;
 
 INSERT INTO users(email, password)
-VALUES ('jerry@gmail.com', 'jerry'),
-('george@gmail.com', 'george');
+VALUES ('jerry@gmail.com', '$2b$10$79yCm1nJdNV6S8iAycSTnOlEaRCAjKa8EfxblOIdMjIFyrFXw56a.'),
+('george@gmail.com', '$2b$10$wiDllG..ujvOY49IKDtLiOY.k8iTQTy2Hy.spK3Nay2aMs8XVtGtG');
 
 INSERT INTO projects(name, status, user_id)
 VALUES ('manhatten', 'active', 1),

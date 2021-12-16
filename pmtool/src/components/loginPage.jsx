@@ -1,8 +1,9 @@
-import { useReducer } from "react";
-import { useNavigate } from "react-router-dom"
+import { useReducer, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, Form, FormGroup, Input } from "reactstrap";
 import "./loginPage.scss";
 import axios from "axios";
+import { UserContext } from "./userContext";
 
 function loginReducer(state, action) {
   switch (action.type) {
@@ -10,6 +11,7 @@ function loginReducer(state, action) {
       return {
         ...state,
         [action.field]: action.value,
+        error: "",
       };
     }
     case "login": {
@@ -39,8 +41,7 @@ function loginReducer(state, action) {
     case "error2": {
       return {
         ...state,
-        error:
-          "The login credentials you supplied are already in the system",
+        error: "The login credentials you supplied are already in the system",
         email: "",
         password: "",
         isLoggedIn: false,
@@ -51,8 +52,7 @@ function loginReducer(state, action) {
     case "error3": {
       return {
         ...state,
-        error:
-          "Please supply both Email and Password",
+        error: "Please supply both Email and Password",
         email: "",
         password: "",
         isLoggedIn: false,
@@ -86,13 +86,11 @@ const initialState = {
 };
 
 function login({ email, password }) {
-
   return axios
     .post("http://localhost:5000/session", { email: email, pass: password })
     .then((response) => {
-      console.log(response.data)
       if (response.data[0]) {
-        return true;
+        return response.data[0];
       }
     })
     .catch((err) => {
@@ -101,13 +99,11 @@ function login({ email, password }) {
 }
 
 function checkEmail({ email }) {
-
   return axios
     .post("http://localhost:5000/sessions", { email })
     .then((response) => {
-      console.log(response.data)
       if (response.data[0]) {
-        return true;
+        return response.data[0];
       }
     })
     .catch((err) => {
@@ -116,12 +112,14 @@ function checkEmail({ email }) {
 }
 
 function register({ regEmail, regPassword }) {
-  
   return axios
-    .post("http://localhost:5000/register", { email: regEmail, pass: regPassword })
+    .post("http://localhost:5000/register", {
+      email: regEmail,
+      pass: regPassword,
+    })
     .then((response) => {
       if (response.data[0]) {
-        return true;
+        return response.data[0];
       }
     })
     .catch((err) => {
@@ -129,13 +127,12 @@ function register({ regEmail, regPassword }) {
     });
 }
 
-
-
 const LoginPage = () => {
-  let navigate = useNavigate()
+  let navigate = useNavigate();
   const [state, dispatch] = useReducer(loginReducer, initialState);
   const { regEmail, regPassword, email, password, error, error2 } = state;
-  
+
+  const { user, setUser } = useContext(UserContext);
 
   const onSubmitLogin = async (e) => {
     e.preventDefault();
@@ -145,21 +142,20 @@ const LoginPage = () => {
     if (!email || !password) {
       dispatch({ type: "error3" });
     } else {
+      try {
+        let log = await login({ email, password });
 
-    try {
-      let log = await login({ email, password });
-        console.log("log is" , log)
-      if (log === undefined) {
-        dispatch({ type: "error" });
-      } else {
-        dispatch({ Type: "success" });
-        navigate("/projects")
+        if (log === undefined || log === Error) {
+          dispatch({ type: "error" });
+        } else {
+          dispatch({ Type: "success" });
+          setUser(JSON.stringify(log));
+          navigate("/projects");
+        }
+      } catch (error) {
+        dispatch({ Type: "error" });
       }
-      
-    } catch (error) {
-      dispatch({ Type: "error" });
     }
-  }
   };
 
   const onSubmitRegister = async (e) => {
@@ -170,22 +166,21 @@ const LoginPage = () => {
     if (!regEmail || !regPassword) {
       dispatch({ type: "error3" });
     } else {
+      try {
+        let logs = await checkEmail({ email: regEmail });
 
-    try {
-      let logs = await checkEmail({ email: regEmail });
-
-      if (logs === true) {
-        dispatch({ type: "error2" });
-      } else{
-        dispatch({ Type: "success" });
-        register({regEmail, regPassword})
-        navigate("/projects")
+        if (logs) {
+          dispatch({ type: "error2" });
+        } else {
+          dispatch({ Type: "success" });
+          let logoo = await register({ regEmail, regPassword });
+          setUser(JSON.stringify(logoo));
+          navigate("/projects");
+        }
+      } catch (error) {
+        dispatch({ Type: "error" });
       }
-      
-    } catch (error) {
-      dispatch({ Type: "error" });
     }
-  }
   };
 
   const registryForm = (
@@ -209,6 +204,7 @@ const LoginPage = () => {
         <Input
           placeholder="Password"
           className="inpt"
+          type="password"
           value={regPassword}
           onChange={(e) =>
             dispatch({
@@ -219,7 +215,9 @@ const LoginPage = () => {
           }
         />
       </FormGroup>
-      <Button className="regButton" type="submit" onClick={onSubmitRegister}>Register</Button>
+      <Button className="regButton" type="submit" onClick={onSubmitRegister}>
+        Register
+      </Button>
     </Form>
   );
 
@@ -245,6 +243,7 @@ const LoginPage = () => {
           placeholder="Password"
           className="inpt"
           value={password}
+          type="password"
           onChange={(e) =>
             dispatch({
               type: "field",
@@ -254,7 +253,9 @@ const LoginPage = () => {
           }
         />
       </FormGroup>
-      <Button className="regButton" type="submit" onClick={onSubmitLogin}>Login</Button>
+      <Button className="regButton" type="submit" onClick={onSubmitLogin}>
+        Login
+      </Button>
       {error && <p className="error">{error}</p>}
       {error2 && <p className="error">{error2}</p>}
     </Form>
@@ -266,10 +267,13 @@ const LoginPage = () => {
       <div className="box1">{registryForm}</div>
       <div className="box2">{loginForm}</div>
       <div className="bottom-box">
-      <button type="button" className="btn2">Login</button>
-      <button type="button" className="btn2">Register</button>
+        <button type="button" className="btn2">
+          Login
+        </button>
+        <button type="button" className="btn2">
+          Register
+        </button>
       </div>
-      
     </div>
   );
 };

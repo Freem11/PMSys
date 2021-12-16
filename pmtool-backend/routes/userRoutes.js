@@ -1,17 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../lib/userQueries.js')
+const bcrypt = require('bcrypt')
+
 
 const getUser = router.post("/session", (req, res) => {
 
-    db.getSingleUser(req.body.email, req.body.pass)
+    db.getSingleUser(req.body.email)
     .then(user => {
-        res.json(user);
+        let check = bcrypt.compareSync(req.body.pass,user[0].password);
+        if (check){
+            res.json(user);
+        } else {
+            res.json(undefined);
+        }
     })
     .catch(err => {
-        res
-        .status(500)
-        .json({ error: err.message});
+        res.json(undefined);
     });
 });
 
@@ -30,7 +35,9 @@ const getUserEmail = router.post("/sessions", (req, res) => {
 
 const addUser = router.post("/register", (req, res) => {
 
-    db.createUser(req.body.email, req.body.pass)
+    const hashedPassword = bcrypt.hashSync(req.body.pass, 10)
+
+    db.createUser(req.body.email, hashedPassword)
     .then(user => {
         res.json(user);
     })
