@@ -2,11 +2,10 @@ const express = require('express');
 const router = express.Router();
 const db = require('../lib/projectQueries.js')
 
-const getProjects = router.get("/projects", (req, res) => {
+const getProjects = router.post("/projects", (req, res) => {
 
-    db.getAllProjects()
+    db.getUserProjects(req.body.userId)
     .then(projects => {
-        console.log("projects", projects)
         res.json(projects);
     })
     .catch(err => {
@@ -16,18 +15,4 @@ const getProjects = router.get("/projects", (req, res) => {
     });
 });
 
-const getProject = router.get("/projects/:id", (req, res) => {
-
-    db.getAllProjects()
-    .then(projects => {
-        console.log("project", projects)
-        res.json(projects);
-    })
-    .catch(err => {
-        res
-        .status(500)
-        .json({ error: err.message});
-    });
-});
-
-module.exports = { getProjects, getProject }
+module.exports = { getProjects }

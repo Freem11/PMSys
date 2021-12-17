@@ -4,13 +4,13 @@ body {
 }
 
 .box1 {
-    display: flex;
-    // margin: auto;
+    width: 100%;
+    margin: auto;
 }
 
 .box2 {
-    display: flex;
-    // margin: auto;
+    width: 100%;
+    margin: auto;
 }
 
 .regButton {
@@ -75,18 +75,20 @@ body {
     padding-right: 10px;
     width: 80%;
     margin: auto;
+    text-align: center;
 }
 
 
 .login-box {
-    width: 750px;
+    width: auto;
     margin:auto;
     text-align: center;
+    
 }
 
 .btn2 {
-    background-color: transparent;
-    border-color: #FFFFF2;
+    background-color: #292929;
+    border-color: #2B2D42;
     color: #FFFFF2;
     border-radius: 10px;
     font-weight: bolder;
@@ -97,9 +99,8 @@ body {
 .bottom-box {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
-    width: 95%;
-    margin-right: 10%;
-    margin-bottom: 10%;
-    margin-top: 5%;
+    justify-content: center;
+    width: 100%;
+
+ 
 }

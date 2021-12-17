@@ -1,9 +1,10 @@
-import { useReducer, useContext } from "react";
+import { useReducer, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, FormGroup, Input } from "reactstrap";
 import "./loginPage.scss";
 import axios from "axios";
 import { UserContext } from "./userContext";
+import Collapse from '@mui/material/Collapse';
 
 function loginReducer(state, action) {
   switch (action.type) {
@@ -31,6 +32,7 @@ function loginReducer(state, action) {
         ...state,
         error:
           "The login credentials you supplied do not match any in the system",
+        regName: "",
         email: "",
         password: "",
         isLoggedIn: false,
@@ -42,6 +44,7 @@ function loginReducer(state, action) {
       return {
         ...state,
         error: "The login credentials you supplied are already in the system",
+        regName: "",
         email: "",
         password: "",
         isLoggedIn: false,
@@ -53,6 +56,7 @@ function loginReducer(state, action) {
       return {
         ...state,
         error: "Please supply both Email and Password",
+        regName: "",
         email: "",
         password: "",
         isLoggedIn: false,
@@ -64,6 +68,7 @@ function loginReducer(state, action) {
       return {
         ...state,
         isLoggedIn: false,
+        name: "",
         email: "",
         password: "",
         regEmail: "",
@@ -79,6 +84,7 @@ function loginReducer(state, action) {
 const initialState = {
   email: "",
   password: "",
+  regName: "",
   regEmail: "",
   regPassword: "",
   error: "",
@@ -111,9 +117,10 @@ function checkEmail({ email }) {
     });
 }
 
-function register({ regEmail, regPassword }) {
+function register({ regName, regEmail, regPassword }) {
   return axios
     .post("http://localhost:5000/register", {
+      name: regName,
       email: regEmail,
       pass: regPassword,
     })
@@ -130,9 +137,22 @@ function register({ regEmail, regPassword }) {
 const LoginPage = () => {
   let navigate = useNavigate();
   const [state, dispatch] = useReducer(loginReducer, initialState);
-  const { regEmail, regPassword, email, password, error, error2 } = state;
-
+  const { regName, regEmail, regPassword, email, password, error, error2 } = state;
   const { user, setUser } = useContext(UserContext);
+
+  const [dispRegister, setDispRegister] = useState(false)
+  const [dispLogin, setDispLogin] = useState(false)
+
+  const handleRegisterDisp = () => {
+    setDispRegister(prev => !prev)
+    setDispLogin(false)
+    dispatch({ type: "login" });
+  }
+  const handleLoginDisp = () => {
+    setDispLogin(prev => !prev)
+    setDispRegister(false)
+    dispatch({ type: "login" });
+  }
 
   const onSubmitLogin = async (e) => {
     e.preventDefault();
@@ -150,6 +170,7 @@ const LoginPage = () => {
         } else {
           dispatch({ Type: "success" });
           setUser(JSON.stringify(log));
+          window.sessionStorage.setItem("user", JSON.stringify(log))
           navigate("/projects");
         }
       } catch (error) {
@@ -163,7 +184,7 @@ const LoginPage = () => {
 
     dispatch({ type: "login" });
 
-    if (!regEmail || !regPassword) {
+    if (!regName || !regEmail || !regPassword) {
       dispatch({ type: "error3" });
     } else {
       try {
@@ -173,8 +194,9 @@ const LoginPage = () => {
           dispatch({ type: "error2" });
         } else {
           dispatch({ Type: "success" });
-          let logoo = await register({ regEmail, regPassword });
+          let logoo = await register({ regName, regEmail, regPassword });
           setUser(JSON.stringify(logoo));
+          window.sessionStorage.setItem("user", JSON.stringify(logoo))
           navigate("/projects");
         }
       } catch (error) {
@@ -186,6 +208,20 @@ const LoginPage = () => {
   const registryForm = (
     <Form className="login-box">
       <h2 className="subHead">New? Register Here</h2>
+      <FormGroup>
+        <Input
+          placeholder="Name"
+          className="inpt"
+          value={regName}
+          onChange={(e) =>
+            dispatch({
+              type: "field",
+              field: "regName",
+              value: e.currentTarget.value,
+            })
+          }
+        />
+      </FormGroup>
       <FormGroup>
         <Input
           placeholder="Email"
@@ -256,24 +292,24 @@ const LoginPage = () => {
       <Button className="regButton" type="submit" onClick={onSubmitLogin}>
         Login
       </Button>
-      {error && <p className="error">{error}</p>}
-      {error2 && <p className="error">{error2}</p>}
     </Form>
   );
 
   return (
     <div className="maindiv">
-      <h1 className="head">Welcome</h1>
-      <div className="box1">{registryForm}</div>
-      <div className="box2">{loginForm}</div>
+      <h1 className="head">Welcome To PM World !</h1>
       <div className="bottom-box">
-        <button type="button" className="btn2">
-          Login
-        </button>
-        <button type="button" className="btn2">
-          Register
-        </button>
+        <button type="button" className="btn2" onClick={handleLoginDisp}>Login</button>
+        <button type="button" className="btn2" onClick={handleRegisterDisp}>Register</button>
       </div>
+      <div className="box1">
+        <Collapse in={dispRegister}>{registryForm}</Collapse>
+        </div>
+      <div className="box2">
+      <Collapse in={dispLogin}>{loginForm}</Collapse>
+      </div>
+      {error && <p className="error">{error}</p>}
+      {error2 && <p className="error">{error2}</p>} 
     </div>
   );
 };

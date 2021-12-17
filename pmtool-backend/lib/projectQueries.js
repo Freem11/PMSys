@@ -1,8 +1,8 @@
 const { response } =require("express");
 const db = require("./db");
 
-const getAllProjects = () => {
-    return db.query('SELECT * FROM projects')
+const getUserProjects = (userId) => {
+    return db.query('SELECT * FROM projects WHERE user_id= $1;', [userId])
     .then((response) => {
         return response.rows;
     })
@@ -11,4 +11,4 @@ const getAllProjects = () => {
     })
 }
 
-module.exports = { getAllProjects }
+module.exports = { getUserProjects }

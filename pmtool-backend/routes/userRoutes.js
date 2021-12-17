@@ -37,7 +37,7 @@ const addUser = router.post("/register", (req, res) => {
 
     const hashedPassword = bcrypt.hashSync(req.body.pass, 10)
 
-    db.createUser(req.body.email, hashedPassword)
+    db.createUser(req.body.name, req.body.email, hashedPassword)
     .then(user => {
         res.json(user);
     })

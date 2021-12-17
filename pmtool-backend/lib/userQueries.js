@@ -24,9 +24,9 @@ const getSingleUserByEmail = (email) => {
 }
 
 
-const createUser = (email, password) => {
-    return db.query(`INSERT INTO users (email, password)
-    VALUES ($1, $2) RETURNING *;`, [email, password])
+const createUser = (name, email, password) => {
+    return db.query(`INSERT INTO users (name, email, password)
+    VALUES ($1, $2, $3) RETURNING *;`, [name, email, password])
     .then((response) => {
         return response.rows;
     })
