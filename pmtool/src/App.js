@@ -3,6 +3,7 @@ import './App.css';
 import { React, useState} from 'react';
 import LoginPage from './components/loginPage';
 import ProjectsPage from './components/projectsPage';
+import Drawer from './components/drawer'
 import { Routes, Route } from 'react-router-dom';
 import { UserContext } from './components/userContext';
 
@@ -21,7 +22,7 @@ function App() {
           />
         <Route 
           path ="/projects" 
-          element={<ProjectsPage/>}
+          element={<Drawer/>}
           />
       </Routes>
       </UserContext.Provider>

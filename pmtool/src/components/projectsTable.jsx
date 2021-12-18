@@ -8,6 +8,8 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
+import "./projectsPage.scss";
+
 
 const ProjectsTable = () => {
 
@@ -33,19 +35,20 @@ const ProjectsTable = () => {
       const sortedProjects = projects.sort((a,b) => a.id - b.id);
 
     return(
-    <TableContainer>
+    <TableContainer
+    style={{ width: '80%', margin: 'auto', borderRadius: '15px'}}>
         <Table>
             <TableHead>
                 <TableRow>
-                    <TableCell><strong>Name</strong></TableCell>
-                    <TableCell><strong>Status</strong></TableCell>
+                    <TableCell align='center' style={{color: 'rgb(202, 202, 202)'}}><strong>Name</strong></TableCell>
+                    <TableCell align='center' style={{color: 'rgb(202, 202, 202)'}}><strong>Status</strong></TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
                 {sortedProjects && sortedProjects.map((project, index) => (
                     <TableRow key ={project.id}>
-                        <TableCell>{project.name}</TableCell>
-                        <TableCell>{project.status}</TableCell>
+                        <TableCell align='center'>{project.name}</TableCell>
+                        <TableCell align='center'>{project.status}</TableCell>
                     </TableRow>
                 ))}  
             </TableBody>

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
 import ProjectsTable from'./projectsTable'
 
+
 const ProjectsPage = () => {
 
     let navigate = useNavigate();
@@ -18,16 +19,9 @@ const ProjectsPage = () => {
         jUser = JSON.parse(userFromSession)
     }
 
-    function logoutFunc() {
-            setUser('')
-            navigate("/");
-    }
-
     return(
         <div>
-        <div>Logged in as: {jUser.name}</div> 
-        <Button onClick={logoutFunc}>Logout</Button>
-        <ProjectsTable/>
+        <ProjectsTable className="projTable"/>
         </div>
     )
 

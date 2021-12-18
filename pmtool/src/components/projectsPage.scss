@@ -1,0 +1,47 @@
+
+body {
+    background-color: #66758F;
+}
+
+.topdiv {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.secdiv{
+    width: 250px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.MuiTableHead-root{
+    border: 1px solid #2B2D42; 
+    color: #FFFFF2; 
+}
+
+.MuiTableBody-root{
+    border: 1px solid #FFFFF2; 
+}
+
+.MuiTableCell-head {
+    background-color: #2B2D42;
+    color: #FFFFF2; 
+   
+}
+
+.MuiTableCell-body {
+    background-color: rgb(202, 202, 202); 
+}
+
+.btn {
+    background-color: #292929;
+    border-color: #2B2D42;
+    color: #FFFFF2;
+    border-radius: 10px;
+    font-weight: bolder;
+    width: 80px;
+    margin-right: 10px;
+}
