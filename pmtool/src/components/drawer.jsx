@@ -1,6 +1,6 @@
 import { useState, useContext  } from 'react';
 import { UserContext } from './userContext'
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -110,13 +110,20 @@ export default function MiniDrawer() {
     let jUser
     if (user[0]){
         jUser = JSON.parse(user)
-    } else {
+    } else if (userFromSession) {
         jUser = JSON.parse(userFromSession)
+    } else {
+        jUser = {
+            id: 0,
+            name: "",
+        }
     }
+
 
     function logoutFunc() {
             setUser('')
             navigate("/");
+            sessionStorage.clear();
     }
 
   return (
@@ -156,15 +163,18 @@ export default function MiniDrawer() {
         </DrawerHeader>
 
         <List sx={{ backgroundColor:'#66758F', height: 10000}}>
-          {['Proposals', 'Quotes', 'Schedules', 'Drafts'].map((text, index) => (
+          {['Projects', 'Quotes', 'Schedules', 'Drafts'].map((text, index) => (
             <ListItem button key={text} >
               <ListItemIcon sx={{ color:'white'}}>
-                {index  === 0 ? <MailIcon/> : ""}
-                {index  === 1 ?  <InboxIcon/> : ""}
-                {index  === 2 ?  <MailIcon/> : ""}
-                {index  === 3 ?  <InboxIcon/> : ""}
+                {index  === 0 ?  <><Link to="/projects"><MailIcon sx={{color: 'white'}}/></Link></> : ""}
+                {index  === 1 ?  <><Link to="/"><InboxIcon sx={{color: 'white'}}/></Link></> : ""}
+                {index  === 2 ?  <><Link to="/projects"><MailIcon sx={{color: 'white'}}/></Link></> : ""}
+                {index  === 3 ?  <><Link to="/"><InboxIcon sx={{color: 'white'}}/></Link></> : ""}
               </ListItemIcon>
-              <ListItemText primary={text} sx={{ color:'lightgrey'}}/>
+              {index  === 0 ? <><Link to="/projects" style={{ color:'lightgrey', textDecoration: 'none'}}><strong>{text}</strong></Link></> : ""}
+              {index  === 1 ? <><Link to="/" style={{ color:'lightgrey', textDecoration: 'none'}}><strong>{text}</strong></Link></> : ""}
+              {index  === 2 ? <><Link to="/projects" style={{ color:'lightgrey', textDecoration: 'none'}}><strong>{text}</strong></Link></> : ""}
+              {index  === 3 ? <><Link to="/" style={{ color:'lightgrey', textDecoration: 'none'}}><strong>{text}</strong></Link></> : ""}
             </ListItem>
           ))}
         </List>

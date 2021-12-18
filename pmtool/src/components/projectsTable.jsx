@@ -21,8 +21,13 @@ const ProjectsTable = () => {
     let jUser
     if (user[0]){
         jUser = JSON.parse(user)
-    } else {
+    } else if (userFromSession) {
         jUser = JSON.parse(userFromSession)
+    } else {
+        jUser = {
+            id: 0,
+            name: "",
+        }
     }
 
     useEffect(() => {
@@ -35,9 +40,9 @@ const ProjectsTable = () => {
       const sortedProjects = projects.sort((a,b) => a.id - b.id);
 
     return(
-    <TableContainer
-    style={{ width: '80%', margin: 'auto', borderRadius: '15px'}}>
-        <Table>
+     <TableContainer
+    style={{ width: '80%', margin: 'auto', borderRadius: '10px'}}>
+       {jUser.password && <Table>
             <TableHead>
                 <TableRow>
                     <TableCell align='center' style={{color: 'rgb(202, 202, 202)'}}><strong>Name</strong></TableCell>
@@ -52,7 +57,7 @@ const ProjectsTable = () => {
                     </TableRow>
                 ))}  
             </TableBody>
-        </Table>
+        </Table>}
     </TableContainer>
     )
 }
