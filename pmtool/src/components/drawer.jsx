@@ -24,9 +24,9 @@ import QuotesPage from './quotesPage'
 import { Button } from "reactstrap";
 import "./projectsPage.scss";
 
-let Nav = 'Projects';
+let Nav = 0;
 
-const drawerWidth = 240;
+const drawerWidth = 180;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -170,15 +170,9 @@ export default function MiniDrawer() {
           </IconButton>
         </DrawerHeader>
 
-        <List sx={{ backgroundColor:'#66758F', height: 10000}}>
+        <List sx={{ backgroundColor:'#66758F', height: 10000, paddingLeft: 8}}>
           {['Projects', 'Quotes', 'Schedules', 'Drafts'].map((text, index) => (
-            <ListItem button key={text} onClick={() => handleClicks(text)}>
-              <ListItemIcon sx={{ color:'white'}}>
-                {index  === 0 ?  <><MailIcon sx={{color: 'white'}}/></> : ""}
-                {index  === 1 ?  <><InboxIcon sx={{color: 'white'}}/></> : ""}
-                {index  === 2 ?  <><MailIcon sx={{color: 'white'}}/></> : ""}
-                {index  === 3 ?  <><InboxIcon sx={{color: 'white'}}/></> : ""}
-              </ListItemIcon>
+            <ListItem button key={text} onClick={() => handleClicks(index)}>
               {index  === 0 ? <><Link to="/projects" style={{ color:'lightgrey', textDecoration: 'none'}}><strong>{text}</strong></Link></> : ""}
               {index  === 1 ? <><Link to="/projects" style={{ color:'lightgrey', textDecoration: 'none'}}><strong>{text}</strong></Link></> : ""}
               {index  === 2 ? <><Link to="/projects" style={{ color:'lightgrey', textDecoration: 'none'}}><strong>{text}</strong></Link></> : ""}
@@ -190,8 +184,8 @@ export default function MiniDrawer() {
       </Drawer >
       <Box component="main" sx={{ flexGrow: 1, p: 3, height: "auto", height: 10000}}>
         <DrawerHeader/>
-         {Nav === 'Projects' ? <ProjectsPage/> : ""}
-         {Nav === 'Quotes' ? <QuotesPage/> : ""}
+         {Nav === 0 ? <ProjectsPage/> : ""}
+         {Nav === 1 ? <QuotesPage/> : ""}
       </Box>
     </Box>
   );
