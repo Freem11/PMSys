@@ -1,4 +1,4 @@
-import { useState, useContext  } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { UserContext } from './userContext'
 import { useNavigate, Link } from "react-router-dom";
 import { styled, useTheme } from '@mui/material/styles';
@@ -20,8 +20,11 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import Icon from '@mui/material/Icon';
 import ProjectsPage from './projectsPage';
+import QuotesPage from './quotesPage'
 import { Button } from "reactstrap";
 import "./projectsPage.scss";
+
+let Nav = 'Projects';
 
 const drawerWidth = 240;
 
@@ -91,6 +94,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function MiniDrawer() {
+
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -119,12 +123,16 @@ export default function MiniDrawer() {
         }
     }
 
-
     function logoutFunc() {
             setUser('')
             navigate("/");
             sessionStorage.clear();
     }
+
+   const handleClicks = (text) =>{
+      Nav = text
+      return Nav;
+    };
 
   return (
     <Box sx={{ display: 'flex', backgroundColor:'#66758F'}} >
@@ -148,8 +156,8 @@ export default function MiniDrawer() {
 
           <div className="topdiv">
           <div className="secdiv">
-        <div>Logged in as: {jUser.name}</div> 
         <Button onClick={logoutFunc}>Logout</Button>
+        <div>Logged in as: {jUser.name}</div>
         </div> 
         </div>
 
@@ -164,17 +172,17 @@ export default function MiniDrawer() {
 
         <List sx={{ backgroundColor:'#66758F', height: 10000}}>
           {['Projects', 'Quotes', 'Schedules', 'Drafts'].map((text, index) => (
-            <ListItem button key={text} >
+            <ListItem button key={text} onClick={() => handleClicks(text)}>
               <ListItemIcon sx={{ color:'white'}}>
-                {index  === 0 ?  <><Link to="/projects"><MailIcon sx={{color: 'white'}}/></Link></> : ""}
-                {index  === 1 ?  <><Link to="/"><InboxIcon sx={{color: 'white'}}/></Link></> : ""}
-                {index  === 2 ?  <><Link to="/projects"><MailIcon sx={{color: 'white'}}/></Link></> : ""}
-                {index  === 3 ?  <><Link to="/"><InboxIcon sx={{color: 'white'}}/></Link></> : ""}
+                {index  === 0 ?  <><MailIcon sx={{color: 'white'}}/></> : ""}
+                {index  === 1 ?  <><InboxIcon sx={{color: 'white'}}/></> : ""}
+                {index  === 2 ?  <><MailIcon sx={{color: 'white'}}/></> : ""}
+                {index  === 3 ?  <><InboxIcon sx={{color: 'white'}}/></> : ""}
               </ListItemIcon>
               {index  === 0 ? <><Link to="/projects" style={{ color:'lightgrey', textDecoration: 'none'}}><strong>{text}</strong></Link></> : ""}
-              {index  === 1 ? <><Link to="/" style={{ color:'lightgrey', textDecoration: 'none'}}><strong>{text}</strong></Link></> : ""}
+              {index  === 1 ? <><Link to="/projects" style={{ color:'lightgrey', textDecoration: 'none'}}><strong>{text}</strong></Link></> : ""}
               {index  === 2 ? <><Link to="/projects" style={{ color:'lightgrey', textDecoration: 'none'}}><strong>{text}</strong></Link></> : ""}
-              {index  === 3 ? <><Link to="/" style={{ color:'lightgrey', textDecoration: 'none'}}><strong>{text}</strong></Link></> : ""}
+              {index  === 3 ? <><Link to="/projects" style={{ color:'lightgrey', textDecoration: 'none'}}><strong>{text}</strong></Link></> : ""}
             </ListItem>
           ))}
         </List>
@@ -182,8 +190,8 @@ export default function MiniDrawer() {
       </Drawer >
       <Box component="main" sx={{ flexGrow: 1, p: 3, height: "auto", height: 10000}}>
         <DrawerHeader/>
-        <ProjectsPage />
-    
+         {Nav === 'Projects' ? <ProjectsPage/> : ""}
+         {Nav === 'Quotes' ? <QuotesPage/> : ""}
       </Box>
     </Box>
   );
