@@ -177,7 +177,7 @@ export default function MiniDrawer() {
               {index === 0 ? (
                 <>
                   <Link
-                    to="/projects"
+                    to="/project"
                     style={{
                       color: "lightgrey",
                       textDecoration: "none",
@@ -199,7 +199,7 @@ export default function MiniDrawer() {
               {index === 1 ? (
                <>
                <Link
-                 to="/projects"
+                 to="/project"
                  style={{
                    color: "lightgrey",
                    textDecoration: "none",
@@ -207,7 +207,7 @@ export default function MiniDrawer() {
                    flexDirection: "row",
                  }}
                >
-                 <MailIcon
+                 <InboxIcon
                    sx={{ color: "white", marginRight: 3.5, marginLeft: 0.5 }}
                  />
                  <p style={{ color: "lightgrey", textDecoration: "none", marginTop: 1 }}>
@@ -221,7 +221,7 @@ export default function MiniDrawer() {
               {index === 2 ? (
                 <>
                 <Link
-                  to="/projects"
+                  to="/project"
                   style={{
                     color: "lightgrey",
                     textDecoration: "none",
@@ -243,7 +243,7 @@ export default function MiniDrawer() {
               {index === 3 ? (
                 <>
                 <Link
-                  to="/projects"
+                  to="/project"
                   style={{
                     color: "lightgrey",
                     textDecoration: "none",
@@ -251,7 +251,7 @@ export default function MiniDrawer() {
                     flexDirection: "row",
                   }}
                 >
-                  <MailIcon
+                  <InboxIcon
                     sx={{ color: "white", marginRight: 3.5, marginLeft: 0.5 }}
                   />
                   <p style={{ color: "lightgrey", textDecoration: "none", marginTop: 1 }}>
@@ -271,7 +271,7 @@ export default function MiniDrawer() {
         sx={{ flexGrow: 1, p: 3, height: "auto", height: 10000 }}
       >
         <DrawerHeader />
-        {Nav === 0 ? <ProjectsPage /> : ""}
+        {Nav === 0 ? <QuotesPage /> : ""}
         {Nav === 1 ? <QuotesPage /> : ""}
       </Box>
     </Box>

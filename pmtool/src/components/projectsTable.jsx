@@ -41,12 +41,12 @@ const ProjectsTable = () => {
 
     return(
      <TableContainer
-    style={{ width: '80%', margin: 'auto', borderRadius: '10px'}}>
+    style={{ width: '90%', margin: 'auto', borderRadius: '5px', marginTop: 100}}>
        {jUser.password && <Table>
             <TableHead>
                 <TableRow>
-                    <TableCell align='center' style={{color: 'rgb(202, 202, 202)'}}><strong>Name</strong></TableCell>
-                    <TableCell align='center' style={{color: 'rgb(202, 202, 202)'}}><strong>Status</strong></TableCell>
+                    <TableCell align='center' style={{color: 'rgb(237, 237, 237)'}}><strong>Name</strong></TableCell>
+                    <TableCell align='center' style={{color: 'rgb(237, 237, 237)'}}><strong>Status</strong></TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>

@@ -20,8 +20,12 @@ function App() {
           path ="/" 
           element={<LoginPage/>}
           />
-        <Route 
+           <Route 
           path ="/projects" 
+          element={<ProjectsPage/>}
+          />
+        <Route 
+          path ="/project" 
           element={<Drawer/>}
           />
       </Routes>

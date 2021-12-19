@@ -10,11 +10,19 @@ body {
     align-items: flex-end;
 }
 
+.title{
+    width: 400px;
+    margin-left: 5px;
+   font-size: 25px;
+   color: rgb(237, 237, 237); 
+}
+
 .secdiv{
     width: 250px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    
 }
 
 .MuiTableHead-root{
@@ -49,4 +57,10 @@ body {
 .tablebit{
     padding-top: -10px !important;
     height: 15px !important;
+}
+
+
+.projTable{
+    margin-top: 100px;
+
 }
