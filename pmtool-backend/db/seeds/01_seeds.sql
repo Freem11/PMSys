@@ -3,9 +3,11 @@
 
 DELETE FROM users;
 DELETE FROM projects;
+DELETE FROM user_projects;
 
 ALTER SEQUENCE users_id_seq RESTART WITH 1;
 ALTER SEQUENCE projects_id_seq RESTART WITH 1;
+ALTER SEQUENCE user_projects_id_seq RESTART WITH 1;
 
 INSERT INTO users(name, email, password)
 VALUES ('Jerry', 'jerry@gmail.com', '$2b$10$79yCm1nJdNV6S8iAycSTnOlEaRCAjKa8EfxblOIdMjIFyrFXw56a.'),

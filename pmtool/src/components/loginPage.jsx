@@ -2,9 +2,9 @@ import { useReducer, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, FormGroup, Input } from "reactstrap";
 import "./loginPage.scss";
-import axios from "axios";
 import { UserContext } from "./userContext";
 import Collapse from '@mui/material/Collapse';
+import { login, checkEmail, register } from "./AxiosFuncs/userAxiosFuncs"
 
 function loginReducer(state, action) {
   switch (action.type) {
@@ -91,48 +91,6 @@ const initialState = {
   isLoggedIn: false,
 };
 
-function login({ email, password }) {
-  return axios
-    .post("http://localhost:5000/session", { email: email, pass: password })
-    .then((response) => {
-      if (response.data[0]) {
-        return response.data[0];
-      }
-    })
-    .catch((err) => {
-      return err;
-    });
-}
-
-function checkEmail({ email }) {
-  return axios
-    .post("http://localhost:5000/sessions", { email })
-    .then((response) => {
-      if (response.data[0]) {
-        return response.data[0];
-      }
-    })
-    .catch((err) => {
-      return err;
-    });
-}
-
-function register({ regName, regEmail, regPassword }) {
-  return axios
-    .post("http://localhost:5000/register", {
-      name: regName,
-      email: regEmail,
-      pass: regPassword,
-    })
-    .then((response) => {
-      if (response.data[0]) {
-        return response.data[0];
-      }
-    })
-    .catch((err) => {
-      return err;
-    });
-}
 
 const LoginPage = () => {
   let navigate = useNavigate();

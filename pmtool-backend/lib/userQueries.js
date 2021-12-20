@@ -35,4 +35,26 @@ const createUser = (name, email, password) => {
     })
 }
 
-module.exports = { createUser, getSingleUser, getSingleUserByEmail }
+const getAllUsers = (email) => {
+
+    return db.query(`SELECT * FROM users`)
+    .then((response) => {
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })
+}
+
+const getSingleUserByName = (name) => {
+
+    return db.query(`SELECT * FROM users WHERE name = $1;`, [name])
+    .then((response) => {
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })
+}
+
+module.exports = { createUser, getSingleUser, getSingleUserByEmail, getAllUsers, getSingleUserByName}

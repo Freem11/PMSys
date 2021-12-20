@@ -1,5 +1,6 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { UserContext } from './userContext'
+import { ProjectContext } from './projectContext'
 import { useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
 import ProjectsTable from'./projectsTable'
@@ -10,12 +11,15 @@ import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { styled, useTheme } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
+import CreateNewProject from "./ModalForms/createProject"
+import FormModal from './ModalForms/formModal'
 import "./projectsPage.scss";
 
 const ProjectsPage = () => {
 
     let navigate = useNavigate();
     const { user, setUser } = useContext(UserContext);
+    const { project, setProject } = useContext(ProjectContext);
 
     const userFromSession = window.sessionStorage.getItem("user")
   
@@ -47,6 +51,12 @@ const ProjectsPage = () => {
        
       }));
 
+      const [modal, setModal] = useState(false)
+
+      const toggleModal = () => {
+          setModal(!modal);
+      }
+
 
     return(
         <div>
@@ -63,7 +73,15 @@ const ProjectsPage = () => {
           </div>
         </Toolbar>
       </AppBar>
-    
+            <div className="buttondiv">
+            <Button onClick={toggleModal} className="creatProjectButton">+ Project</Button>
+            </div>
+            <FormModal toggleModalOpen={modal} toggleModalClose={toggleModal}>
+              <CreateNewProject
+                toggleModalClose={toggleModal}
+              />
+            </FormModal>
+            
             <ProjectsTable className="projTable"/>
     
         </div>

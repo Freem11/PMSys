@@ -11,4 +11,16 @@ const getUserProjects = (userId) => {
     })
 }
 
-module.exports = { getUserProjects }
+const addProject = (name, status, userId) => {
+
+    return db.query(`INSERT INTO projects (name, status, user_id)
+    VALUES ($1, $2, $3) RETURNING *;`, [name, status, userId])
+    .then((response) => {
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })
+}
+
+module.exports = { getUserProjects, addProject }

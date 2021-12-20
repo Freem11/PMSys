@@ -48,4 +48,31 @@ const addUser = router.post("/register", (req, res) => {
     });
 });
 
-module.exports = { getUser, addUser, getUserEmail }
+const getUsers = router.get("/users", (req, res) => {
+
+    db.getAllUsers()
+    .then(user => {
+        res.json(user);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message});
+    });
+});
+
+
+const getUserName = router.post("/user", (req, res) => {
+
+    db.getSingleUserByName(req.body.user)
+    .then(user => {
+        res.json(user);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message});
+    });
+});
+
+module.exports = { getUser, addUser, getUserEmail, getUsers, getUserName}

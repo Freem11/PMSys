@@ -35,7 +35,7 @@ const ProjectsTable = () => {
         .then(response => {
             setProjects(response.data)
         })
-      }, [jUser.id])
+      }, [jUser.id, projects])
 
       const sortedProjects = projects.sort((a,b) => a.id - b.id);
 
