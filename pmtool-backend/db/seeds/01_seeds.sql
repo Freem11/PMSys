@@ -14,7 +14,7 @@ VALUES ('Jerry', 'jerry@gmail.com', '$2b$10$79yCm1nJdNV6S8iAycSTnOlEaRCAjKa8Efxb
 ('George', 'george@gmail.com', '$2b$10$wiDllG..ujvOY49IKDtLiOY.k8iTQTy2Hy.spK3Nay2aMs8XVtGtG');
 
 INSERT INTO projects(name, status, user_id)
-VALUES ('manhatten', 'active', 1),
-('long island', 'active', 2),
-('queens', 'inactive', 2),
-('bronx', 'inactive', 1);
+VALUES ('manhatten', 'Active', 1),
+('long island', 'Active', 2),
+('queens', 'Pending', 2),
+('bronx', 'Pending', 1);

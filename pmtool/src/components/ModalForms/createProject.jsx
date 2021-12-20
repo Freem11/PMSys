@@ -4,6 +4,7 @@ import { UserContext } from "../userContext";
 import { ProjectContext } from "../projectContext";
 import { allUsers } from "../AxiosFuncs/userAxiosFuncs";
 import { registerProject } from "../AxiosFuncs/projectAxiosFuncs"
+import "./createProject.scss"
 
 const CreateNewProject = (props) => {
 
@@ -79,7 +80,8 @@ const CreateNewProject = (props) => {
   return (
     <Container fluid>
       <Form onSubmit={handleSubmit}>
-        <Label>Create New Project</Label>
+        <div className="inputbox">
+        <Label><strong>Create New Project</strong></Label>
         <FormGroup>
           <Input
             placeholder="Project Name"
@@ -90,9 +92,11 @@ const CreateNewProject = (props) => {
             onChange={handleChange}
           ></Input>
         </FormGroup>
+        </div>
 
-        <FormGroup>
-          <Label for="team">Select Team Members</Label>
+        <FormGroup >
+          <div className="selectbox">
+          <Label for="team"><strong>Select Team Members</strong></Label>
           <Input
             onChange={handleChange}
             className="modalInputs2"
@@ -113,6 +117,7 @@ const CreateNewProject = (props) => {
                 </option>
               ))}
           </Input>
+          </div>
         </FormGroup>
 
         <FormGroup>
