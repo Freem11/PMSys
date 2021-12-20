@@ -13,7 +13,6 @@ export const registerProject = (values) => {
 
       values.team.forEach((user) => {
 
-      
         return axios
           .post("http://localhost:5000/user", { user })
           .then((response1) => {
@@ -42,3 +41,31 @@ export const registerProject = (values) => {
       return err;
     });
 };
+
+
+export const getProjectById = (projectId) => {
+  return axios
+    .post(`http://localhost:5000/project/${projectId}`, { projectId })
+    .then((response) => {
+      return response.data[0]
+    })
+    .catch((err) => {
+      return err;
+    });
+  }
+
+  export const updateProjectById = (info) => {
+
+    return axios
+      .post(`http://localhost:5000/project/edit/${info.project_id}`,{
+        name: info.title,
+        userId: info.user_id,
+        projectId: info.project_id 
+      })
+      .then((response) => {
+        return response.data[0]
+      })
+      .catch((err) => {
+        return err;
+      });
+    }

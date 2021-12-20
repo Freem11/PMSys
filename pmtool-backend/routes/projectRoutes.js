@@ -42,4 +42,31 @@ const createUserProject = router.post("/user_project", (req, res) => {
     });
 });
 
-module.exports = { getProjects, createProject, createUserProject }
+
+const getSingleProject = router.post("/project/:id", (req, res) => {
+
+    db.getProject(req.body.projectId)
+    .then(projects => {
+        res.json(projects);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message});
+    });
+});
+
+const updateProject = router.post("/project/edit/:id", (req, res) => {
+
+    db.updateProject(req.body.name, req.body.userId, req.body.projectId)
+    .then(projects => {
+        res.json(projects);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message});
+    });
+});
+
+module.exports = { getProjects, createProject, createUserProject, getSingleProject, updateProject }

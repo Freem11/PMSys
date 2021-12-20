@@ -54,9 +54,10 @@ export const register = ({ regName, regEmail, regPassword }) => {
       });
   }
 
-  export const userByName = ({ name }) => {
+  export const userByName = (name) => {
+
     return axios
-      .get("http://localhost:5000/user", { name })
+      .post("http://localhost:5000/user", { name })
       .then((response) => {
           return response.data;
       })

@@ -64,7 +64,7 @@ const getUsers = router.get("/users", (req, res) => {
 
 const getUserName = router.post("/user", (req, res) => {
 
-    db.getSingleUserByName(req.body.user)
+    db.getSingleUserByName(req.body.name)
     .then(user => {
         res.json(user);
     })
