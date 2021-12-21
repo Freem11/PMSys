@@ -8,10 +8,9 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import MoreVertIcon from '@mui/icons-material/MoreRounded'
 import FormModal from './ModalForms/formModal'
 import EditProject from "./ModalForms/editProject"
-import { DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle } from 'reactstrap'
+import PositionedMenu from './popUp'
 import "./projectsPage.scss";
 
 
@@ -40,13 +39,7 @@ const ProjectsTable = () => {
         .then(response => {
             setProjects(response.data)
         })
-      }, [jUser.id, projects])
-
-      const sortedProjects = projects.sort((a,b) => a.id - b.id);
-
-      const setProjectId = (e) => {
-          setProject(e.target.value)
-      }
+      }, [])
 
       const [modal, setModal] = useState(false)
 
@@ -54,9 +47,7 @@ const ProjectsTable = () => {
           setModal(!modal);
       }
 
-
     return(
-        <>
      <TableContainer
     style={{ width: '90%', margin: 'auto', borderRadius: '5px', marginTop: 100}}>
        {jUser.password && <Table>
@@ -68,42 +59,22 @@ const ProjectsTable = () => {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {sortedProjects && sortedProjects.map((project, index) => (
-                    <TableRow key ={project.id} style={{ padding: 0}} onClick={()=> setProject(project)}>
+                {projects && projects.sort((a,b) => a.id - b.id).map((project, index) => (
+                    <TableRow key ={project.id} style={{ padding: 0}} >
                         <TableCell sx={{ color: "#2B2D42", paddingLeft: 5}}><strong>{project.name}</strong></TableCell>
                         <TableCell align='center' sx={{ color: "#2B2D42" }}><strong>{project.status}</strong></TableCell>
                         <TableCell align='center' style={{ height: 10}}>
-                            <UncontrolledDropdown onClick={() => setProject(project)}>
-                                <DropdownToggle  
-                                className="btn-icon-only"
-                                role=""
-                                size="sm"
-                                id={project.id}
-                                onClick={(e) => setProjectId(e)}>
-                                <MoreVertIcon sx={{ color: "#2B2D42"}} onClick={()=> setProject(project)}/>
-                                </DropdownToggle>
-                                <DropdownMenu className="ddMenu" end onClick={()=> setProject(project)}>
-                                    <DropdownItem id={project.id} onClick={toggleModal}>
-                                        Edit 
-                                    </DropdownItem>
-                                    <DropdownItem >
-                                        Delete 
-                                    </DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>  
+                            <PositionedMenu
+                            project={project}
+                            toggleModalOpen={modal} 
+                            toggleModalClose={toggleModal}
+                            />
                         </TableCell>
                     </TableRow>
                 ))}  
             </TableBody>
         </Table>}
     </TableContainer>
-      <FormModal toggleModalOpen={modal} toggleModalClose={toggleModal} >
-      <EditProject
-        toggleModalClose={toggleModal}
-        projectId={project}
-      />
-    </FormModal>
-    </>
     )
 }
 

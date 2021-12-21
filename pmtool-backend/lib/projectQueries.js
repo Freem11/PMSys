@@ -35,7 +35,6 @@ const getProject = (projectId) => {
 
 const updateProject = (name, user_id, projectId) => {
 
-    console.log("pieces", name, user_id, projectId)
     return db.query(`UPDATE projects SET name = $1, user_id = $2 WHERE id= $3 RETURNING *;`, [name, user_id, projectId])
     .then((response) => {
         return response.rows;
@@ -45,4 +44,16 @@ const updateProject = (name, user_id, projectId) => {
     })
 }
 
-module.exports = { getUserProjects, addProject, getProject, updateProject }
+const deleteProject = (projectId) => {
+
+    return db.query(`DELETE FROM projects WHERE id= $1 RETURNING *;`, [projectId])
+    .then((response) => {
+        console.log("db says", response.rows)
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })
+}
+
+module.exports = { getUserProjects, addProject, getProject, updateProject, deleteProject }

@@ -8,7 +8,7 @@ import "./createProject.scss"
 
 const CreateNewProject = (props) => {
 
-  const { toggleModalClose } = props
+  const { closeup } = props
 
   const [users, setUsers] = useState("");
 
@@ -72,7 +72,7 @@ const CreateNewProject = (props) => {
 
     if (formVals.title) {
       registerProject(formVals)
-      toggleModalClose()
+      closeup()
     }
     return;
   };

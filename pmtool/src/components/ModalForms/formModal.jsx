@@ -18,17 +18,17 @@ const style = {
 
 const FormModal = (props) => {
 
-    const { children, toggleModalOpen, toggleModalClose } = props
+    const { openup, closeup, children } = props
 
     return (
         <div>
             <Modal
-                open={toggleModalOpen}
-                close={toggleModalClose}
+                open={openup}
+                close={closeup}
                 >
                 <Box sx = {style}>
                     <div className="modalBox">
-                       <Button className="modalButton2" onClick={toggleModalClose}>X</Button>
+                       <Button className="modalButton2" onClick={closeup}>X</Button>
                     </div>
                     {children}
                 </Box>

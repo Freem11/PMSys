@@ -1,42 +1,75 @@
-import MoreVertIcon from '@mui/icons-material/MoreVert'
-import IconButton from '@material-ui/core/IconButton'
-import MenuItem from '@material-ui/core/MenuItem'
-import Menu from '@material-ui/core/Menu'
-import { useState } from 'react'
+import React, { useState } from 'react';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import MoreVertIcon from '@mui/icons-material/MoreRounded'
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { deleteProject } from './AxiosFuncs/projectAxiosFuncs'
+import FormModal from './ModalForms/formModal'
+import EditProject from './ModalForms/editProject'
+const PositionedMenu = (props) => {
 
-const MoreOptions = function() {
-    const [elem, setElem] = useState(null);
+  const { project, toggleModalOpen, toggleModalClose } = props
 
-    const selections = ["Edit", "Delete"]
+        console.log(project.id)
 
-    const open = Boolean(elem)
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-    const handleClose = () => {
-        setElem(null);
-    };
+  const [modal, setModal] = useState(false)
 
-    return (
-        <div>
-            <IconButton 
-            onClick={(e)=> {setElem(e.target.currentTarget)}}
-            >
-            <MoreVertIcon sx={{ color: "#2B2D42" }}/>
-            </IconButton>
-            <Menu
-            anchorEl={elem}
-            keepMounted onClose={handleClose}
-            open={open}
-            >
-            {selections.map((option) => (
-                <MenuItem
-                key={option}
-                onClick={handleClose}>
-                    {option}
-                </MenuItem>
-            ))}
-            </Menu>
-        </div>
-    )
+  const toggleModal = () => {
+      setModal(!modal);
+  }
 
+  return (
+    <div>
+      <Button
+        id="demo-positioned-button"
+        aria-controls="demo-positioned-menu"
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+      >
+        <MoreVertIcon sx={{ color: '#2B2D42'}}/>
+      </Button>
+      <Menu
+        id="demo-positioned-menu"
+        aria-labelledby="demo-positioned-button"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+      >
+        <MenuItem onClick={() => deleteProject(project.id)}><DeleteIcon/>Delete</MenuItem>
+        <MenuItem onClick={toggleModal}><EditIcon/>Edit</MenuItem>
+  
+      </Menu>
+       <FormModal 
+        project={project}
+        openup={modal} 
+        closeup={toggleModal}>
+        <EditProject
+        project1={project}
+        closeup={toggleModal}/>
+        </FormModal>
+    </div>
+    
+  );
 }
-export default MoreOptions;
+
+export default PositionedMenu

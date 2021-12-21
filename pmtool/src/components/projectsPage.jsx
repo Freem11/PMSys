@@ -76,9 +76,10 @@ const ProjectsPage = () => {
             <div className="buttondiv">
             <Button onClick={toggleModal} className="creatProjectButton">+ Project</Button>
             </div>
-            <FormModal toggleModalOpen={modal} toggleModalClose={toggleModal}>
+            <FormModal openup={modal} closeup={toggleModal} >
               <CreateNewProject
-                toggleModalClose={toggleModal}
+                closeup={toggleModal}
+                project={project}
               />
             </FormModal>
             

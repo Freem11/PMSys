@@ -4,7 +4,7 @@ const express = require("express"),
   cors = require("cors");
   const bodyParser = require("body-parser")
   const { getUser, addUser, getUserEmail, getUsers, getUserName } = require('./userRoutes')
-  const { getProjects, createProject, createUserProject, getSingleProject, updateProject } = require('./projectRoutes')
+  const { getProjects, createProject, createUserProject, getSingleProject, updateProject, delProject } = require('./projectRoutes')
 
 app.use(express.urlencoded({ extended: true}));
 app.use(bodyParser.urlencoded({ extended: false}));
@@ -24,3 +24,4 @@ app.use(createProject)
 app.use(createUserProject)
 app.use(getSingleProject)
 app.use(updateProject)
+app.use(delProject)

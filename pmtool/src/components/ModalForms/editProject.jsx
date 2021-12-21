@@ -8,15 +8,16 @@ import "./createProject.scss"
 
 const EditProject = (props) => {
   
-  const { toggleModalClose, projectId } = props
+  const { closeup, project1 } = props
+  
   const [users, setUsers] = useState("");
   const [project, setProject] = useState("");
 
 
   const [ formVals, setFormVals ] = useState({
-    title: projectId.name,
-    user_id: projectId.user_id,
-    project_id: projectId.id
+    title: project1.name,
+    user_id: project1.user_id,
+    project_id: project1.id
   });
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const EditProject = (props) => {
 
   useEffect(() => {
    
-    let data = getProjectById(projectId);
+    let data = getProjectById(project1.id);
 
     Promise.all([data])
       .then((response) => {
@@ -79,7 +80,7 @@ const EditProject = (props) => {
     e.preventDefault();
 
       updateProjectById(formVals)
-      toggleModalClose()
+      closeup()
     
     return;
   };

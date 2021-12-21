@@ -25,7 +25,6 @@ export const registerProject = (values) => {
                 projectId: projectId
                })
               .then((response2) => {
-                console.log("userproject info", response2)
                  return response2.data[0].id;
               })
               .catch((err) => {
@@ -45,7 +44,7 @@ export const registerProject = (values) => {
 
 export const getProjectById = (projectId) => {
   return axios
-    .post(`http://localhost:5000/project/${projectId}`, { projectId })
+    .get(`http://localhost:5000/project/${projectId}`)
     .then((response) => {
       return response.data[0]
     })
@@ -69,3 +68,15 @@ export const getProjectById = (projectId) => {
         return err;
       });
     }
+
+    export const deleteProject = (id) => {
+
+      return axios
+        .delete(`http://localhost:5000/project/delete/${id}`, {id})
+        .then((response) => {
+          console.log("fliper", response)
+        })
+        .catch((err) => {
+          return err;
+        });
+      }

@@ -43,9 +43,9 @@ const createUserProject = router.post("/user_project", (req, res) => {
 });
 
 
-const getSingleProject = router.post("/project/:id", (req, res) => {
+const getSingleProject = router.get("/project/:id", (req, res) => {
 
-    db.getProject(req.body.projectId)
+    db.getProject(req.params.id)
     .then(projects => {
         res.json(projects);
     })
@@ -69,4 +69,19 @@ const updateProject = router.post("/project/edit/:id", (req, res) => {
     });
 });
 
-module.exports = { getProjects, createProject, createUserProject, getSingleProject, updateProject }
+const delProject = router.delete("/project/delete/:id", (req, res) => {
+
+    console.log("thing", req.params)
+
+    db.deleteProject(req.params.id)
+    .then(projects => {
+        res.json(projects);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message});
+    });
+});
+
+module.exports = { getProjects, createProject, createUserProject, getSingleProject, updateProject, delProject }
