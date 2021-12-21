@@ -29,6 +29,11 @@ const PositionedMenu = (props) => {
       setModal(!modal);
   }
 
+  const doBoth = () => {
+        toggleModal()
+        handleClose()
+  }
+
   return (
     <div>
       <Button
@@ -56,7 +61,7 @@ const PositionedMenu = (props) => {
         }}
       >
         <MenuItem onClick={() => deleteProject(project.id)}><DeleteIcon/>Delete</MenuItem>
-        <MenuItem onClick={toggleModal}><EditIcon/>Edit</MenuItem>
+        <MenuItem onClick={doBoth}><EditIcon/>Edit</MenuItem>
   
       </Menu>
        <FormModal 
