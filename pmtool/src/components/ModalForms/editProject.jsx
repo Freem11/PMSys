@@ -87,7 +87,8 @@ const EditProject = (props) => {
       Promise.all([edits])
       .then((response) => {
 
-        let list = getUserProjects(jUser.id)
+        let text = ""
+        let list = getUserProjects(jUser.id, text)
 
         Promise.all([list])
         .then((response) => {

@@ -3,7 +3,6 @@ import { UserContext } from './userContext'
 import { ProjectContext } from './projectContext'
 import { ProjectsContext } from './projectsContext'
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { getUserProjects } from './AxiosFuncs/projectAxiosFuncs'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -39,7 +38,8 @@ const ProjectsTable = () => {
     }
 
     useEffect(() => {
-        let list = getUserProjects(jUser.id)
+        let text = ""
+        let list = getUserProjects(jUser.id, text)
 
         Promise.all([list])
         .then((response) => {
@@ -60,7 +60,7 @@ const ProjectsTable = () => {
 
     return(
      <TableContainer
-    style={{ width: '90%', margin: 'auto', borderRadius: '5px', marginTop: 100}}>
+    style={{ width: '90%', margin: 'auto', borderRadius: '5px', marginTop: 30}}>
        {jUser.password && <Table>
             <TableHead>
                 <TableRow>

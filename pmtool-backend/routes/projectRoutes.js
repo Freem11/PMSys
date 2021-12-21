@@ -5,7 +5,7 @@ const dbd = require('../lib/user_projectQueries')
 
 const getProjects = router.post("/projects", (req, res) => {
 
-    db.getUserProjects(req.body.userId)
+    db.getUserProjects(req.body.userId, req.body.text)
     .then(projects => {
         res.json(projects);
     })

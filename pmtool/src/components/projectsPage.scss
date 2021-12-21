@@ -3,6 +3,8 @@ body {
     background-color: #66758F;
 }
 
+//Header -------------------------------------------
+
 .topdiv {
     width: 100%;
     display: flex;
@@ -13,8 +15,8 @@ body {
 .title{
     width: 400px;
     margin-left: 5px;
-   font-size: 25px;
-   color: rgb(237, 237, 237); 
+    font-size: 25px;
+    color: rgb(237, 237, 237); 
 }
 
 .secdiv{
@@ -25,14 +27,7 @@ body {
     
 }
 
-.MuiTableHead-root{
-    border: 1px solid #2B2D42; 
-    color: #FFFFF2; 
-}
-
-.MuiTableBody-root{
-    border: 1px solid #FFFFF2; 
-}
+//Table --------------------------------------------
 
 .MuiTableCell-head {
     background-color: #2B2D42;
@@ -44,36 +39,64 @@ body {
     background-color: rgb(202, 202, 202); 
 }
 
+.MuiTableContainer-root {
+    margin-top: -50px; 
+}
+
 .btn {
     background-color: #292929;
     border-color: #2B2D42;
     color: #FFFFF2;
     border-radius: 10px;
     font-weight: bolder;
-    width: 80px;
-    margin-right: 10px;
-}
-
-.tablebit{
-    padding-top: -10px !important;
-    height: 15px !important;
+    padding: 3px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 
-.projTable{
-    margin-top: 0px;
+//Search Area -------------------------------------------
 
+.searchproj{
+    display: flex;
+    flex-direction: row;
+    padding-right: 15%;
+    margin-left: -15%
+}
+
+.addproj{
+    margin-left: 0
+}
+
+.inputbox{
+    display: flex;
+    flex-direction: row;
+    margin-top: 110px; 
+
+}
+
+.searchInput{
+    border-radius: 10px;
+    height: 25px;
+    width: 200px;
+    margin-right: 20%
 }
 
 .creatProjectButton {
-    margin-top: 120px; 
     height: 30px;
+    margin-right: 10%;
+    width: 100px;
+}
 
+.searchButton{
+    height: 30px;
+    width: 100px;
+    margin-right: 20px;
+    
 }
 
 .buttondiv {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
-    width: 95%;
+    width: 100%;
 }

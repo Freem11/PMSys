@@ -1,8 +1,9 @@
 import axios from "axios";
 
 
-export const getUserProjects = (values) => {
-return axios.post("http://localhost:5000/projects", { userId: values })
+export const getUserProjects = (values, text) => {
+
+return axios.post("http://localhost:5000/projects", { userId: values, text: text })
 .then(response => {
     return response.data
 })
@@ -10,7 +11,6 @@ return axios.post("http://localhost:5000/projects", { userId: values })
 
 export const registerProject = (values) => {
 
-  
   return axios
     .post("http://localhost:5000/project", {
       name: values.title,

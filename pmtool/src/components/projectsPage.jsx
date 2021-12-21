@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react'
 import { UserContext } from './userContext'
 import { ProjectContext } from './projectContext'
+import { ProjectsContext } from "./projectsContext";
 import { useNavigate } from "react-router-dom";
-import { Button } from "reactstrap";
 import ProjectsTable from'./projectsTable'
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -10,7 +10,8 @@ import Typography from "@mui/material/Typography";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { styled, useTheme } from "@mui/material/styles";
-import IconButton from "@mui/material/IconButton";
+import { getUserProjects } from './AxiosFuncs/projectAxiosFuncs'
+import { Container, Button, Form, FormGroup, Label, Input } from "reactstrap";
 import CreateNewProject from "./ModalForms/createProject"
 import FormModal from './ModalForms/formModal'
 import "./projectsPage.scss";
@@ -20,6 +21,7 @@ const ProjectsPage = () => {
     let navigate = useNavigate();
     const { user, setUser } = useContext(UserContext);
     const { project, setProject } = useContext(ProjectContext);
+    const { projects, setProjects } = useContext(ProjectsContext);
 
     const userFromSession = window.sessionStorage.getItem("user")
   
@@ -57,6 +59,25 @@ const ProjectsPage = () => {
           setModal(!modal);
       }
 
+      const [ formVals, setFormVals ] = useState('');
+
+      const handleChange = (e) => {
+        setFormVals(e.target.value)
+      };
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+
+      let searchVal = getUserProjects(jUser.id, formVals)
+
+      Promise.all([searchVal])
+      .then((response) => {
+          setProjects(response[0]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
 
     return(
         <div>
@@ -73,9 +94,34 @@ const ProjectsPage = () => {
           </div>
         </Toolbar>
       </AppBar>
-            <div className="buttondiv">
-            <Button onClick={toggleModal} className="creatProjectButton">+ Project</Button>
-            </div>
+      <div className="buttondiv">
+      <Form onSubmit={handleSubmit} style={{width:'100%'}}>
+        
+        <div className="inputbox">
+
+          <div className='searchproj'>
+            <Button className="searchButton">Search</Button>
+            <Input
+              value={formVals}
+              placeholder="Project Search"
+              style={{textAlign: 'center'}}
+              className="searchInput"
+              type="text"
+              name="title"
+              bsSize="lg"
+              onChange={handleChange}
+            ></Input>
+          </div>
+
+          <div className='addproj'>
+          <Button onClick={toggleModal} className="creatProjectButton">+ Project</Button>
+          </div>
+
+        </div>
+
+        </Form>
+      </div>
+
             <FormModal openup={modal} closeup={toggleModal} >
               <CreateNewProject
                 closeup={toggleModal}

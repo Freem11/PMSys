@@ -1,8 +1,11 @@
 const { response } =require("express");
 const db = require("./db");
 
-const getUserProjects = (userId) => {
-    return db.query('SELECT * FROM projects WHERE user_id= $1;', [userId])
+const getUserProjects = (userId, text) => {
+
+    modified = "%" + text + "%"
+
+    return db.query(`SELECT * FROM projects WHERE name LIKE $1 AND user_id= $2;`, [modified, userId])
     .then((response) => {
         return response.rows;
     })
@@ -48,7 +51,6 @@ const deleteProject = (projectId) => {
 
     return db.query(`DELETE FROM projects WHERE id= $1 RETURNING *;`, [projectId])
     .then((response) => {
-        console.log("db says", response.rows)
         return response.rows;
     })
     .catch((error) => {

@@ -74,7 +74,8 @@ const CreateNewProject = (props) => {
 
     if (formVals.title) {
       registerProject(formVals)
-      let list = getUserProjects(jUser.id)
+      let text = ""
+      let list = getUserProjects(jUser.id, text)
 
       Promise.all([list])
       .then((response) => {
