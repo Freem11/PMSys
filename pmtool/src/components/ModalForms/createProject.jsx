@@ -2,8 +2,9 @@ import { useState, useContext, useEffect } from "react";
 import { Container, Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { UserContext } from "../userContext";
 import { ProjectContext } from "../projectContext";
+import { ProjectsContext } from "../projectsContext";
 import { allUsers } from "../AxiosFuncs/userAxiosFuncs";
-import { registerProject } from "../AxiosFuncs/projectAxiosFuncs"
+import { registerProject, getUserProjects } from "../AxiosFuncs/projectAxiosFuncs"
 import "./createProject.scss"
 
 const CreateNewProject = (props) => {
@@ -11,6 +12,9 @@ const CreateNewProject = (props) => {
   const { closeup } = props
 
   const [users, setUsers] = useState("");
+  const { user, setUser } = useContext(UserContext);
+  const { project, setProject } = useContext(ProjectContext);
+  const { projects, setProjects } = useContext(ProjectsContext);
 
   useEffect(() => {
     let data = allUsers();
@@ -23,8 +27,6 @@ const CreateNewProject = (props) => {
         console.log(error);
       });
   }, []);
-
-  const { user } = useContext(UserContext);
 
   const userFromSession = window.sessionStorage.getItem("user");
 
@@ -72,6 +74,16 @@ const CreateNewProject = (props) => {
 
     if (formVals.title) {
       registerProject(formVals)
+      let list = getUserProjects(jUser.id)
+
+      Promise.all([list])
+      .then((response) => {
+        setProjects(response[0]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
       closeup()
     }
     return;
@@ -86,6 +98,7 @@ const CreateNewProject = (props) => {
           <Input
             placeholder="Project Name"
             className="modalInputs"
+            style={{textAlign: 'center'}}
             type="text"
             name="title"
             bsSize="lg"

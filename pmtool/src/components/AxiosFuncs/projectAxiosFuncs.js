@@ -1,5 +1,13 @@
 import axios from "axios";
 
+
+export const getUserProjects = (values) => {
+return axios.post("http://localhost:5000/projects", { userId: values })
+.then(response => {
+    return response.data
+})
+}
+
 export const registerProject = (values) => {
   return axios
     .post("http://localhost:5000/project", {
@@ -74,7 +82,6 @@ export const getProjectById = (projectId) => {
       return axios
         .delete(`http://localhost:5000/project/delete/${id}`, {id})
         .then((response) => {
-          console.log("fliper", response)
         })
         .catch((err) => {
           return err;

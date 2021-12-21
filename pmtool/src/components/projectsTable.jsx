@@ -1,7 +1,10 @@
 import { useContext, useEffect, useState } from 'react'
 import { UserContext } from './userContext'
+import { ProjectContext } from './projectContext'
+import { ProjectsContext } from './projectsContext'
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { getUserProjects } from './AxiosFuncs/projectAxiosFuncs'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -18,8 +21,9 @@ const ProjectsTable = () => {
 
     let navigate = useNavigate();
     const { user, setUser } = useContext(UserContext);
-    const [projects, setProjects]= useState([])
-    const [project, setProject]= useState('')
+    const { project, setProject } = useContext(ProjectContext);
+    const { projects, setProjects } = useContext(ProjectsContext);
+ 
     const userFromSession = window.sessionStorage.getItem("user")
 
     let jUser
@@ -35,10 +39,16 @@ const ProjectsTable = () => {
     }
 
     useEffect(() => {
-        return axios.post("http://localhost:5000/projects", { userId: jUser.id })
-        .then(response => {
-            setProjects(response.data)
+        let list = getUserProjects(jUser.id)
+
+        Promise.all([list])
+        .then((response) => {
+          setProjects(response[0]);
         })
+        .catch((error) => {
+          console.log(error);
+        });
+
       }, [])
 
       const [modal, setModal] = useState(false)
@@ -46,6 +56,7 @@ const ProjectsTable = () => {
       const toggleModal = () => {
           setModal(!modal);
       }
+
 
     return(
      <TableContainer

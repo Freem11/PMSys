@@ -1,17 +1,20 @@
 import { useState, useContext, useEffect } from "react";
 import { Container, Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { UserContext } from "../userContext";
+import { ProjectsContext } from "../projectsContext";
 import { ProjectContext } from "../projectContext";
 import { allUsers, userByName } from "../AxiosFuncs/userAxiosFuncs";
-import { getProjectById, updateProjectById } from '../AxiosFuncs/projectAxiosFuncs'
+import { getProjectById, updateProjectById, getUserProjects } from '../AxiosFuncs/projectAxiosFuncs'
 import "./createProject.scss"
 
 const EditProject = (props) => {
   
   const { closeup, project1 } = props
-  
+
   const [users, setUsers] = useState("");
-  const [project, setProject] = useState("");
+  const { user, setUser } = useContext(UserContext);
+  const { project, setProject } = useContext(ProjectContext);
+  const { projects, setProjects } = useContext(ProjectsContext);
 
 
   const [ formVals, setFormVals ] = useState({
@@ -45,7 +48,7 @@ const EditProject = (props) => {
       });
   }, []);
 
-  const { user } = useContext(UserContext);
+  
 
   const userFromSession = window.sessionStorage.getItem("user");
 
@@ -79,7 +82,22 @@ const EditProject = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-      updateProjectById(formVals)
+      let edits =updateProjectById(formVals)
+
+      Promise.all([edits])
+      .then((response) => {
+
+        let list = getUserProjects(jUser.id)
+
+        Promise.all([list])
+        .then((response) => {
+          setProjects(response[0]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      })
+
       closeup()
     
     return;
@@ -94,6 +112,7 @@ const EditProject = (props) => {
           <Input
             value={formVals.title}
             placeholder="Project Name"
+            style={{textAlign: 'center'}}
             className="modalInputs"
             type="text"
             name="title"

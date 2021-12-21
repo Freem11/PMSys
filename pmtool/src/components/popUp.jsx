@@ -1,18 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { UserContext } from "./userContext";
+import { ProjectsContext } from "./projectsContext";
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreRounded'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteProject } from './AxiosFuncs/projectAxiosFuncs'
+import { deleteProject, getUserProjects } from './AxiosFuncs/projectAxiosFuncs'
 import FormModal from './ModalForms/formModal'
 import EditProject from './ModalForms/editProject'
+
 const PositionedMenu = (props) => {
 
-  const { project, toggleModalOpen, toggleModalClose } = props
+  const { project } = props
+  const { user, setUser } = useContext(UserContext);
+  const { projects, setProjects } = useContext(ProjectsContext);
 
-        console.log(project.id)
+  const userFromSession = window.sessionStorage.getItem("user");
+
+  let jUser;
+  if (user[0]) {
+    jUser = JSON.parse(user);
+  } else if (userFromSession) {
+    jUser = JSON.parse(userFromSession);
+  } else {
+    jUser = {
+      id: 0,
+      name: "",
+    };
+  }
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -32,6 +49,27 @@ const PositionedMenu = (props) => {
   const doBoth = () => {
         toggleModal()
         handleClose()
+  }
+
+  const doTwo = (id) => {
+
+    let dels = deleteProject(id)
+
+      Promise.all([dels])
+      .then((response) => {
+
+        let list = getUserProjects(jUser.id)
+
+        Promise.all([list])
+        .then((response) => {
+          setProjects(response[0]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  
+})
+
   }
 
   return (
@@ -60,9 +98,9 @@ const PositionedMenu = (props) => {
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={() => deleteProject(project.id)}><DeleteIcon/>Delete</MenuItem>
-        <MenuItem onClick={doBoth}><EditIcon/>Edit</MenuItem>
-  
+        <MenuItem onClick={doBoth}><EditIcon/> Edit</MenuItem>
+        <MenuItem onClick={() => doTwo(project.id)}><DeleteIcon/> Delete</MenuItem>
+        
       </Menu>
        <FormModal 
         project={project}
