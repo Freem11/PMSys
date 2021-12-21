@@ -12,7 +12,7 @@ import { ProjectsContext } from './components/projectsContext'
 function App() {
 
   const [user, setUser] = useState('')
-  const [project, setProject] = useState('')
+  const [project, setProject] = useState([])
   const [projects, setProjects] = useState([])
 
   return (
@@ -25,7 +25,7 @@ function App() {
           path ="/" 
           element={<LoginPage/>}
           />
-           <Route 
+        <Route 
           path ="/projects" 
           element={<ProjectsPage/>}
           />

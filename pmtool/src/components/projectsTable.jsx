@@ -3,7 +3,7 @@ import { UserContext } from './userContext'
 import { ProjectContext } from './projectContext'
 import { ProjectsContext } from './projectsContext'
 import { useNavigate } from "react-router-dom";
-import { getUserProjects } from './AxiosFuncs/projectAxiosFuncs'
+import { getUserProjects, getProjectById } from './AxiosFuncs/projectAxiosFuncs'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -57,6 +57,21 @@ const ProjectsTable = () => {
           setModal(!modal);
       }
 
+      const twoX = (id) => {
+          let data =getProjectById(id)
+
+          Promise.all([data])
+          .then((response) => {
+            setProject(response);
+            navigate("/project");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+     
+    }
+
 
     return(
      <TableContainer
@@ -71,9 +86,9 @@ const ProjectsTable = () => {
             </TableHead>
             <TableBody>
                 {projects && projects.sort((a,b) => a.id - b.id).map((project, index) => (
-                    <TableRow key ={project.id} style={{ padding: 0}} >
-                        <TableCell sx={{ color: "#2B2D42", paddingLeft: 5}}><strong>{project.name}</strong></TableCell>
-                        <TableCell align='center' sx={{ color: "#2B2D42" }}><strong>{project.status}</strong></TableCell>
+                    <TableRow key ={project.id} style={{ padding: 0}}>
+                        <TableCell onClick={() => twoX(project.id)} sx={{ color: "#2B2D42", paddingLeft: 5}}><strong>{project.name}</strong></TableCell>
+                        <TableCell onClick={() => twoX(project.id)} align='center' sx={{ color: "#2B2D42" }}><strong>{project.status}</strong></TableCell>
                         <TableCell align='center' style={{ height: 10}}>
                             <PositionedMenu
                             project={project}

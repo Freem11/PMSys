@@ -5,7 +5,7 @@ const getUserProjects = (userId, text) => {
 
     modified = "%" + text + "%"
 
-    return db.query(`SELECT * FROM projects WHERE name LIKE $1 AND user_id= $2;`, [modified, userId])
+    return db.query(`SELECT * FROM projects WHERE name LIKE $1 AND user_id= $2 LIMIT 10;`, [modified, userId])
     .then((response) => {
         return response.rows;
     })

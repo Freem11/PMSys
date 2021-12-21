@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { UserContext } from "./userContext";
+import { ProjectContext } from './projectContext'
 import { useNavigate, Link } from "react-router-dom";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -107,6 +108,7 @@ export default function MiniDrawer() {
 
   let navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
+  const { project, setProject } = useContext(ProjectContext);
 
   const userFromSession = window.sessionStorage.getItem("user");
 
@@ -149,9 +151,10 @@ export default function MiniDrawer() {
             }}
           >
             <MenuIcon />
+           
           </IconButton>
           <Typography variant="h6" noWrap component="div"></Typography>
-
+          <div className="projectDiv">Project - {project[0].name}</div>
           <div className="topdiv">
             <div className="secdiv">
               <Button onClick={logoutFunc}>Logout</Button>
@@ -172,12 +175,12 @@ export default function MiniDrawer() {
         </DrawerHeader>
 
         <List sx={{ backgroundColor: "#66758F", height: 10000 }}>
-          {["Projects", "Quotes", "Schedules", "Drafts"].map((text, index) => (
+          {["Projects", "Details", "Quotes", "Schedules", "Drafts"].map((text, index) => (
             <ListItem button key={text} onClick={() => handleClicks(index)}>
               {index === 0 ? (
                 <>
                   <Link
-                    to="/project"
+                    to="/projects"
                     style={{
                       color: "lightgrey",
                       textDecoration: "none",

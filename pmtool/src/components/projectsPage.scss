@@ -23,8 +23,13 @@ body {
     width: 250px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    
+    justify-content: space-between;  
+}
+
+.projectDiv {
+   font-size: 25px;
+   width: 1500px;
+
 }
 
 //Table --------------------------------------------
@@ -65,20 +70,26 @@ body {
 }
 
 .addproj{
-    margin-left: 0
+    margin-left: 0;
+    flex-direction: row;
+    align-items: flex-end;
+    display: flex;
+    width: 100%
 }
 
 .inputbox{
     display: flex;
     flex-direction: row;
     margin-top: 110px; 
+    align-content: flex-end;
+    width: 100%;
 
 }
 
 .searchInput{
     border-radius: 10px;
     height: 25px;
-    width: 200px;
+    width: 250px;
     margin-right: 20%
 }
 

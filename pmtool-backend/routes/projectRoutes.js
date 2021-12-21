@@ -71,8 +71,6 @@ const updateProject = router.post("/project/edit/:id", (req, res) => {
 
 const delProject = router.delete("/project/delete/:id", (req, res) => {
 
-    console.log("thing", req.params)
-
     db.deleteProject(req.params.id)
     .then(projects => {
         res.json(projects);

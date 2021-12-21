@@ -1,14 +1,14 @@
 import { useContext } from 'react'
 import { UserContext } from './userContext'
+import { ProjectContext } from './projectContext'
 import { useNavigate } from "react-router-dom";
-import { Button } from "reactstrap";
-import ProjectsTable from'./projectsTable'
 
 
 const QuotesPage = () => {
 
     let navigate = useNavigate();
     const { user, setUser } = useContext(UserContext);
+    const { project, setProject } = useContext(ProjectContext);
 
     const userFromSession = window.sessionStorage.getItem("user")
   
@@ -18,10 +18,12 @@ const QuotesPage = () => {
     } else {
         jUser = JSON.parse(userFromSession)
     }
+    
+    console.log(project)
 
     return(
         <div>
-        <Button/>
+        <p>Hello: {project[0].name}</p>
         </div>
     )
 
