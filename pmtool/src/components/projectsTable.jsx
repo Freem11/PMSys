@@ -10,8 +10,6 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import FormModal from './ModalForms/formModal'
-import EditProject from "./ModalForms/editProject"
 import PositionedMenu from './popUp'
 import "./projectsPage.scss";
 
@@ -19,8 +17,8 @@ import "./projectsPage.scss";
 const ProjectsTable = () => {
 
     let navigate = useNavigate();
-    const { user, setUser } = useContext(UserContext);
-    const { project, setProject } = useContext(ProjectContext);
+    const { user } = useContext(UserContext);
+    const { setProject } = useContext(ProjectContext);
     const { projects, setProjects } = useContext(ProjectsContext);
  
     const userFromSession = window.sessionStorage.getItem("user")
@@ -58,11 +56,12 @@ const ProjectsTable = () => {
       }
 
       const twoX = (id) => {
-          let data =getProjectById(id)
+          let data = getProjectById(id)
 
           Promise.all([data])
           .then((response) => {
             setProject(response);
+            window.sessionStorage.setItem("project", JSON.stringify(...response))
             navigate("/project");
           })
           .catch((error) => {

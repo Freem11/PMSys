@@ -4,8 +4,6 @@ import { ProjectContext } from './projectContext'
 import { ProjectsContext } from "./projectsContext";
 import { useNavigate } from "react-router-dom";
 import ProjectsTable from'./projectsTable'
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -21,7 +19,7 @@ const ProjectsPage = () => {
     let navigate = useNavigate();
     const { user, setUser } = useContext(UserContext);
     const { project, setProject } = useContext(ProjectContext);
-    const { projects, setProjects } = useContext(ProjectsContext);
+    const { setProjects } = useContext(ProjectsContext);
 
     const userFromSession = window.sessionStorage.getItem("user")
   

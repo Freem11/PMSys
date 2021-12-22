@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from 'react'
-import { UserContext } from './userContext'
+// import { UserContext } from './userContext'
 import { ProjectContext } from './projectContext'
 import { useNavigate } from "react-router-dom";
 import { getTeamByProjectId } from './AxiosFuncs/teamAxiosFuncs'
@@ -8,18 +8,18 @@ import { userById } from './AxiosFuncs/userAxiosFuncs'
 const QuotesPage = () => {
 
     let navigate = useNavigate();
-    const { user, setUser } = useContext(UserContext);
-    const { project, setProject } = useContext(ProjectContext);
+    // const { user, setUser } = useContext(UserContext);
+    const { project } = useContext(ProjectContext);
     const [ team, setTeam ] = useState('');
 
-    const userFromSession = window.sessionStorage.getItem("user")
+    // const userFromSession = window.sessionStorage.getItem("user")
   
-    let jUser
-    if (user[0]){
-        jUser = JSON.parse(user)
-    } else {
-        jUser = JSON.parse(userFromSession)
-    }
+    // let jUser
+    // if (user[0]){
+    //     jUser = JSON.parse(user)
+    // } else {
+    //     jUser = JSON.parse(userFromSession)
+    // }
     
     useEffect(() => {
 

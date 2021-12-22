@@ -2,56 +2,40 @@ import { useContext, useState, useEffect } from 'react'
 import { UserContext } from './userContext'
 import { ProjectContext } from './projectContext'
 import { useNavigate } from "react-router-dom";
-import { getTeamByProjectId } from './AxiosFuncs/teamAxiosFuncs'
-import { userById } from './AxiosFuncs/userAxiosFuncs'
+import TeamList from './teamComponents/teamList'
 
 const DetailsPage = () => {
 
     let navigate = useNavigate();
     const { user, setUser } = useContext(UserContext);
     const { project, setProject } = useContext(ProjectContext);
-    const [ team, setTeam ] = useState('');
-
-    const userFromSession = window.sessionStorage.getItem("user")
   
-    let jUser
-    if (user[0]){
-        jUser = JSON.parse(user)
+    // const userFromSession = window.sessionStorage.getItem("user")
+    const projectFromSession = window.sessionStorage.getItem("project")
+
+    // let jUser
+    // if (user[0]){
+    //     jUser = JSON.parse(user)
+    // } else {
+    //     jUser = JSON.parse(userFromSession)
+    // }
+
+    let jProject
+    if (project[0]) {
+      jProject = project[0];
+    } else if (projectFromSession) {
+      jProject = JSON.parse(projectFromSession);
     } else {
-        jUser = JSON.parse(userFromSession)
+      jProject = {
+        id: 0,
+        name: "",
+      };
     }
     
-    useEffect(() => {
-
-        let teamMemebers = []
-        let list0 = getTeamByProjectId(project[0].id)
-        Promise.all([list0])
-        .then((response) => {
-            response[0].data.forEach(record => {
-                let translated = userById(record.user_id)
-                Promise.all([translated])
-                .then((response2) => {
-                    teamMemebers.push(response2[0][0].name)
-                })
-                .catch((error) => {
-                    console.log(error);
-                  });
-
-            });
-            
-          setTeam(teamMemebers);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-
-      }, [])
-
-    console.log(project)
-    console.log("team", team)
     return(
         <div>
-        <h2>Status: {project[0].status}</h2>
+        <h2>Status: {jProject.status}</h2>
+        <TeamList/>
         </div>
     )
 

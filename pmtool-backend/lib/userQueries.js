@@ -1,6 +1,17 @@
 const { response } =require("express");
 const db = require("./db");
 
+const getUsers = () => {
+
+    return db.query(`SELECT * FROM users;`)
+    .then((response) => {
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })
+}
+
 const getSingleUser = (email) => {
 
     return db.query(`SELECT * FROM users WHERE email = $1;`, [email])
@@ -68,4 +79,4 @@ const getSingleUserById = (id) => {
     })
 }
 
-module.exports = { createUser, getSingleUser, getSingleUserByEmail, getAllUsers, getSingleUserByName, getSingleUserById}
+module.exports = { getUsers, createUser, getSingleUser, getSingleUserByEmail, getAllUsers, getSingleUserByName, getSingleUserById}

@@ -105,9 +105,10 @@ export default function MiniDrawer() {
 
   let navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
-  const { project, setProject } = useContext(ProjectContext);
+  const { project } = useContext(ProjectContext);
 
   const userFromSession = window.sessionStorage.getItem("user");
+  const projectFromSession = window.sessionStorage.getItem("project")
 
   let jUser;
   if (user[0]) {
@@ -116,6 +117,18 @@ export default function MiniDrawer() {
     jUser = JSON.parse(userFromSession);
   } else {
     jUser = {
+      id: 0,
+      name: "",
+    };
+  }
+
+  let jProject;
+  if (project[0]) {
+    jProject = project[0];
+  } else if (projectFromSession) {
+    jProject = JSON.parse(projectFromSession);
+  } else {
+    jProject = {
       id: 0,
       name: "",
     };
@@ -151,7 +164,7 @@ export default function MiniDrawer() {
            
           </IconButton>
           <Typography variant="h6" noWrap component="div"></Typography>
-          <div className="projectDiv">Project - {project[0].name}</div>
+          <div className="projectDiv">Project - {jProject.name}</div>
           <div className="topdiv">
             <div className="secdiv">
               <Button onClick={logoutFunc}>Logout</Button>
@@ -271,7 +284,7 @@ export default function MiniDrawer() {
         sx={{ flexGrow: 1, p: 3, height: "auto", height: 10000 }}
       >
         <DrawerHeader />
-        {Nav === 0 ? "" : ""}
+        {Nav === 0 ? <DetailsPage /> : ""}
         {Nav === 1 ? <DetailsPage /> : ""}
         {Nav === 2 ? <QuotesPage /> : ""}
       </Box>
