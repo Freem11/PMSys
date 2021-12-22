@@ -57,4 +57,15 @@ const getSingleUserByName = (name) => {
     })
 }
 
-module.exports = { createUser, getSingleUser, getSingleUserByEmail, getAllUsers, getSingleUserByName}
+const getSingleUserById = (id) => {
+
+    return db.query(`SELECT * FROM users WHERE id = $1;`, [id])
+    .then((response) => {
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })
+}
+
+module.exports = { createUser, getSingleUser, getSingleUserByEmail, getAllUsers, getSingleUserByName, getSingleUserById}

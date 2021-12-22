@@ -61,7 +61,6 @@ const getUsers = router.get("/users", (req, res) => {
     });
 });
 
-
 const getUserName = router.post("/user", (req, res) => {
 
     db.getSingleUserByName(req.body.user)
@@ -75,4 +74,17 @@ const getUserName = router.post("/user", (req, res) => {
     });
 });
 
-module.exports = { getUser, addUser, getUserEmail, getUsers, getUserName}
+const getUserNameId = router.get("/user/:id", (req, res) => {
+
+    db.getSingleUserById(req.params.id)
+    .then(user => {
+        res.json(user);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message});
+    });
+});
+
+module.exports = { getUser, addUser, getUserEmail, getUsers, getUserName, getUserNameId}

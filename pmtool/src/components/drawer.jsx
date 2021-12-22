@@ -12,16 +12,13 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import HomeIcon from '@mui/icons-material/Home';
+import WarehouseIcon from '@mui/icons-material/Warehouse';
+import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import Icon from "@mui/material/Icon";
-import ProjectsPage from "./projectsPage";
 import QuotesPage from "./quotesPage";
+import DetailsPage from "./detailsPage";
 import { Button } from "reactstrap";
 import "./projectsPage.scss";
 
@@ -188,7 +185,7 @@ export default function MiniDrawer() {
                       flexDirection: "row",
                     }}
                   >
-                    <MailIcon
+                    <KeyboardReturnIcon
                       sx={{ color: "white", marginRight: 3.5, marginLeft: 0.5 }}
                     />
                     <p style={{ color: "lightgrey", textDecoration: "none", marginTop: 1 }}>
@@ -210,7 +207,7 @@ export default function MiniDrawer() {
                    flexDirection: "row",
                  }}
                >
-                 <InboxIcon
+                 <HomeIcon
                    sx={{ color: "white", marginRight: 3.5, marginLeft: 0.5 }}
                  />
                  <p style={{ color: "lightgrey", textDecoration: "none", marginTop: 1 }}>
@@ -232,7 +229,7 @@ export default function MiniDrawer() {
                     flexDirection: "row",
                   }}
                 >
-                  <MailIcon
+                  <WarehouseIcon
                     sx={{ color: "white", marginRight: 3.5, marginLeft: 0.5 }}
                   />
                   <p style={{ color: "lightgrey", textDecoration: "none", marginTop: 1 }}>
@@ -254,7 +251,7 @@ export default function MiniDrawer() {
                     flexDirection: "row",
                   }}
                 >
-                  <InboxIcon
+                  <WatchLaterIcon
                     sx={{ color: "white", marginRight: 3.5, marginLeft: 0.5 }}
                   />
                   <p style={{ color: "lightgrey", textDecoration: "none", marginTop: 1 }}>
@@ -274,8 +271,9 @@ export default function MiniDrawer() {
         sx={{ flexGrow: 1, p: 3, height: "auto", height: 10000 }}
       >
         <DrawerHeader />
-        {Nav === 0 ? <QuotesPage /> : ""}
-        {Nav === 1 ? <QuotesPage /> : ""}
+        {Nav === 0 ? "" : ""}
+        {Nav === 1 ? <DetailsPage /> : ""}
+        {Nav === 2 ? <QuotesPage /> : ""}
       </Box>
     </Box>
   );

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { getTeamByProjectId } from './AxiosFuncs/teamAxiosFuncs'
 import { userById } from './AxiosFuncs/userAxiosFuncs'
 
-const QuotesPage = () => {
+const DetailsPage = () => {
 
     let navigate = useNavigate();
     const { user, setUser } = useContext(UserContext);
@@ -51,10 +51,10 @@ const QuotesPage = () => {
     console.log("team", team)
     return(
         <div>
-        <h2>Quotes: </h2>
+        <h2>Status: {project[0].status}</h2>
         </div>
     )
 
 }
 
-export default QuotesPage;
+export default DetailsPage;

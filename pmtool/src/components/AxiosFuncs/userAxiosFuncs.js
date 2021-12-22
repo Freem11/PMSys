@@ -57,7 +57,7 @@ export const register = ({ regName, regEmail, regPassword }) => {
   export const userByName = (user) => {
 
     return axios
-      .post("http://localhost:5000/user", {user })
+      .post("http://localhost:5000/user", { user })
       .then((response) => {
           return response.data;
       })
@@ -76,6 +76,18 @@ export const register = ({ regName, regEmail, regPassword }) => {
         if (response.data[0]) {
           return response.data[0];
         }
+      })
+      .catch((err) => {
+        return err;
+      });
+  }
+
+  export const userById = (id) => {
+
+    return axios
+      .get(`http://localhost:5000/user/${id}`)
+      .then((response) => {
+          return response.data;
       })
       .catch((err) => {
         return err;
