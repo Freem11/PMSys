@@ -14,6 +14,7 @@ export const registerProject = (values) => {
   return axios
     .post("http://localhost:5000/project", {
       name: values.title,
+      location: values.location,
       status: values.status,
       userId: values.user_id,
     })
@@ -68,6 +69,7 @@ export const getProjectById = (projectId) => {
     return axios
       .post(`http://localhost:5000/project/edit/${info.project_id}`,{
         name: info.title,
+        location: info.location,
         userId: info.user_id,
         projectId: info.project_id 
       })

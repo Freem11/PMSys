@@ -4,7 +4,8 @@ import { UserContext } from "../userContext";
 import { ProjectsContext } from "../projectsContext";
 import { ProjectContext } from "../projectContext";
 import { allUsers, userByName } from "../AxiosFuncs/userAxiosFuncs";
-import { getProjectById, updateProjectById, getUserProjects } from '../AxiosFuncs/projectAxiosFuncs'
+import { getProjectById, updateProjectById, getUserProjects } from '../AxiosFuncs/projectAxiosFuncs';
+import { allLocations } from "../AxiosFuncs/locationAxiosFuncs";
 import "./editProject.scss"
 
 const EditProject = (props) => {
@@ -12,6 +13,7 @@ const EditProject = (props) => {
   const { closeup, project1 } = props
 
   const [users, setUsers] = useState("");
+  const [locations, setLocations] = useState("");
   const { user, setUser } = useContext(UserContext);
   const { project, setProject } = useContext(ProjectContext);
   const { projects, setProjects } = useContext(ProjectsContext);
@@ -19,6 +21,7 @@ const EditProject = (props) => {
 
   const [ formVals, setFormVals ] = useState({
     title: project1.name,
+    location: project1.location,
     user_id: project1.user_id,
     project_id: project1.id
   });
@@ -29,6 +32,18 @@ const EditProject = (props) => {
     Promise.all([data])
       .then((response) => {
         setUsers(response[0]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    let data = allLocations();
+
+    Promise.all([data])
+      .then((response) => {
+        setLocations(response[0]);
       })
       .catch((error) => {
         console.log(error);
@@ -67,7 +82,7 @@ const EditProject = (props) => {
   const handleChange = (e) => {
 
       let opt = e.target.value;
-    if (e.target.type === "select-one") {
+    if (e.target.type === "select-one" && e.target.name === "user_id") {
 
       if (opt) {
 
@@ -123,6 +138,40 @@ const EditProject = (props) => {
           ></Input>
         </FormGroup>
         </div>
+
+        <FormGroup >
+          <div className="selectbox">
+          <Label for="user_id"><strong>Location</strong></Label>
+          <Input
+            onChange={handleChange}
+            className="modalInputs2"
+            type="select"
+            name="location"
+            id="listsize"
+            bsSize="lg"
+          >
+             <option
+                  id={-1}
+                  name="localed"
+                  key={user.id}
+                  values={user.id}
+                  className="modalSelect"
+                >
+                </option>
+            {locations && locations.map((area, index) => (
+                <option
+                  id={index}
+                  name="user_id"
+                  key={area.id}
+                  values={area.id}
+                  className="modalSelect"
+                >
+                  {area.name}
+                </option>
+              ))}
+          </Input>
+          </div>
+        </FormGroup>
 
         <FormGroup >
           <div className="selectbox">

@@ -18,7 +18,7 @@ const getProjects = router.post("/projects", (req, res) => {
 
 const createProject = router.post("/project", (req, res) => {
 
-    db.addProject(req.body.name, req.body.status, req.body.userId)
+    db.addProject(req.body.name, req.body.location, req.body.status, req.body.userId)
     .then(project => {
         res.json(project);
     })
@@ -33,7 +33,6 @@ const createUserProject = router.post("/user_project", (req, res) => {
 
     dbd.teamCheck(req.body.userId, req.body.projectId)
     .then(userProject => {
-            console.log(userProject.length)
 
         if(userProject.length === 0 ) {
             dbd.addTeam(req.body.userId, req.body.projectId)
@@ -71,7 +70,7 @@ const getSingleProject = router.get("/project/:id", (req, res) => {
 
 const updateProject = router.post("/project/edit/:id", (req, res) => {
 
-    db.updateProject(req.body.name, req.body.userId, req.body.projectId)
+    db.updateProject(req.body.name,req.body.location, req.body.userId, req.body.projectId)
     .then(projects => {
         res.json(projects);
     })

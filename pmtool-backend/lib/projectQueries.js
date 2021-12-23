@@ -14,10 +14,10 @@ const getUserProjects = (userId, text) => {
     })
 }
 
-const addProject = (name, status, userId) => {
+const addProject = (name, location, status, userId) => {
 
-    return db.query(`INSERT INTO projects (name, status, user_id)
-    VALUES ($1, $2, $3) RETURNING *;`, [name, status, userId])
+    return db.query(`INSERT INTO projects (name, location, status, user_id)
+    VALUES ($1, $2, $3, $4) RETURNING *;`, [name, location, status, userId])
     .then((response) => {
         return response.rows;
     })
@@ -36,9 +36,9 @@ const getProject = (projectId) => {
     })
 }
 
-const updateProject = (name, user_id, projectId) => {
+const updateProject = (name, location, user_id, projectId) => {
 
-    return db.query(`UPDATE projects SET name = $1, user_id = $2 WHERE id= $3 RETURNING *;`, [name, user_id, projectId])
+    return db.query(`UPDATE projects SET name = $1, location = $2, user_id = $3 WHERE id= $4 RETURNING *;`, [name, location, user_id, projectId])
     .then((response) => {
         return response.rows;
     })

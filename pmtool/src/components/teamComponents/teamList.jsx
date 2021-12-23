@@ -32,6 +32,11 @@ let jProject;
       jTeam = team;
     } else if (teamFromSession) {
       jTeam = [JSON.parse(teamFromSession)];
+    } else {
+      jTeam = {
+        id: 0,
+        name: "",
+      };
     }
 
 useEffect(() => {

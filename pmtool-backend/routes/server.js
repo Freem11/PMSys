@@ -6,6 +6,7 @@ const express = require("express"),
   const { getUser, addUser, getUserEmail, getUsers, getUserName, getUserNameId} = require('./userRoutes')
   const { getProjects, createProject, createUserProject, getSingleProject, updateProject, delProject } = require('./projectRoutes')
   const { getTeam, delTeamMember } = require('./userProjectRoutes')
+  const { getZones } = require('./locationRoutes')
 
 app.use(express.urlencoded({ extended: true}));
 app.use(bodyParser.urlencoded({ extended: false}));
@@ -29,6 +30,9 @@ app.use(createUserProject)
 app.use(getSingleProject)
 app.use(updateProject)
 app.use(delProject)
+
+//Location Routes
+app.use(getZones)
 
 //Team Routes
 app.use(getTeam)

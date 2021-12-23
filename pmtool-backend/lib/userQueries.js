@@ -46,7 +46,7 @@ const createUser = (name, email, password) => {
     })
 }
 
-const getAllUsers = (email) => {
+const getAllUsers = () => {
 
     return db.query(`SELECT * FROM users`)
     .then((response) => {
