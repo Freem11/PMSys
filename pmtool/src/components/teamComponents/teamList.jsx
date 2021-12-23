@@ -1,8 +1,11 @@
 import TeamListItem from './teamListItem'
 import { getTeamByProjectId } from '../AxiosFuncs/teamAxiosFuncs'
 import { useState, useEffect, useContext } from 'react'
+import { TeamContext } from './teamContext';
 import { ProjectContext } from '../projectContext'
 import { Button } from "reactstrap";
+import FormModal from '../ModalForms/formModal'
+import CreateNewTeamMember from "./createTeam"
 import "./teamList.scss";
 
 const TeamList = () => {
@@ -38,7 +41,11 @@ useEffect(() => {
 
   }, [])
 
-console.log("team", team)
+  const [modal, setModal] = useState(false)
+
+  const toggleModal = () => {
+      setModal(!modal);
+  }
 
 let list;
 if(team.length > 0) {
@@ -48,6 +55,7 @@ if(team.length > 0) {
         key={user.id}
         name={user.name}
         user={user}
+        setTeam={setTeam}
         />
     );
 });
@@ -56,11 +64,25 @@ if(team.length > 0) {
 }
 
 
- return <ul id='teamList'>
-        <li id='teamHead'><strong>Team Members</strong><Button id="plusbutton">+</Button></li>
+ return ( 
+  <TeamContext.Provider value={{team, setTeam}}>
+     <div>
+        <ul id='teamList'>
+        <li id='teamHead'><strong>Team Members</strong><Button id="plusbutton" onClick={toggleModal}>+</Button></li>
         {list}
         </ul>
+       
 
+        <FormModal openup={modal} closeup={toggleModal} >
+          <CreateNewTeamMember
+            closeup={toggleModal}
+            project={project}
+          />
+        </FormModal>
+        
+    </div>
+   </TeamContext.Provider>
+ )
 }
 
 export default TeamList;
