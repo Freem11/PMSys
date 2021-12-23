@@ -28,3 +28,19 @@ export const getTeamByProjectId = (projectId) => {
       return err;
     });
    }
+
+
+  export const deleteUserProject = (userId, projectId) => {
+
+  return axios
+    .post("http://localhost:5000/user_project/delete", { 
+      userId: userId,
+      projectId: projectId
+      })
+    .then((response2) => {
+        return response2.data[0].id;
+    })
+    .catch((err) => {
+      return err;
+    });
+    }

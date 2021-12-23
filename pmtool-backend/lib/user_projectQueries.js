@@ -35,4 +35,15 @@ const teamCheck = (userId, projectId) => {
            })   
 }
 
-module.exports = { addTeam, getProjectTeam, teamCheck }
+const teamDelete = (userId, projectId) => {
+
+    return db.query(`DELETE FROM user_projects WHERE project_id= $1 AND user_id = $2 RETURNING *;`, [projectId, userId])
+    .then((response) => {
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })   
+}
+
+module.exports = { addTeam, getProjectTeam, teamCheck, teamDelete }

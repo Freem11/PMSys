@@ -4,9 +4,7 @@ import "./teamList.scss";
 
 const TeamListItem = (props) => {
 
-    const { key, name } = props
-
-    console.log("made it", name)
+    const { id, name } = props
 
     const [modal, setModal] = useState(false)
 
@@ -15,12 +13,12 @@ const TeamListItem = (props) => {
     }
 
     return (
-        <li id={key} className='teamL'>
+        <li id={id} className='teamL'>
             <div id='teamBox'>
             <div id='listItems'>{name}</div> 
             <div id='teamTog'>
                 <PositionedMenuTeam
-                user={key}
+                user1={id}
                 toggleModalOpen={modal} 
                 toggleModalClose={toggleModal}
                 />

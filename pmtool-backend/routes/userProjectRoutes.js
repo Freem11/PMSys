@@ -34,4 +34,17 @@ const getTeam = router.get("/user_project/:id", (req, res) => {
 });
 });
 
-module.exports = { getTeam }
+const delTeamMember = router.post("/user_project/delete", (req, res) => {
+
+    db.teamDelete(req.body.userId, req.body.projectId)
+    .then(projects => {
+        res.json(projects);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message});
+    });
+});
+
+module.exports = { getTeam, delTeamMember }

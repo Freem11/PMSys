@@ -5,7 +5,7 @@ const express = require("express"),
   const bodyParser = require("body-parser")
   const { getUser, addUser, getUserEmail, getUsers, getUserName, getUserNameId} = require('./userRoutes')
   const { getProjects, createProject, createUserProject, getSingleProject, updateProject, delProject } = require('./projectRoutes')
-  const { getTeam } = require('./userProjectRoutes')
+  const { getTeam, delTeamMember } = require('./userProjectRoutes')
 
 app.use(express.urlencoded({ extended: true}));
 app.use(bodyParser.urlencoded({ extended: false}));
@@ -32,3 +32,4 @@ app.use(delProject)
 
 //Team Routes
 app.use(getTeam)
+app.use(delTeamMember)

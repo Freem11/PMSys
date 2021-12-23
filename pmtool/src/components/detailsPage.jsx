@@ -1,5 +1,4 @@
 import { useContext } from 'react'
-import { UserContext } from './userContext'
 import { ProjectContext } from './projectContext'
 import { useNavigate } from "react-router-dom";
 import TeamList from './teamComponents/teamList'
@@ -10,7 +9,6 @@ const DetailsPage = () => {
 
     const { project } = useContext(ProjectContext);
   
-    // const userFromSession = window.sessionStorage.getItem("user")
     const projectFromSession = window.sessionStorage.getItem("project")
 
     let jProject

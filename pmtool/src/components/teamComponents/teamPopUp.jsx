@@ -1,21 +1,22 @@
 import React, { useState, useContext } from 'react';
 import { UserContext } from "../userContext";
+import { TeamContext } from './teamContext';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreRounded'
 import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteProject, getUserProjects } from '../AxiosFuncs/projectAxiosFuncs'
-import FormModal from '../ModalForms/formModal'
-import EditProject from '../ModalForms/editProject'
+import { deleteUserProject, getTeamByProjectId } from '../AxiosFuncs/teamAxiosFuncs'
 
 const PositionedMenuTeam = (props) => {
 
-  const { project } = props
+  const { project, user1 } = props
   const { user } = useContext(UserContext);
+  const { setTeam } = useContext(TeamContext);
 
   const userFromSession = window.sessionStorage.getItem("user");
 
+  
   let jUser;
   if (user[0]) {
     jUser = JSON.parse(user);
@@ -28,6 +29,22 @@ const PositionedMenuTeam = (props) => {
     };
   }
 
+  const projectFromSession = window.sessionStorage.getItem("project")
+    
+let jProject;
+    if (project) {
+      jProject = project;
+    } else if (projectFromSession) {
+      jProject = [JSON.parse(projectFromSession)];
+    } else {
+      jProject = {
+        id: 0,
+        name: "",
+      };
+    }
+
+  let project1 = jProject[0].id
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -37,33 +54,32 @@ const PositionedMenuTeam = (props) => {
     setAnchorEl(null);
   };
 
-  const [modal, setModal] = useState(false)
 
-  const toggleModal = () => {
-      setModal(!modal);
-  }
+  const doTwo = (userId, projectId) => {
 
- 
+    
+    let dels = deleteUserProject(userId, projectId)
 
-  const doTwo = (id) => {
+      Promise.all([dels])
+      .then((response) => {
 
-    //let dels = deleteProject(id)
+        let list = getTeamByProjectId(projectId)
+          Promise.all([list])
+          .then((response) => {
+          window.sessionStorage.setItem("team", JSON.stringify(...response))
+          setTeam(response[0].data)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
-      // Promise.all([dels])
-      // .then((response) => {
+        
 
-      //   let text = ""
-      //   let list = getUserProjects(jUser.id, text)
-
-      //   Promise.all([list])
-      //   .then((response) => {
-      //     setProjects(response[0]);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
-  
-      // })
+       
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 
   }
 
@@ -93,17 +109,9 @@ const PositionedMenuTeam = (props) => {
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={() => doTwo(project.id)}><DeleteIcon/> Delete</MenuItem>
+        <MenuItem onClick={() => doTwo(user1, project1)}><DeleteIcon/> Delete</MenuItem>
         
       </Menu>
-       <FormModal 
-        // project={project}
-        openup={modal} 
-        closeup={toggleModal}>
-        <EditProject
-        project1={project}
-        closeup={toggleModal}/>
-        </FormModal>
     </div>
     
   );
