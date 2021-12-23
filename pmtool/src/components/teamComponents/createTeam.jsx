@@ -14,7 +14,6 @@ const CreateNewTeamMember = (props) => {
   const { project } = useContext(ProjectContext);
   const { team, setTeam } = useContext(TeamContext);
 
-console.log("proejct is", project)
   useEffect(() => {
     let data = allUsers();
 
@@ -51,8 +50,6 @@ console.log("proejct is", project)
 
     let opt = e.target.value;
 
-    console.log("who", opt, jProject)
-
         let user = userByName(opt)
         Promise.all([user])
         .then((response) => {
@@ -64,7 +61,6 @@ console.log("proejct is", project)
      
            Promise.all([list])
            .then((response) => {
-             console.log("team", response[0])
              setTeam(response[0].data);
            })
            .catch((error) => {

@@ -31,15 +31,28 @@ const createProject = router.post("/project", (req, res) => {
 
 const createUserProject = router.post("/user_project", (req, res) => {
 
-    dbd.addTeam(req.body.userId, req.body.projectId)
-    .then(project => {
-        res.json(project);
+    dbd.teamCheck(req.body.userId, req.body.projectId)
+    .then(userProject => {
+            console.log(userProject.length)
+
+        if(userProject.length === 0 ) {
+            dbd.addTeam(req.body.userId, req.body.projectId)
+            .then(project => {
+                res.json(project);
+            })
+            .catch(err => {
+                res
+                .status(500)
+                .json({ error: err.message});
+            });
+        }
     })
     .catch(err => {
         res
         .status(500)
         .json({ error: err.message});
     });
+
 });
 
 

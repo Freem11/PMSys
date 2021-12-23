@@ -24,4 +24,15 @@ const getProjectTeam = (projectId) => {
            })   
 }
 
-module.exports = { addTeam, getProjectTeam }
+const teamCheck = (userId, projectId) => {
+
+    return db.query(`SELECT * FROM user_projects WHERE project_id = $1 ANd user_id = $2;`, [projectId, userId])
+    .then((response) => {
+        return response.rows 
+           })
+           .catch((error) => {
+            console.log("unable to query db got error:", error);
+           })   
+}
+
+module.exports = { addTeam, getProjectTeam, teamCheck }
