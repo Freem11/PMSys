@@ -141,7 +141,7 @@ const EditProject = (props) => {
 
         <FormGroup >
           <div className="selectbox">
-          <Label for="user_id"><strong>Location</strong></Label>
+          <Label for="user_id" id='locate'><strong>Location</strong></Label>
           <Input
             onChange={handleChange}
             className="modalInputs2"
