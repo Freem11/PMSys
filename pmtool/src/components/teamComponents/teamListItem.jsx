@@ -1,9 +1,10 @@
-import PositionedMenu from '../popUp'
+import PositionedMenuTeam from './teamPopUp'
 import { useState } from 'react'
+import "./teamList.scss";
 
 const TeamListItem = (props) => {
 
-    const { name } = props
+    const { key, name } = props
 
     console.log("made it", name)
 
@@ -14,14 +15,16 @@ const TeamListItem = (props) => {
     }
 
     return (
-        <li>
-            <div>{name}</div> 
-            <div>
-                <PositionedMenu
-                // project={props}
+        <li id={key} className='teamL'>
+            <div id='teamBox'>
+            <div id='listItems'>{name}</div> 
+            <div id='teamTog'>
+                <PositionedMenuTeam
+                user={key}
                 toggleModalOpen={modal} 
                 toggleModalClose={toggleModal}
                 />
+            </div>
             </div>
         </li>
     )

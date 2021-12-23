@@ -100,6 +100,7 @@ const CreateNewProject = (props) => {
             placeholder="Project Name"
             className="modalInputs"
             style={{textAlign: 'center'}}
+            id='projname'
             type="text"
             name="title"
             bsSize="lg"
@@ -114,7 +115,7 @@ const CreateNewProject = (props) => {
           <Input
             onChange={handleChange}
             className="modalInputs2"
-            type="select"
+            type="select" 
             name="team"
             multiple
             bsSize="lg"
@@ -135,7 +136,7 @@ const CreateNewProject = (props) => {
         </FormGroup>
 
         <FormGroup>
-          <Button className="modalButton">Create Project</Button>
+          <Button id="modalButto">Create Project</Button>
         </FormGroup>
       </Form>
     </Container>

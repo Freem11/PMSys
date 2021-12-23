@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext } from 'react'
 import { UserContext } from './userContext'
 import { ProjectContext } from './projectContext'
 import { useNavigate } from "react-router-dom";
@@ -7,18 +7,11 @@ import TeamList from './teamComponents/teamList'
 const DetailsPage = () => {
 
     let navigate = useNavigate();
-    const { user, setUser } = useContext(UserContext);
-    const { project, setProject } = useContext(ProjectContext);
+
+    const { project } = useContext(ProjectContext);
   
     // const userFromSession = window.sessionStorage.getItem("user")
     const projectFromSession = window.sessionStorage.getItem("project")
-
-    // let jUser
-    // if (user[0]){
-    //     jUser = JSON.parse(user)
-    // } else {
-    //     jUser = JSON.parse(userFromSession)
-    // }
 
     let jProject
     if (project[0]) {
@@ -34,7 +27,7 @@ const DetailsPage = () => {
     
     return(
         <div>
-        <h2>Status: {jProject.status}</h2>
+        <h2>Current Status: {jProject.status}</h2>
         <TeamList/>
         </div>
     )

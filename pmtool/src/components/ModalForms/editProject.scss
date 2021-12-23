@@ -1,16 +1,12 @@
 
 .inputbox{
-    display: flex;
-    flex-direction: column;;
-    margin-left: 25.5%;
-    margin-top: 20px;
+    margin-left: 40%;
 }
 
 .modalInputs{
     margin-top: 10px;
     border-radius: 10px;
     width: 80%;
-    margin-left: -15%;
 }
 
 .selectbox{
@@ -21,24 +17,33 @@
     margin-left: 22%;
 }
 .modalInputs2{
-    margin-top: 10px;
+    margin-top: 0px;
     width: 150px;
-    height: 100px;
+    height: 20px;
     margin-left: 4%;
     text-align: center;
     body {
         overflow-y: hidden;
     }
     
-} 
+}
 
-#modalButto {
-    width: 140px;
+#modalButt {
+    width: 120px;
     height: 30px;
-    margin-left: 26%;
+    margin-left: 30%;
     margin-bottom: 20px;
 }
 
-#projname {
+#label1 {
+    margin-left: 30px;
+    margin-top: -15px;
+}
+
+#listsize {
+    height: 25px;
+}
+
+#projectEnter{
     margin-left: -20px;
 }

@@ -1,10 +1,10 @@
 import { useReducer, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, FormGroup, Input } from "reactstrap";
-import "./loginPage.scss";
 import { UserContext } from "./userContext";
 import Collapse from '@mui/material/Collapse';
 import { login, checkEmail, register } from "./AxiosFuncs/userAxiosFuncs"
+import "./loginPage.scss";
 
 function loginReducer(state, action) {
   switch (action.type) {
@@ -96,7 +96,7 @@ const LoginPage = () => {
   let navigate = useNavigate();
   const [state, dispatch] = useReducer(loginReducer, initialState);
   const { regName, regEmail, regPassword, email, password, error, error2 } = state;
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   const [dispRegister, setDispRegister] = useState(false)
   const [dispLogin, setDispLogin] = useState(false)

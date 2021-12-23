@@ -1,0 +1,46 @@
+
+#teamList{
+    background-color: #2B2D42;
+    border-radius: 10px ;
+    list-style-type: none;
+    width: 215px;
+    padding: 10px;
+}
+
+#teamHead{
+    color: white;
+    padding: 10px;
+    padding-left: -10;
+    
+}
+
+#teamBox{
+    display: flex;
+    flex-direction: row;
+    margin-top: -5;
+}
+
+#listItems {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    padding: 10px;
+    padding-left: -10;
+    width: 150px;
+}
+
+#teamTog{
+    color: white !important;
+}
+
+.teamL{
+    margin-bottom: -5;
+}
+
+#plusbutton{
+    height: 30px;
+    width: 30px;
+    margin-left: 23px;
+    padding: 1px;
+    background-color: rgb(175, 205, 117);;
+}

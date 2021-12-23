@@ -28,7 +28,7 @@ const FormModal = (props) => {
                 >
                 <Box sx = {style}>
                     <div className="modalBox">
-                       <Button className="modalButton2" onClick={closeup}>X</Button>
+                       <Button style={{ backgroundColor: 'maroon'}}className="modalButton2" onClick={closeup}>X</Button>
                     </div>
                     {children}
                 </Box>

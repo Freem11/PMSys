@@ -7,9 +7,9 @@ import ProjectsTable from'./projectsTable'
 import Typography from "@mui/material/Typography";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import { getUserProjects } from './AxiosFuncs/projectAxiosFuncs'
-import { Container, Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Button, Form, Input } from "reactstrap";
 import CreateNewProject from "./ModalForms/createProject"
 import FormModal from './ModalForms/formModal'
 import "./projectsPage.scss";
@@ -18,7 +18,7 @@ const ProjectsPage = () => {
 
     let navigate = useNavigate();
     const { user, setUser } = useContext(UserContext);
-    const { project, setProject } = useContext(ProjectContext);
+    const { project } = useContext(ProjectContext);
     const { setProjects } = useContext(ProjectsContext);
 
     const userFromSession = window.sessionStorage.getItem("user")
@@ -95,7 +95,7 @@ const ProjectsPage = () => {
       <div className="buttondiv">
       <Form onSubmit={handleSubmit} style={{width:'100%'}}>
         
-        <div className="inputbox">
+        <div id="searchbox">
 
           <div className='searchproj'>
             <Button className="searchButton">Search</Button>
@@ -114,8 +114,8 @@ const ProjectsPage = () => {
           <div className='addproj'>
           <Button onClick={toggleModal} className="creatProjectButton">+ Project</Button>
           </div>
-
-        </div>
+          </div>
+     
 
         </Form>
       </div>

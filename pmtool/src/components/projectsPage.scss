@@ -29,7 +29,7 @@ body {
 .projectDiv {
    font-size: 25px;
    width: 1500px;
-
+ 
 }
 
 //Table --------------------------------------------
@@ -62,28 +62,35 @@ body {
 
 //Search Area -------------------------------------------
 
-.searchproj{
+.buttondiv {
     display: flex;
     flex-direction: row;
-    padding-right: 15%;
-    margin-left: -15%
+    width: 100%;
+    margin-top: 100px;
+}
+
+#searchbox {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  
+}
+
+.searchproj{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  
+    margin-left: 5%;
 }
 
 .addproj{
-    margin-left: 0;
+    margin-left: -100px;
     flex-direction: row;
     align-items: flex-end;
+    justify-content: flex-end;
     display: flex;
     width: 100%
-}
-
-.inputbox{
-    display: flex;
-    flex-direction: row;
-    margin-top: 110px; 
-    align-content: flex-end;
-    width: 100%;
-
 }
 
 .searchInput{
@@ -106,8 +113,3 @@ body {
     
 }
 
-.buttondiv {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}

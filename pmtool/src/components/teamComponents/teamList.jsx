@@ -1,8 +1,9 @@
 import TeamListItem from './teamListItem'
 import { getTeamByProjectId } from '../AxiosFuncs/teamAxiosFuncs'
-import { userById } from '../AxiosFuncs/userAxiosFuncs'
 import { useState, useEffect, useContext } from 'react'
 import { ProjectContext } from '../projectContext'
+import { Button } from "reactstrap";
+import "./teamList.scss";
 
 const TeamList = () => {
 
@@ -46,6 +47,7 @@ if(team.length > 0) {
         <TeamListItem
         key={user.id}
         name={user.name}
+        user={user}
         />
     );
 });
@@ -54,7 +56,10 @@ if(team.length > 0) {
 }
 
 
- return <ul>{list}</ul>
+ return <ul id='teamList'>
+        <li id='teamHead'><strong>Team Members</strong><Button id="plusbutton">+</Button></li>
+        {list}
+        </ul>
 
 }
 

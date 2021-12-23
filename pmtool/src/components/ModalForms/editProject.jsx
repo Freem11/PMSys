@@ -5,7 +5,7 @@ import { ProjectsContext } from "../projectsContext";
 import { ProjectContext } from "../projectContext";
 import { allUsers, userByName } from "../AxiosFuncs/userAxiosFuncs";
 import { getProjectById, updateProjectById, getUserProjects } from '../AxiosFuncs/projectAxiosFuncs'
-import "./createProject.scss"
+import "./editProject.scss"
 
 const EditProject = (props) => {
   
@@ -108,13 +108,14 @@ const EditProject = (props) => {
     <Container fluid>
       <Form onSubmit={handleSubmit}>
         <div className="inputbox">
-        <Label><strong>Edit Project</strong></Label>
+        <Label id="label1"><strong>Edit Project</strong></Label>
         <FormGroup>
           <Input
             value={formVals.title}
             placeholder="Project Name"
             style={{textAlign: 'center'}}
             className="modalInputs"
+            id="projectEnter"
             type="text"
             name="title"
             bsSize="lg"
@@ -131,6 +132,7 @@ const EditProject = (props) => {
             className="modalInputs2"
             type="select"
             name="user_id"
+            id="listsize"
             bsSize="lg"
           >
              <option
@@ -157,7 +159,7 @@ const EditProject = (props) => {
         </FormGroup>
 
         <FormGroup>
-          <Button className="modalButton">Apply Edit</Button>
+          <Button id="modalButt">Apply Edit</Button>
         </FormGroup>
       </Form>
     </Container>
