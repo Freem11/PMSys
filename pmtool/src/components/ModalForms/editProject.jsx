@@ -14,9 +14,9 @@ const EditProject = (props) => {
 
   const [users, setUsers] = useState("");
   const [locations, setLocations] = useState("");
-  const { user, setUser } = useContext(UserContext);
-  const { project, setProject } = useContext(ProjectContext);
-  const { projects, setProjects } = useContext(ProjectsContext);
+  const { user } = useContext(UserContext);
+  const { setProject } = useContext(ProjectContext);
+  const { setProjects } = useContext(ProjectsContext);
 
 
   const [ formVals, setFormVals ] = useState({

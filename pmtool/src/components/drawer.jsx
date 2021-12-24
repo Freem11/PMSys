@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { UserContext } from "./userContext";
 import { ProjectContext } from './projectContext'
 import { useNavigate, Link } from "react-router-dom";
@@ -281,7 +281,7 @@ export default function MiniDrawer() {
       </Drawer>
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, height: "auto", height: 10000 }}
+        sx={{ flexGrow: 1, p: 3, height: 10000 }}
       >
         <DrawerHeader />
         {Nav === 0 ? <DetailsPage /> : ""}

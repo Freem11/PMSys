@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { UserContext } from "../userContext";
 import { TeamContext } from './teamContext';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -11,23 +10,8 @@ import { deleteUserProject, getTeamByProjectId } from '../AxiosFuncs/teamAxiosFu
 const PositionedMenuTeam = (props) => {
 
   const { project, user1 } = props
-  const { user } = useContext(UserContext);
+
   const { setTeam } = useContext(TeamContext);
-
-  const userFromSession = window.sessionStorage.getItem("user");
-
-  
-  let jUser;
-  if (user[0]) {
-    jUser = JSON.parse(user);
-  } else if (userFromSession) {
-    jUser = JSON.parse(userFromSession);
-  } else {
-    jUser = {
-      id: 0,
-      name: "",
-    };
-  }
 
   const projectFromSession = window.sessionStorage.getItem("project")
     

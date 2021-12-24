@@ -12,7 +12,7 @@ const CreateNewTeamMember = (props) => {
   const [users, setUsers] = useState("");
 
   const { project } = useContext(ProjectContext);
-  const { team, setTeam } = useContext(TeamContext);
+  const { setTeam } = useContext(TeamContext);
 
   useEffect(() => {
     let data = allUsers();
@@ -40,10 +40,10 @@ const CreateNewTeamMember = (props) => {
     };
   }
 
-  const [ formVals, setFormVals ] = useState({
-    project_id: '',
-    user_id: ','
-  });
+  // const [ formVals, setFormVals ] = useState({
+  //   project_id: '',
+  //   user_id: ','
+  // });
 
 
   const handleSubmit = (e) => {
@@ -79,10 +79,11 @@ const CreateNewTeamMember = (props) => {
       <Form>
         <FormGroup >
           <div className="selectbox">
-          <Label for="team"><strong>Add Team Members</strong></Label>
+          <Label for="team"  id="selectLab"><strong>Add Team Members</strong></Label>
           <Input
             className="modalInputs2"
             type="select" 
+            id="selectList"
             multiple
             name="team"
             bsSize="lg"

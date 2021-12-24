@@ -14,8 +14,8 @@ import EditProject from './ModalForms/editProject'
 const PositionedMenu = (props) => {
 
   const { project } = props
-  const { user, setUser } = useContext(UserContext);
-  const { projects, setProjects } = useContext(ProjectsContext);
+  const { user } = useContext(UserContext);
+  const { setProjects } = useContext(ProjectsContext);
 
   const userFromSession = window.sessionStorage.getItem("user");
 

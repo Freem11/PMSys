@@ -1,7 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { Container, Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { UserContext } from "../userContext";
-import { ProjectContext } from "../projectContext";
 import { ProjectsContext } from "../projectsContext";
 import { allUsers } from "../AxiosFuncs/userAxiosFuncs";
 import { registerProject, getUserProjects } from "../AxiosFuncs/projectAxiosFuncs";
@@ -14,9 +13,8 @@ const CreateNewProject = (props) => {
 
   const [users, setUsers] = useState("");
   const [locations, setLocations] = useState("");
-  const { user, setUser } = useContext(UserContext);
-  const { project, setProject } = useContext(ProjectContext);
-  const { projects, setProjects } = useContext(ProjectsContext);
+  const { user } = useContext(UserContext);
+  const { setProjects } = useContext(ProjectsContext);
 
   useEffect(() => {
     let data = allUsers();
