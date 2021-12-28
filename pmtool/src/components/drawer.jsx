@@ -19,6 +19,7 @@ import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import ListItem from "@mui/material/ListItem";
 import QuotesPage from "./quotesPage";
 import DetailsPage from "./detailsPage";
+import SchedulePage from './schedulePage';
 import { Button } from "reactstrap";
 import "./projectsPage.scss";
 
@@ -287,6 +288,7 @@ export default function MiniDrawer() {
         {Nav === 0 ? <DetailsPage /> : ""}
         {Nav === 1 ? <DetailsPage /> : ""}
         {Nav === 2 ? <QuotesPage /> : ""}
+        {Nav === 3 ? <SchedulePage /> : ""}
       </Box>
     </Box>
   );
