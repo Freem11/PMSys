@@ -8,7 +8,7 @@ import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ListItem from "@mui/material/ListItem";
-import { allCivil, allFibre, allCoax } from '../AxiosFuncs/materialAxiosFuncs';
+import { allCivil, allFibre, allCoax, allMaterials, materialtypes } from '../AxiosFuncs/materialAxiosFuncs';
 import "./accordion.scss"
 
 const Accordion = styled((props) => (
@@ -69,53 +69,46 @@ export default function CustomizedAccordions() {
     };
   }
 
-  const [civilMats, setCivilMats] = useState("");
-  const [fibreMats, setFibreMats] = useState("");
-  const [coaxMats, setCoaxMats] = useState("");
+  const [matTypes, setMatTypes] = useState("");
+  const [materials, setMaterials] = useState("");
 
 useEffect(() => {
 
-    let civil = allCivil(jProject.location)
-    Promise.all([civil])
-    .then((response) => {
-        setCivilMats(response[0])
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  let matTypes = materialtypes(jProject.location)
+  Promise.all([matTypes])
+  .then((response) => {
+    setMatTypes(response[0])
+   
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
-    let fibre = allFibre(jProject.location)
-    Promise.all([fibre])
-    .then((response) => {
-        setFibreMats(response[0])
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-
-    let coax = allCoax(jProject.location)
-    Promise.all([coax])
-    .then((response) => {
-        setCoaxMats(response[0])
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  let materials = allMaterials(jProject.location)
+  Promise.all([materials])
+  .then((response) => {
+    setMaterials(response[0])
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
   }, [])
-
-
 
   return (
     <div style={{width: '300px' }}>
         <h3>Available Options</h3>
+        <>
+           {matTypes && matTypes.map((work) => {
+             return(
       <Accordion sx={{borderRadius:'15px', backgroundColor: '#2B2D42', color: 'white'}} expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary   aria-controls="panel1d-content" id="panel1d-header">
-          <Typography >Civil</Typography>
+          <Typography>{work.type}</Typography>
         </AccordionSummary>
         <AccordionDetails sx={{borderRadius: '0 0 15px 15px', backgroundColor: 'rgb(49, 51, 75)', color: 'white'}}>
           <Typography>
-         {civilMats && civilMats.map((material) => {
+         {materials && materials.map((material) => {
+           if (material.type === work.type){
             return (
                 <ListItem
                 className="lister"
@@ -129,60 +122,12 @@ useEffect(() => {
         
                 </ListItem>
             );
-            })}
-
+          } })}
           </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion sx={{borderRadius:'15px', backgroundColor: '#2B2D42', color: 'white'}} expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-          <Typography>Fibre</Typography>
-        </AccordionSummary>
-        <AccordionDetails sx={{borderRadius: '0 0 15px 15px', backgroundColor: 'rgb(49, 51, 75)', color: 'white'}}>
-          <Typography>
-          {fibreMats && fibreMats.map((material) => {
-            return (
-                <ListItem
-                className="lister"
-                onClick={()=>console.log("matts awesome")}
-                key={material.id}
-                >
-                    <div className = "materailListItem">
-                        <div>{material.name}</div>
-                        <div>${material.price}</div>
-                    </div>
-        
-                </ListItem>
-            );
-            })}
-
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion sx={{borderRadius:'15px', backgroundColor: '#2B2D42', color: 'white'}} expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-          <Typography>Coax</Typography>
-        </AccordionSummary>
-        <AccordionDetails sx={{borderRadius: '0 0 15px 15px', backgroundColor: 'rgb(49, 51, 75)', color: 'white'}}>
-          <Typography>
-          {coaxMats && coaxMats.map((material) => {
-            return (
-                <ListItem
-                className="lister"
-                onClick={()=>console.log("matts awesome")}
-                key={material.id}
-                >
-                    <div className = "materailListItem">
-                        <div>{material.name}</div>
-                        <div>${material.price}</div>
-                    </div>
-        
-                </ListItem>
-            );
-            })}
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+        </AccordionDetails> 
+      </Accordion>)
+    })}
+    </>
     </div>
   );
 }

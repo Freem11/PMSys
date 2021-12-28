@@ -2,6 +2,36 @@ const express = require('express');
 const router = express.Router();
 const db = require('../lib/materialQueries')
 
+const getAllMaterials = router.get("/materials/:id", (req, res) => {
+
+    let location = req.params.id
+
+    db.getMaterials(location)
+    .then(zones => {
+        res.json(zones);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message});
+    });
+});
+
+const getMaterialtypes = router.get("/materials/types/:id", (req, res) => {
+
+    let location = req.params.id
+
+    db.getMaterials(location)
+    .then(zones => {
+        res.json(zones);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message});
+    });
+});
+
 const getAllCivil = router.get("/materials/civil/:id", (req, res) => {
 
     let location = req.params.id
@@ -47,4 +77,4 @@ const getAllCoax = router.get("/materials/coax/:id", (req, res) => {
     });
 });
 
-module.exports = { getAllCivil, getAllFibre, getAllCoax }
+module.exports = { getAllCivil, getAllFibre, getAllCoax, getAllMaterials, getMaterialtypes }
