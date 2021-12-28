@@ -8,6 +8,7 @@ const express = require("express"),
   const { getTeam, delTeamMember } = require('./userProjectRoutes')
   const { getZones } = require('./locationRoutes')
   const { getAllCivil, getAllFibre, getAllCoax } = require('./materialRoutes')
+  const { getProjQuote, addProjQuote, updateProjQuote, delQuote } = require('./quoteRoutes')
 
 app.use(express.urlencoded({ extended: true}));
 app.use(bodyParser.urlencoded({ extended: false}));
@@ -43,3 +44,9 @@ app.use(delTeamMember)
 app.use(getAllCivil)
 app.use(getAllFibre)
 app.use(getAllCoax)
+
+//QuoteRoutes
+app.use(getProjQuote)
+app.use(addProjQuote)
+app.use(updateProjQuote)
+app.use(delQuote)

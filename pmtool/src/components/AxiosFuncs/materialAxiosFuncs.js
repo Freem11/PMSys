@@ -1,8 +1,9 @@
 import axios from "axios";
 
- export const allCivil = () => {
+ export const allCivil = (location) => {
+
     return axios
-      .get("http://localhost:5000/materials/civil")
+      .get(`http://localhost:5000/materials/civil/${location}`)
       .then((response) => {
           return response.data;
       })
@@ -11,9 +12,10 @@ import axios from "axios";
       });
   }
 
-  export const allFibre = () => {
+  export const allFibre = (location) => {
+
     return axios
-      .get("http://localhost:5000/materials/fibre")
+      .get(`http://localhost:5000/materials/fibre/${location}`)
       .then((response) => {
           return response.data;
       })
@@ -22,9 +24,10 @@ import axios from "axios";
       });
   }
 
-  export const allCoax = () => {
+  export const allCoax = (location) => {
+
     return axios
-      .get("http://localhost:5000/materials/coax")
+      .get(`http://localhost:5000/materials/coax/${location}`)
       .then((response) => {
           return response.data;
       })
@@ -32,3 +35,4 @@ import axios from "axios";
         return err;
       });
   }
+

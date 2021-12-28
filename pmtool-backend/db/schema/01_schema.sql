@@ -40,3 +40,12 @@ CREATE TABLE materials (
     location VARCHAR(255) NOT NULL,
     price DECIMAL(7,2) NOT NULL
 );
+
+CREATE TABLE quotes (
+    id SERIAL PRIMARY KEY NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL(7,2) NOT NULL,
+    quantity INTEGER NOT NULL,
+    totalcost DECIMAL(12,2) NOT NULL,
+    project_id INTEGER REFERENCES projects(id) ON DELETE CASCADE
+);

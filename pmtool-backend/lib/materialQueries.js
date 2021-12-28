@@ -1,9 +1,9 @@
 const { response } =require("express");
 const db = require("./db");
 
-const getCivil = () => {
+const getCivil = (location) => {
 
-    return db.query(`SELECT * FROM materials WHERE type = civil`)
+    return db.query(`SELECT * FROM materials WHERE type = 'Civil' AND location =$1`,[location])
     .then((response) => {
         return response.rows;
     })
@@ -12,9 +12,9 @@ const getCivil = () => {
     })
 }
 
-const getFibre = () => {
+const getFibre = (location) => {
 
-    return db.query(`SELECT * FROM materials WHERE type = fibre`)
+    return db.query(`SELECT * FROM materials WHERE type = 'Fibre' AND location =$1`,[location])
     .then((response) => {
         return response.rows;
     })
@@ -23,9 +23,9 @@ const getFibre = () => {
     })
 }
 
-const getCoax = () => {
+const getCoax = (location) => {
 
-    return db.query(`SELECT * FROM materials WHERE type = coax`)
+    return db.query(`SELECT * FROM materials WHERE type = 'Coax' AND location =$1`,[location])
     .then((response) => {
         return response.rows;
     })

@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { useState, useContext, useEffect } from "react";
 import { styled } from '@mui/material/styles';
+import { ProjectContext } from '../projectContext'
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ListItem from "@mui/material/ListItem";
-import { getAllCivil, getAllFibre, getAllCoax } from '../AxiosFuncs/materialAxiosFuncs';
+import { allCivil, allFibre, allCoax } from '../AxiosFuncs/materialAxiosFuncs';
+import "./accordion.scss"
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -52,34 +54,49 @@ export default function CustomizedAccordions() {
     setExpanded(newExpanded ? panel : false);
   };
 
+  const { project } = useContext(ProjectContext);
+  const projectFromSession = window.sessionStorage.getItem("project")
+
+  let jProject
+  if (project[0]) {
+    jProject = project[0];
+  } else if (projectFromSession) {
+    jProject = JSON.parse(projectFromSession);
+  } else {
+    jProject = {
+      id: 0,
+      name: "",
+    };
+  }
+
   const [civilMats, setCivilMats] = useState("");
   const [fibreMats, setFibreMats] = useState("");
   const [coaxMats, setCoaxMats] = useState("");
 
 useEffect(() => {
 
-    let civil = getAllCivil()
+    let civil = allCivil(jProject.location)
     Promise.all([civil])
     .then((response) => {
-        setCivilMats(response[0].data)
+        setCivilMats(response[0])
     })
     .catch((error) => {
       console.log(error);
     });
 
-    let fibre = getAllFibre()
+    let fibre = allFibre(jProject.location)
     Promise.all([fibre])
     .then((response) => {
-        setFibreMats(response[0].data)
+        setFibreMats(response[0])
     })
     .catch((error) => {
       console.log(error);
     });
 
-    let coax = getAllCoax()
+    let coax = allCoax(jProject.location)
     Promise.all([coax])
     .then((response) => {
-        setCoaxMats(response[0].data)
+        setCoaxMats(response[0])
     })
     .catch((error) => {
       console.log(error);
@@ -88,16 +105,31 @@ useEffect(() => {
   }, [])
 
 
+
   return (
     <div style={{width: '300px' }}>
+        <h3>Available Options</h3>
       <Accordion sx={{borderRadius:'15px', backgroundColor: '#2B2D42', color: 'white'}} expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary   aria-controls="panel1d-content" id="panel1d-header">
           <Typography >Civil</Typography>
         </AccordionSummary>
         <AccordionDetails sx={{borderRadius: '0 0 15px 15px', backgroundColor: 'rgb(49, 51, 75)', color: 'white'}}>
           <Typography>
-
-                <ListItem>Placeholder 1</ListItem>
+         {civilMats && civilMats.map((material) => {
+            return (
+                <ListItem
+                className="lister"
+                onClick={()=>console.log("matts awesome")}
+                key={material.id}
+                >
+                    <div className = "materailListItem" >
+                        <div >{material.name}</div>
+                        <div>${material.price}</div>
+                    </div>
+        
+                </ListItem>
+            );
+            })}
 
           </Typography>
         </AccordionDetails>
@@ -108,8 +140,21 @@ useEffect(() => {
         </AccordionSummary>
         <AccordionDetails sx={{borderRadius: '0 0 15px 15px', backgroundColor: 'rgb(49, 51, 75)', color: 'white'}}>
           <Typography>
-
-                <ListItem>Placeholder 2</ListItem>
+          {fibreMats && fibreMats.map((material) => {
+            return (
+                <ListItem
+                className="lister"
+                onClick={()=>console.log("matts awesome")}
+                key={material.id}
+                >
+                    <div className = "materailListItem">
+                        <div>{material.name}</div>
+                        <div>${material.price}</div>
+                    </div>
+        
+                </ListItem>
+            );
+            })}
 
           </Typography>
         </AccordionDetails>
@@ -120,9 +165,21 @@ useEffect(() => {
         </AccordionSummary>
         <AccordionDetails sx={{borderRadius: '0 0 15px 15px', backgroundColor: 'rgb(49, 51, 75)', color: 'white'}}>
           <Typography>
-            
-                 <ListItem>Placeholder 3</ListItem>
-
+          {coaxMats && coaxMats.map((material) => {
+            return (
+                <ListItem
+                className="lister"
+                onClick={()=>console.log("matts awesome")}
+                key={material.id}
+                >
+                    <div className = "materailListItem">
+                        <div>{material.name}</div>
+                        <div>${material.price}</div>
+                    </div>
+        
+                </ListItem>
+            );
+            })}
           </Typography>
         </AccordionDetails>
       </Accordion>
