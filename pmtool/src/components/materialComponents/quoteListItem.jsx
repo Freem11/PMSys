@@ -19,9 +19,9 @@ const TeamListItem = (props) => {
             <div id='teamBox'>
             <div id='listItems2'style={{width:190}}>{name}</div> 
             <div id='listItems2'style={{width:100}}>${price}</div> 
-            <div data-value={quantity} id='listItems2'style={{backgroundColor: 'rgb(57, 60, 87)', borderRadius: 5}} contenteditable="true">{quantity}</div> 
+            <div data-value={quantity} id='listItems3'style={{backgroundColor: 'rgb(57, 60, 87)', borderRadius: 5}} contenteditable="true">{quantity}</div> 
             <div id='listItems2'style={{width:100}}>${cost}</div> 
-            <div id='teamTog'>
+            <div id='teamTg'>
                 <PositionedMenuTeam
                 partId={id}
                 />

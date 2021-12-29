@@ -103,8 +103,6 @@ useEffect(() => {
     let quantity = 1
     let cost = quantity * price
 
-    console.log(name, price, quantity, cost, jProject.id)
-
    let quoteItem = addQuote({name, price, quantity, cost, id: jProject.id})
 
     Promise.all([quoteItem])

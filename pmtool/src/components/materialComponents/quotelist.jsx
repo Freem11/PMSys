@@ -59,7 +59,14 @@ function Quotelist() {
 
     return (
         <div>
+            
             <ul id='teamList2'>
+                <div className="listHeader">
+                    <p style={{width: '190px', marginLeft: '10px', color: 'white'}}>Item</p>
+                    <p style={{width: '100px', marginLeft: '5px', color: 'white'}}>Price</p>
+                    <p style={{width: '45px', marginLeft: '5px', color: 'white'}}>Qty</p>
+                    <p style={{width: '100px', marginLeft: '10px', color: 'white'}}>Cost</p>
+                </div>
                 <p>{list}</p>
             </ul>
         </div>

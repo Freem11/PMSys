@@ -27,7 +27,6 @@ let jProject;
       };
     }
 
-    console.log(jProject)
   let project1 = jProject[0].id
 
   const [anchorEl, setAnchorEl] = useState(null);
