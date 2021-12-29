@@ -50,7 +50,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 export default function CustomizedAccordions() {
-  const [expanded, setExpanded] = React.useState('panel1');
+  const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -134,11 +134,11 @@ useEffect(() => {
 
   return (
     <div style={{width: '300px' }}>
-        <h3>Available Options</h3>
+        <h3 style={{marginLeft: 7}}>Available Options</h3>
         <>
            {matTypes && matTypes.map((work) => {
              return(
-      <Accordion sx={{borderRadius:'15px', backgroundColor: '#2B2D42', color: 'white'}} expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+      <Accordion sx={{borderRadius:'15px', backgroundColor: '#2B2D42', color: 'white'}} expanded={expanded === work.id} onChange={handleChange(work.id)}>
         <AccordionSummary   aria-controls="panel1d-content" id="panel1d-header">
           <Typography>{work.type}</Typography>
         </AccordionSummary>

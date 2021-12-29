@@ -7,6 +7,7 @@ import { getTeamByProjectId } from './AxiosFuncs/teamAxiosFuncs'
 import { userById } from './AxiosFuncs/userAxiosFuncs'
 import CustomizedAccordions from './materialComponents/accordion'
 import QuoteList from './materialComponents/quotelist'
+import "./quotesPage.scss"; 
 
 const QuotesPage = () => {
 
@@ -42,8 +43,10 @@ const QuotesPage = () => {
       <QuoteContext.Provider value={{quote, setQuote}}>
         <div>
           <h2>Quotes: </h2>
-          <CustomizedAccordions/>
-          <QuoteList/>
+            <div className="quoteBox">
+              <CustomizedAccordions/>
+              <QuoteList/>
+            </div>
         </div>
       </QuoteContext.Provider>
     )
