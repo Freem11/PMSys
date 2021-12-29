@@ -1,19 +1,20 @@
 import React, { useState, useContext } from 'react';
 import { ProjectContext } from '../projectContext'
-import { QuoteContext } from './quoteContext'
+import { QuoteContext, QuoteCostContext } from './quoteContext'
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreRounded'
 import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteQuoteItem, allQuote } from '../AxiosFuncs/quoteAxiosFuncs'
+import { deleteQuoteItem, allQuote, quoteTotal } from '../AxiosFuncs/quoteAxiosFuncs'
 
 const PositionedMenuTeam = (props) => {
 
   const { partId } = props
   const { project } = useContext(ProjectContext);
   const projectFromSession = window.sessionStorage.getItem("project")
-  const { quote, setQuote } = useContext(QuoteContext);
+  const { setQuote } = useContext(QuoteContext);
+  const { setQuoteCosts } = useContext(QuoteCostContext);
 
 let jProject;
     if (project.length > 0) {
@@ -49,6 +50,16 @@ let jProject;
           Promise.all([list])
           .then((response) => {
           setQuote(response[0])
+
+          let total = quoteTotal(jProject[0].id)
+
+          Promise.all([total])
+          .then((response) => {
+              setQuoteCosts(response[0].sum) 
+          })
+          .catch((error) => {
+              console.log(error);
+          });
     })
     .catch((error) => {
       console.log(error);

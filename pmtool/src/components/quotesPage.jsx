@@ -1,10 +1,8 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState } from 'react'
 import { UserContext } from './userContext'
 import { ProjectContext } from './projectContext'
-import { QuoteContext } from './materialComponents/quoteContext'
+import { QuoteContext, QuoteCostContext} from './materialComponents/quoteContext'
 import { useNavigate } from "react-router-dom";
-import { getTeamByProjectId } from './AxiosFuncs/teamAxiosFuncs'
-import { userById } from './AxiosFuncs/userAxiosFuncs'
 import CustomizedAccordions from './materialComponents/accordion'
 import QuoteList from './materialComponents/quotelist'
 import "./quotesPage.scss"; 
@@ -12,9 +10,10 @@ import "./quotesPage.scss";
 const QuotesPage = () => {
 
     let navigate = useNavigate();
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const { project } = useContext(ProjectContext);
     const [ quote, setQuote ] = useState('');
+    const [ quoteCosts, setQuoteCosts ] = useState('');
 
     const userFromSession = window.sessionStorage.getItem("user")
   
@@ -41,6 +40,7 @@ const QuotesPage = () => {
     
     return(
       <QuoteContext.Provider value={{quote, setQuote}}>
+        <QuoteCostContext.Provider value={{quoteCosts, setQuoteCosts}}>
         <div>
           <h2>Quotes: </h2>
             <div className="quoteBox">
@@ -48,6 +48,7 @@ const QuotesPage = () => {
               <QuoteList/>
             </div>
         </div>
+        </QuoteCostContext.Provider>
       </QuoteContext.Provider>
     )
 

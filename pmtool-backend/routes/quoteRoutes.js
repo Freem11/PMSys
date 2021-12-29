@@ -67,4 +67,19 @@ const delQuote = router.delete("/quote/delete/:id", (req, res) => {
     });
 });
 
-module.exports = { getProjQuote, addProjQuote, updateProjQuote, delQuote }
+const getQuoteCosts = router.get("/quotes/total/:id", (req, res) => {
+
+    let projId = req.params.id
+
+    db.getQuoteTotalCost(projId)
+    .then(zones => {
+        console.log("Route", zones)
+        res.json(zones);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message});
+    });
+});
+module.exports = { getProjQuote, addProjQuote, updateProjQuote, delQuote, getQuoteCosts }

@@ -1,13 +1,15 @@
 // import PositionedMenuTeam from './teamPopUp'
-import { useState, useEffect } from 'react'
-import { Button, Form, FormGroup, Input } from "reactstrap";
-import { allQuote, addQuote, updateQuote, deleteQuoteItem } from '../AxiosFuncs/quoteAxiosFuncs'
+import { useState, useContext } from 'react'
+import { Form, FormGroup, Input } from "reactstrap";
+import { QuoteCostContext } from './quoteContext'
+import { updateQuote, quoteTotal } from '../AxiosFuncs/quoteAxiosFuncs'
 import PositionedMenuTeam from './quotePopUp'
 import "./quoteList.scss";
 
 const TeamListItem = (props) => {
 
     const { id, name, price, quantity, cost, projId } = props
+    const { setQuoteCosts } = useContext(QuoteCostContext);
 
     const [ formVals, setFormVals ] = useState({
         id: id,
@@ -31,10 +33,24 @@ const TeamListItem = (props) => {
   
         Promise.all([updated])
         .then((response) => {
+
+            let total = quoteTotal(projId)
+
+            Promise.all([total])
+            .then((response) => {
+                setQuoteCosts(response[0].sum) 
+            })
+            .catch((error) => {
+                console.log(error);
+            });
           })
           .catch((error) => {
             console.log(error);
           });
+
+      
+
+
       };
 
     return (
@@ -53,7 +69,7 @@ const TeamListItem = (props) => {
                     <div
                     value={formVals.price}
                     id='listItems2'
-                    style={{width: 100}}
+                    style={{justifyContent: 'right', width: 100}}
                     >${formVals.price}
                     </div>
                 </FormGroup>
@@ -70,7 +86,7 @@ const TeamListItem = (props) => {
                     <div
                     value={formVals.cost}
                     id='listItems2'
-                    style={{width: 100}}
+                    style={{justifyContent: 'right', width: 100}}
                     >${formVals.cost}
                     </div>
                 </FormGroup>

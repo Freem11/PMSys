@@ -56,3 +56,16 @@ export const deleteQuoteItem = (id) => {
       return err;
     });
 };
+
+export const quoteTotal = (projId) => {
+ 
+  return axios
+    .get(`http://localhost:5000/quotes/total/${projId}`)
+    .then((response) => {
+      console.log("axios", response.data[0])
+      return response.data[0];
+    })
+    .catch((err) => {
+      return err;
+    });
+};

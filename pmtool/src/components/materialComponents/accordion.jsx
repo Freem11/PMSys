@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useContext, useEffect } from "react";
 import { styled } from '@mui/material/styles';
 import { ProjectContext } from '../projectContext'
-import { QuoteContext } from './quoteContext'
+import { QuoteContext, QuoteCostContext } from './quoteContext'
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
@@ -10,7 +10,7 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ListItem from "@mui/material/ListItem";
 import { allMaterials, materialtypes } from '../AxiosFuncs/materialAxiosFuncs';
-import { allQuote, addQuote } from '../AxiosFuncs/quoteAxiosFuncs'
+import { allQuote, addQuote, quoteTotal } from '../AxiosFuncs/quoteAxiosFuncs'
 import "./accordion.scss"
 
 const Accordion = styled((props) => (
@@ -73,7 +73,8 @@ export default function CustomizedAccordions() {
 
   const [matTypes, setMatTypes] = useState("");
   const [materials, setMaterials] = useState("");
-  const { quote, setQuote } = useContext(QuoteContext);
+  const { setQuote } = useContext(QuoteContext);
+  const { setQuoteCosts } = useContext(QuoteCostContext);
 
 useEffect(() => {
 
@@ -117,6 +118,16 @@ useEffect(() => {
       Promise.all([bigQ])
       .then((response3) => {
         setQuote(response3[0])
+
+        let total = quoteTotal(jProject.id)
+
+        Promise.all([total])
+        .then((response) => {
+            setQuoteCosts(response[0].sum) 
+        })
+        .catch((error) => {
+            console.log(error);
+        });
       })
       .catch((error) => {
         console.log(error);
