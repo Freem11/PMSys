@@ -17,8 +17,8 @@ export const addQuote = (info) => {
       name: info.name,
       price: info.price,
       quantity: info.quantity,
-      totalcost: info.totalcost,
-      projId: info.projId,
+      totalcost: info.cost,
+      projId: info.id,
     })
     .then((response) => {
       return response.data[0];

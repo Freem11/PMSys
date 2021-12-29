@@ -27,10 +27,10 @@ INSERT INTO locations(name)
 VALUES ('Calgary'), ('Edmonton'), ('Regina'), ('Vancouver'), ('Victoria');
 
 INSERT INTO materials(name, type, location, price)
-VALUES ('S-400 Node', 'Fibre', 'Vancouver', 1000.00),
+VALUES ('S-4000 Node', 'Fibre', 'Vancouver', 1000.00),
 ('QR 540', 'Coax', 'Vancouver', 12.99),
 ('QR 540', 'Coax', 'Calgary', 11.96),
 ('QR 540', 'Coax', 'Victoria', 10.64),
 ('1.5 SV', 'Civil', 'Calgary', 564.50),
 ('1.2 SV', 'Civil', 'Vancouver', 446.81),
-('S-400 Node', 'Fibre', 'Calgary', 1000.00);
+('S-4000 Node', 'Fibre', 'Calgary', 1000.00);

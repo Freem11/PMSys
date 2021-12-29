@@ -1,17 +1,19 @@
 import { useContext, useState, useEffect } from 'react'
 import { UserContext } from './userContext'
 import { ProjectContext } from './projectContext'
+import { QuoteContext } from './materialComponents/quoteContext'
 import { useNavigate } from "react-router-dom";
 import { getTeamByProjectId } from './AxiosFuncs/teamAxiosFuncs'
 import { userById } from './AxiosFuncs/userAxiosFuncs'
 import CustomizedAccordions from './materialComponents/accordion'
+import QuoteList from './materialComponents/quotelist'
 
 const QuotesPage = () => {
 
     let navigate = useNavigate();
     const { user, setUser } = useContext(UserContext);
     const { project } = useContext(ProjectContext);
-    const [ team, setTeam ] = useState('');
+    const [ quote, setQuote ] = useState('');
 
     const userFromSession = window.sessionStorage.getItem("user")
   
@@ -36,16 +38,14 @@ const QuotesPage = () => {
       };
     }
     
-    useEffect(() => {
-
-
-      }, [])
-
     return(
+      <QuoteContext.Provider value={{quote, setQuote}}>
         <div>
           <h2>Quotes: </h2>
           <CustomizedAccordions/>
+          <QuoteList/>
         </div>
+      </QuoteContext.Provider>
     )
 
 }

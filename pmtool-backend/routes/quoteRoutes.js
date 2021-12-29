@@ -4,8 +4,8 @@ const db = require('../lib/quoteQueries')
 
 const getProjQuote = router.get("/quotes/:id", (req, res) => {
 
-    let projId = req.params.projId
-
+    let projId = req.params.id
+    
     db.getProjectQuote(projId)
     .then(zones => {
         res.json(zones);

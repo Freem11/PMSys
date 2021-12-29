@@ -2,13 +2,15 @@ import * as React from 'react';
 import { useState, useContext, useEffect } from "react";
 import { styled } from '@mui/material/styles';
 import { ProjectContext } from '../projectContext'
+import { QuoteContext } from './quoteContext'
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ListItem from "@mui/material/ListItem";
-import { allCivil, allFibre, allCoax, allMaterials, materialtypes } from '../AxiosFuncs/materialAxiosFuncs';
+import { allMaterials, materialtypes } from '../AxiosFuncs/materialAxiosFuncs';
+import { allQuote, addQuote } from '../AxiosFuncs/quoteAxiosFuncs'
 import "./accordion.scss"
 
 const Accordion = styled((props) => (
@@ -71,6 +73,7 @@ export default function CustomizedAccordions() {
 
   const [matTypes, setMatTypes] = useState("");
   const [materials, setMaterials] = useState("");
+  const { quote, setQuote } = useContext(QuoteContext);
 
 useEffect(() => {
 
@@ -95,6 +98,42 @@ useEffect(() => {
 
   }, [])
 
+  const twoX = (name, price) => {
+
+    let quantity = 1
+    let cost = quantity * price
+
+    console.log(name, price, quantity, cost, jProject.id)
+
+   let quoteItem = addQuote({name, price, quantity, cost, id: jProject.id})
+
+    Promise.all([quoteItem])
+    .then((response) => {
+      let data = allMaterials(jProject.location)
+        
+    Promise.all([data])
+    .then((response2) => {
+      setMaterials(response2[0]);
+
+      let bigQ = allQuote(jProject.id)
+      Promise.all([bigQ])
+      .then((response3) => {
+        setQuote(response3[0])
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+}
+
   return (
     <div style={{width: '300px' }}>
         <h3>Available Options</h3>
@@ -112,7 +151,7 @@ useEffect(() => {
             return (
                 <ListItem
                 className="lister"
-                onClick={()=>console.log("matts awesome")}
+                onClick={()=>twoX(work.name, work.price)}
                 key={material.id}
                 >
                     <div className = "materailListItem" >
