@@ -29,7 +29,7 @@ function Quotelist() {
         let quote = allQuote(jProject.id)
         Promise.all([quote])
         .then((response) => {
-
+            console.log(response)
           setQuote(response[0]) 
         })
         .catch((error) => {
@@ -49,7 +49,7 @@ function Quotelist() {
                 price={item.price}
                 quantity={item.quantity}
                 cost={item.totalcost}
-                projId={item.projId}
+                projId={item.project_id}
                 />
             );
         });
@@ -62,10 +62,10 @@ function Quotelist() {
              <h3 style={{marginLeft: 7}} >My Quote</h3>
             <ul id='teamList2'>
                 <div className="listHeader">
-                    <p style={{width: '190px', marginLeft: '10px', color: 'white', wordWrap: 'break-word'}}><strong>Item</strong></p>
-                    <p style={{width: '100px', marginLeft: '5px', color: 'white'}}><strong>Price</strong></p>
+                    <p style={{width: '190px', marginLeft: '15px', color: 'white', wordWrap: 'break-word'}}><strong>Item</strong></p>
+                    <p style={{width: '100px', marginLeft: '7px', color: 'white'}}><strong>Price</strong></p>
                     <p style={{width: '45px', marginLeft: '5px', color: 'white'}}><strong>Qty</strong></p>
-                    <p style={{width: '100px', marginLeft: '10px', color: 'white'}}><strong>Cost</strong></p>
+                    <p style={{width: '100px', marginLeft: '12px', color: 'white'}}><strong>Cost</strong></p>
                 </div>
                 <p>{list}</p>
             </ul>

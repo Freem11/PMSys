@@ -40,7 +40,7 @@ const updateProjQuote = router.post("/quote/edit", (req, res) => {
 
     let numb =req.body.quantity
     let Tc = req.body.totalcost
-    let itemId = req.body.itemId
+    let itemId = req.body.id
     let projId = req.body.projId
 
     db.updateQuoteItem(numb, Tc, itemId, projId)

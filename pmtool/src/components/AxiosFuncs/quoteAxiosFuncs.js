@@ -12,6 +12,7 @@ export const allQuote = (projId) => {
 };
 
 export const addQuote = (info) => {
+
   return axios
     .post(`http://localhost:5000/quote`, {
       name: info.name,
@@ -29,11 +30,14 @@ export const addQuote = (info) => {
 };
 
 export const updateQuote = (info) => {
+
   return axios
     .post(`http://localhost:5000/quote/edit`, {
+      id: info.id,
+      name: info.name,
+      price: info.price,
       quantity: info.quantity,
-      totalcost: info.totalcost,
-      itemId: info.itemId,
+      totalcost: info.cost,
       projId: info.projId,
     })
     .then((response) => {
