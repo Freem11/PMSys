@@ -20,7 +20,7 @@ const TeamListItem = (props) => {
 
     const handleChange = (e) => {
     
-        let cst = price * Number(e.target.value)
+        let cst = Math.round((price * Number(e.target.value)) *100) /100
         setFormVals({id: id, name: name, price: price, quantity: e.target.value, cost: cst, projId: projId})
     };
 

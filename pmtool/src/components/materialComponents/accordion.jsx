@@ -77,8 +77,8 @@ export default function CustomizedAccordions() {
 
 useEffect(() => {
 
-  let matTypes = materialtypes(jProject.location)
-  Promise.all([matTypes])
+  let matsTypes = materialtypes(jProject.location)
+  Promise.all([matsTypes])
   .then((response) => {
     setMatTypes(response[0])
    
@@ -131,14 +131,14 @@ useEffect(() => {
   });
 
 }
-
+console.log("this", matTypes)
   return (
     <div style={{width: '300px' }}>
         <h3 style={{marginLeft: 7}}>Available Options</h3>
         <>
            {matTypes && matTypes.map((work) => {
              return(
-      <Accordion sx={{borderRadius:'15px', backgroundColor: '#2B2D42', color: 'white'}} expanded={expanded === work.id} onChange={handleChange(work.id)}>
+      <Accordion sx={{borderRadius:'15px', backgroundColor: '#2B2D42', color: 'white'}} expanded={expanded === work.type} onChange={handleChange(work.type)}>
         <AccordionSummary   aria-controls="panel1d-content" id="panel1d-header">
           <Typography>{work.type}</Typography>
         </AccordionSummary>
@@ -149,7 +149,7 @@ useEffect(() => {
             return (
                 <ListItem
                 className="lister"
-                onClick={()=>twoX(work.name, work.price)}
+                onClick={()=>twoX(material.name, material.price)}
                 key={material.id}
                 >
                     <div className = "materailListItem" >

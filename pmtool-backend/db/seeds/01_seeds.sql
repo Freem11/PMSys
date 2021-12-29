@@ -33,4 +33,7 @@ VALUES ('S-4000 Node', 'Fibre', 'Vancouver', 1000.00),
 ('QR 540', 'Coax', 'Victoria', 10.64),
 ('1.5 SV', 'Civil', 'Calgary', 564.50),
 ('1.2 SV', 'Civil', 'Vancouver', 446.81),
+('2inch Conduit', 'Civil', 'Vancouver', 32.65),
+('4inch Conduit', 'Civil', 'Vancouver', 64.24),
+('QR 860', 'Coax', 'Vancouver', 22.45),
 ('S-4000 Node', 'Fibre', 'Calgary', 1000.00);

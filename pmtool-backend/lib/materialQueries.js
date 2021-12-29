@@ -14,7 +14,7 @@ const getMaterials = (location) => {
 
 const getMaterialTypes = (location) => {
 
-    return db.query(`SELECT DISTINCT(type) FROM materials WHERE location =$1`,[location])
+    return db.query(`SELECT DISTINCT type FROM materials WHERE location =$1`,[location])
     .then((response) => {
         return response.rows;
     })

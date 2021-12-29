@@ -21,7 +21,7 @@ const getMaterialtypes = router.get("/materials/types/:id", (req, res) => {
 
     let location = req.params.id
 
-    db.getMaterials(location)
+    db.getMaterialTypes(location)
     .then(zones => {
         res.json(zones);
     })
