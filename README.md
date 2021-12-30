@@ -24,6 +24,7 @@ Build out a proposed labour and materials list that outlines proposed total cost
 
 
 In Progress Features:
+
 Gantt chart
 
 
