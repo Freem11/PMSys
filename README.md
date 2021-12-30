@@ -32,4 +32,4 @@ Planned Features:
 
 Map view of projects (polygon for footprint of construction project sites)
 
-Material ordering using the inital planned materials & labour list which then reduced amonut left in the budget as materials and labour are issued
+Material ordering using the inital planned materials & labour list which then reduced amount left in the budget as materials and labour are issued
