@@ -1,7 +1,10 @@
 # PMSys (working title) 
 Is a Project Management Sytem I have wanted to build for years
+
 The aim is have this app follow the "living document" philosophy common in project managment
+
 This means that work done in the early stages will be reusable as you progress to later stages 
+
 
 Current Features:
 
@@ -19,8 +22,10 @@ Start a project plan based on labour and materials, materials list is keyed to l
 
 Build out a proposed labour and materials list that outlines proposed total cost for the project
 
+
 In Progress Features:
 Gantt chart
+
 
 Planned Features:
 
