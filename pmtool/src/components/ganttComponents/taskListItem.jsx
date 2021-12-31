@@ -42,16 +42,8 @@ const TeamListItem = (props) => {
         //   });
       };
 
-      const isProject = () => {
-          if (formVals.type === 'project') {
-              return 'false'
-          } else {
-              return 'true'
-          }
-      }
-
-      const isNotProject = () => {
-        if (formVals.type !== 'project') {
+      const isNotProject = (e) => {
+        if (e.target.type !== 'project') {
             return 'false'
         } else {
             return 'true'
@@ -64,13 +56,13 @@ const TeamListItem = (props) => {
                 <Form id='teamBox2' onSubmit={handleSubmit}>
                     <Input id='inpt' value={formVals.name} style={{minWidth: '120px', maxWidth: '120px'}}>{formVals.name} - </Input>
                     <Input id='inpt' onChange={handleChange} name='type' style={{minWidth: '70px', maxWidth: '70px'}} value={formVals.type}>{formVals.type} - </Input>
-                    <Input id='inpt' onChange={handleChange} name='start' type='date' style={{minWidth: '160px', maxWidth: '160px'}} value={formVals.start.substring(0,10)} contentEditable={isProject}>{formVals.start} - </Input>
-                    <Input id='inpt' onChange={handleChange} name='end' type='date' style={{minWidth: '160px', maxWidth: '160px'}}value={formVals.end.substring(0,10)} contentEditable={isProject}>{formVals.end} - </Input>
-                    <Input id='inpt' onChange={handleChange} name='progress' value={formVals.progress} style={{minWidth: '60px', maxWidth: '60px', textAlign: 'center'}} contentEditable={isProject}>{formVals.progress} - </Input>
+                    <Input id='inpt' readOnly={formVals.type === 'project' ? true : false} onChange={handleChange} name='start' type='date' style={{minWidth: '160px', maxWidth: '160px'}} value={formVals.start.substring(0,10)}>{formVals.start} - </Input>
+                    <Input id='inpt' readOnly={formVals.type === 'project' ? true : false} onChange={handleChange} name='end' type='date' style={{minWidth: '160px', maxWidth: '160px'}}value={formVals.end.substring(0,10)}>{formVals.end} - </Input>
+                    <Input id='inpt' readOnly={formVals.type === 'project' ? true : false} onChange={handleChange} name='progress' value={formVals.progress} style={{minWidth: '60px', maxWidth: '60px', textAlign: 'center'}}>{formVals.progress} - </Input>
                     <Input id='inpt' onChange={handleChange} name='dependencies' style={{minWidth: '100px', maxWidth: '100px'}} value={formVals.dependencies}>{formVals.dependencies} - </Input>
-                    <Input id='inpt' onChange={handleChange} name='barChildren' style={{minWidth: '100px', maxWidth: '100px'}} value={formVals.barChildren} contentEditable={isNotProject}>{formVals.barChildren} - </Input>
-                    <Input id='inpt' onChange={handleChange} name='hideChildren' style={{minWidth: '60px', maxWidth: '60px'}}value={formVals.hideChildren} contentEditable={isNotProject}>{formVals.hideChildren} - </Input>
-                    <div id='inpt' style={{width: 89, backgroundColor: 'rgb(57, 60, 87)', paddingRight: '20px', marginLeft: '-9px'}}>
+                    <Input id='inpt' readOnly={formVals.type !== 'project' ? true : false} onChange={handleChange} name='barChildren' style={{minWidth: '100px', maxWidth: '100px'}} value={formVals.barChildren}>{formVals.barChildren} - </Input>
+                    <Input id='inpt' readOnly={formVals.type !== 'project' ? true : false} onChange={handleChange} name='hideChildren' style={{minWidth: '60px', maxWidth: '60px'}}value={formVals.hideChildren}>{formVals.hideChildren} - </Input>
+                    <div id='inpt' style={{width: 79, backgroundColor: 'rgb(57, 60, 87)', paddingRight: '20px', marginLeft: '-9px'}}>
                         <PositionedMenuTeam
                         partId={id}
                         />

@@ -154,13 +154,14 @@ function SchedulePage() {
               expandToMin={false}
               gutterSize={10}
               gutterAlign="center"
-              snapOffset={30}
+              snapOffset={0}
               dragInterval={1}
               direction="horizontal"
               cursor="col-resize"
               sizes={[20,80]}
               maxSize={[610]}
-              style={{display: 'flex', flexDirection: 'row'}}>
+              style={{display: 'flex', flexDirection: 'row', height: 'auto'}}
+              >
      <div> 
        <GanttTable/>
      </div>
