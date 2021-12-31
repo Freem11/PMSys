@@ -1,11 +1,11 @@
 
-#teamList2{
+#teamList3{
     background-color: #2B2D42;
-    border-radius: 10px ;
+    border-radius: 15px 0 0 15px ;
     list-style-type: none;
-    width: 700px;
+    width: 680px;
     padding: 10px;
-    margin-right: 20px;
+    padding-right: -10px;
 }
 
 #teamHead{
@@ -15,10 +15,15 @@
     
 }
 
-#teamBox{
+#teamBox3{
+    width: 120%;
+}
+
+#teamBox2{
     display: flex;
     flex-direction: row;
     margin-top: -5;
+    width: 100%;
 }
 
 #listItems3 {
@@ -59,8 +64,9 @@
     margin-top: -5px;
 }
 
-.teamL{
+.teamL2{
     margin-bottom: -5;
+    margin-left: 10px;
 }
 
 #plusbutton{
@@ -71,10 +77,14 @@
     background-color: rgb(175, 205, 117);;
 }
 
-.listHeader{
+.listHeader2{
     display: flex;
     flex-direction: row;
-    margin-bottom: -10px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: -20px;
+    background-color: rgb(57, 60, 87);
+    width: 110%;
 }
 
 .totbox{
@@ -82,4 +92,15 @@
     flex-direction: row;
     // justify-content: right;
     // text-align: right;
+}
+
+#inpt{
+    background-color: rgb(57, 60, 87);
+    border: 5px transparent;
+    color: white;
+    font-size: 15px; 
+    margin: 0px;
+    height: 50px;
+    padding-left: 10px;
+    
 }

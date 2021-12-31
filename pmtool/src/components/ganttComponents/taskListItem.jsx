@@ -55,25 +55,18 @@ const TeamListItem = (props) => {
     }
 
     return (
-        <li id={id} className='teamL'>
-            <div id='teamBox'>
-                <Form id='teamBox' onSubmit={handleSubmit}>
-                <FormGroup>
-                    <div
-                    value={formVals.name}
-                    id='listItems2'
-                    style={{width: 110}}
-                    >{formVals.name}
-                    </div>
-                </FormGroup>
-                <Input value={formVals.type} style={{width: 50}}>{formVals.type} - </Input>
-                <Input value={formVals.start.substring(0,10)} style={{width: 80}} contentEditable={isProject}>{formVals.start} - </Input>
-                <Input value={formVals.end.substring(0,10)} style={{width: 80}} contentEditable={isProject}>{formVals.end} - </Input>
-                <Input value={formVals.progress} style={{width: 40}} contentEditable={isProject}>{formVals.progress} - </Input>
-                <Input value={formVals.dependencies} style={{width: 100}}>{formVals.dependencies} - </Input>
-                <Input value={formVals.barChildren} style={{width: 100}} contentEditable={isNotProject}>{formVals.barChildren} - </Input>
-                <Input value={formVals.hideChildren} style={{width: 40}} contentEditable={isNotProject}>{formVals.hideChildren} - </Input>
-                    <div id='teamTg'>
+        <li id={id} className='teamL2'>
+            <div id='teamBox3'>
+                <Form id='teamBox2' onSubmit={handleSubmit}>
+                    <Input id='inpt' value={formVals.name} style={{width: 100}}>{formVals.name} - </Input>
+                    <Input id='inpt' value={formVals.type} style={{width: 50}}>{formVals.type} - </Input>
+                    <Input id='inpt' value={formVals.start.substring(0,10)} style={{width: 80}} contentEditable={isProject}>{formVals.start} - </Input>
+                    <Input id='inpt' value={formVals.end.substring(0,10)} style={{width: 80}} contentEditable={isProject}>{formVals.end} - </Input>
+                    <Input id='inpt' value={formVals.progress} style={{width: 40}} contentEditable={isProject}>{formVals.progress} - </Input>
+                    <Input id='inpt' value={formVals.dependencies} style={{width: 100}}>{formVals.dependencies} - </Input>
+                    <Input id='inpt'value={formVals.barChildren} style={{width: 100}} contentEditable={isNotProject}>{formVals.barChildren} - </Input>
+                    <Input id='inpt' value={formVals.hideChildren} style={{width: 40}} contentEditable={isNotProject}>{formVals.hideChildren} - </Input>
+                    <div id='inpt' style={{width: 120, backgroundColor: 'rgb(57, 60, 87)', paddingRight: '20px'}}>
                         <PositionedMenuTeam
                         partId={id}
                         />

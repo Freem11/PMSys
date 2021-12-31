@@ -60,9 +60,9 @@ function GanttTable() {
         }
     return (
         <div>
-        <h3 style={{marginLeft: 7}} >My Quote</h3>
-       <ul id='teamList2'>
-           <div className="listHeader">
+   
+       <ul id='teamList3'>
+           <div className="listHeader2">
                <p style={{width: '110px', marginLeft: '15px', color: 'white', wordWrap: 'break-word'}}><strong>Task</strong></p>
                <p style={{width: '80px', marginLeft: '-5px', color: 'white'}}><strong>Type</strong></p>
                <p style={{width: '80px', marginLeft: '-15px', color: 'white'}}><strong>Start</strong></p>

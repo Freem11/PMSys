@@ -150,8 +150,8 @@ function SchedulePage() {
      <div> 
        <GanttTable/>
      </div>
-   
-    <div style={{ width: "900px" }}>
+     <div style={{ marginTop: '16px',height: '398px', width: "820px", backgroundColor: '#2B2D42', borderRadius: '0 15px 15px 0' }}>
+    <div style={{ width: "900px", marginTop: '21px', marginLeft: '0px'}}>
       {tasks && <Gantt 
         tasks={tasks}
         viewMode={"Week"} 
@@ -163,6 +163,7 @@ function SchedulePage() {
         TaskListTable={'hidden'}
         TaskListHeader={'hiden'}
       />}
+    </div>
     </div>
     </div>
     </TasksContext.Provider>
