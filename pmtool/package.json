@@ -18,6 +18,7 @@
     "react-google-charts": "^3.0.15",
     "react-router-dom": "^6.1.1",
     "react-scripts": "4.0.3",
+    "react-split": "^2.0.13",
     "reactstrap": "^9.0.1",
     "web-vitals": "^1.1.2"
   },

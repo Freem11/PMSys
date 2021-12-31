@@ -5,6 +5,8 @@ import { TasksContext } from './taskContext'
 import { allTasks } from '../AxiosFuncs/taskAxiosFuncs'
 import TaskListItem from './taskListItem'
 import { ListItemSecondaryAction } from '@mui/material';
+import "./taskList.scss";
+
 
 function GanttTable() {
 
@@ -59,21 +61,19 @@ function GanttTable() {
         list = ''
         }
     return (
-        <div>
-   
+  
        <ul id='teamList3'>
            <div className="listHeader2">
-               <p style={{width: '110px', marginLeft: '15px', color: 'white', wordWrap: 'break-word'}}><strong>Task</strong></p>
-               <p style={{width: '80px', marginLeft: '-5px', color: 'white'}}><strong>Type</strong></p>
-               <p style={{width: '80px', marginLeft: '-15px', color: 'white'}}><strong>Start</strong></p>
-               <p style={{width: '80px', marginLeft: '5px', color: 'white'}}><strong>End</strong></p>
-               <p style={{width: '40px', marginLeft: '-20px', color: 'white'}}><strong>Prg</strong></p>
-               <p style={{width: '100px', marginLeft: '0px', color: 'white'}}><strong>Depends</strong></p>
-               <p style={{width: '100px', marginLeft: '-20px', color: 'white'}}><strong>Children</strong></p>
+               <p style={{minWidth: '127px', marginLeft: '10px', color: 'white', wordWrap: 'break-word'}}><strong>Task</strong></p>
+               <p style={{minWidth: '90px', marginLeft: '-10px', color: 'white'}}><strong>Type</strong></p>
+               <p style={{minWidth: '160px', marginLeft: '-15px', color: 'white'}}><strong>Start</strong></p>
+               <p style={{minWidth: '183px', marginLeft: '5px', color: 'white'}}><strong>End</strong></p>
+               <p style={{minWidth: '50px', marginLeft: '-20px', color: 'white'}}><strong>Prg</strong></p>
+               <p style={{minWidth: '100px', marginLeft: '0px', color: 'white'}}><strong>Depends</strong></p>
+               <p style={{minWidth: '100px', marginLeft: '0px', color: 'white'}}><strong>Children</strong></p>
            </div>
            <p>{list}</p>
        </ul>
-   </div>
     )
 }
 

@@ -282,7 +282,7 @@ export default function MiniDrawer() {
       </Drawer>
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, height: 10000 }}
+        sx={{ flexGrow: 1, p: 3, height: 10000, width: 20000 }}
       >
         <DrawerHeader />
         {Nav === 0 ? <DetailsPage /> : ""}

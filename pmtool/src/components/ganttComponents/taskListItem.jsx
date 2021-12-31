@@ -23,8 +23,8 @@ const TeamListItem = (props) => {
     });
 
     const handleChange = (e) => {
-    
-        // setFormVals({id: id, name: name, type: type, progress: progress, dependencies: dependencies, barChildren:barChildren, hideChildren:hideChildren, projId: projId})
+
+        setFormVals({...formVals, [e.target.name] : e.target.value})
     
     };
 
@@ -44,13 +44,17 @@ const TeamListItem = (props) => {
 
       const isProject = () => {
           if (formVals.type === 'project') {
-              return false
+              return 'false'
+          } else {
+              return 'true'
           }
       }
 
       const isNotProject = () => {
         if (formVals.type !== 'project') {
-            return false
+            return 'false'
+        } else {
+            return 'true'
         }
     }
 
@@ -58,15 +62,15 @@ const TeamListItem = (props) => {
         <li id={id} className='teamL2'>
             <div id='teamBox3'>
                 <Form id='teamBox2' onSubmit={handleSubmit}>
-                    <Input id='inpt' value={formVals.name} style={{width: 100}}>{formVals.name} - </Input>
-                    <Input id='inpt' value={formVals.type} style={{width: 50}}>{formVals.type} - </Input>
-                    <Input id='inpt' value={formVals.start.substring(0,10)} style={{width: 80}} contentEditable={isProject}>{formVals.start} - </Input>
-                    <Input id='inpt' value={formVals.end.substring(0,10)} style={{width: 80}} contentEditable={isProject}>{formVals.end} - </Input>
-                    <Input id='inpt' value={formVals.progress} style={{width: 40}} contentEditable={isProject}>{formVals.progress} - </Input>
-                    <Input id='inpt' value={formVals.dependencies} style={{width: 100}}>{formVals.dependencies} - </Input>
-                    <Input id='inpt'value={formVals.barChildren} style={{width: 100}} contentEditable={isNotProject}>{formVals.barChildren} - </Input>
-                    <Input id='inpt' value={formVals.hideChildren} style={{width: 40}} contentEditable={isNotProject}>{formVals.hideChildren} - </Input>
-                    <div id='inpt' style={{width: 120, backgroundColor: 'rgb(57, 60, 87)', paddingRight: '20px'}}>
+                    <Input id='inpt' value={formVals.name} style={{minWidth: '120px', maxWidth: '120px'}}>{formVals.name} - </Input>
+                    <Input id='inpt' onChange={handleChange} name='type' style={{minWidth: '70px', maxWidth: '70px'}} value={formVals.type}>{formVals.type} - </Input>
+                    <Input id='inpt' onChange={handleChange} name='start' type='date' style={{minWidth: '160px', maxWidth: '160px'}} value={formVals.start.substring(0,10)} contentEditable={isProject}>{formVals.start} - </Input>
+                    <Input id='inpt' onChange={handleChange} name='end' type='date' style={{minWidth: '160px', maxWidth: '160px'}}value={formVals.end.substring(0,10)} contentEditable={isProject}>{formVals.end} - </Input>
+                    <Input id='inpt' onChange={handleChange} name='progress' value={formVals.progress} style={{minWidth: '60px', maxWidth: '60px', textAlign: 'center'}} contentEditable={isProject}>{formVals.progress} - </Input>
+                    <Input id='inpt' onChange={handleChange} name='dependencies' style={{minWidth: '100px', maxWidth: '100px'}} value={formVals.dependencies}>{formVals.dependencies} - </Input>
+                    <Input id='inpt' onChange={handleChange} name='barChildren' style={{minWidth: '100px', maxWidth: '100px'}} value={formVals.barChildren} contentEditable={isNotProject}>{formVals.barChildren} - </Input>
+                    <Input id='inpt' onChange={handleChange} name='hideChildren' style={{minWidth: '60px', maxWidth: '60px'}}value={formVals.hideChildren} contentEditable={isNotProject}>{formVals.hideChildren} - </Input>
+                    <div id='inpt' style={{width: 89, backgroundColor: 'rgb(57, 60, 87)', paddingRight: '20px', marginLeft: '-9px'}}>
                         <PositionedMenuTeam
                         partId={id}
                         />

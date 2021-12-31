@@ -2,3 +2,20 @@
     display: flex;
     flex-direction: row;
 }
+
+.gutter {
+    background-color: #eee;
+    background-image: url('icons8-grip-vertical-48.png');
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.gutter.gutter-horizontal {
+    background-image: url('icons8-grip-vertical-48.png');
+    cursor: col-resize;
+}
+
+.gutter.gutter-vertical {
+    background-image: url('icons8-grip-vertical-48.png');
+    cursor: row-resize;
+}

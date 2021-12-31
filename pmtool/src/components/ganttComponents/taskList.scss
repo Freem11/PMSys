@@ -3,9 +3,20 @@
     background-color: #2B2D42;
     border-radius: 15px 0 0 15px ;
     list-style-type: none;
-    width: 680px;
+    width: 100%;
     padding: 10px;
     padding-right: -10px;
+    resize: vertical;
+    margin-top: 0px;
+}
+
+.resizer {
+    border: 1px solid black;
+    overflow: auto;
+    
+}
+.resizer.vertial {
+    resize: vertical;
 }
 
 #teamHead{
@@ -15,9 +26,10 @@
     
 }
 
-#teamBox3{
-    width: 120%;
+#teamBox3 {
+    width: 100%;
 }
+
 
 #teamBox2{
     display: flex;
@@ -30,13 +42,8 @@
     display: flex;
     flex-direction: row;
     color: white;
-    padding: 10px;
-    padding-left: -10;
     min-width: 50px;
     width: auto;
-    margin: 3px;
-    padding-top: 2px;
-    padding-bottom: 0px;
     text-align: center;
     overflow: hidden;
     justify-content: center;
@@ -67,6 +74,7 @@
 .teamL2{
     margin-bottom: -5;
     margin-left: 10px;
+    width: 100%;
 }
 
 #plusbutton{
@@ -84,7 +92,7 @@
     margin-top: 10px;
     margin-bottom: -20px;
     background-color: rgb(57, 60, 87);
-    width: 110%;
+    width: 100%;
 }
 
 .totbox{
@@ -102,5 +110,8 @@
     margin: 0px;
     height: 50px;
     padding-left: 10px;
+
+    
+    
     
 }

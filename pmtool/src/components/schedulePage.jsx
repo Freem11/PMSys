@@ -4,6 +4,7 @@ import GanttTable from './ganttComponents/ganttTable'
 import { ProjectContext } from './projectContext'
 import { TasksContext} from './ganttComponents/taskContext'
 import { allTasks } from './AxiosFuncs/taskAxiosFuncs'
+import Split from 'react-split'
 import "./schedulePage.scss"; 
 
 import {
@@ -146,12 +147,25 @@ function SchedulePage() {
 
   return (
     <TasksContext.Provider value={{ganttTasks, setGanttTasks}}>
-    <div className="master">
+      <h2>Schedule:</h2>
+    <div className="master" style={{height: 'auto'}}>
+      <Split 
+              minSize={90}
+              expandToMin={false}
+              gutterSize={10}
+              gutterAlign="center"
+              snapOffset={30}
+              dragInterval={1}
+              direction="horizontal"
+              cursor="col-resize"
+              sizes={[20,80]}
+              maxSize={[610]}
+              style={{display: 'flex', flexDirection: 'row'}}>
      <div> 
        <GanttTable/>
      </div>
-     <div style={{ marginTop: '16px',height: '398px', width: "820px", backgroundColor: '#2B2D42', borderRadius: '0 15px 15px 0' }}>
-    <div style={{ width: "900px", marginTop: '21px', marginLeft: '0px'}}>
+     <div style={{ maxWidth: '800px', marginTop: '0px',height: '398px', backgroundColor: '#2B2D42', borderRadius: '0 15px 15px 0' }}>
+    <div style={{ marginTop: '21px', marginLeft: '0px', maxWidth: '1000px'}}>
       {tasks && <Gantt 
         tasks={tasks}
         viewMode={"Week"} 
@@ -165,6 +179,7 @@ function SchedulePage() {
       />}
     </div>
     </div>
+    </Split>
     </div>
     </TasksContext.Provider>
   );
