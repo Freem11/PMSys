@@ -148,14 +148,14 @@ function SchedulePage() {
   return (
     <TasksContext.Provider value={{ganttTasks, setGanttTasks}}>
       <h2>Schedule:</h2>
-    <div className="master" style={{height: 'auto'}}>
+    <div className="master">
       <Split 
-              minSize={90}
-              expandToMin={false}
+              minSize={[90]}
+              // expandToMin={false}
               gutterSize={10}
               gutterAlign="center"
-              snapOffset={0}
-              dragInterval={1}
+              snapOffset={30}
+              dragInterval={2}
               direction="horizontal"
               cursor="col-resize"
               sizes={[20,80]}
@@ -165,9 +165,9 @@ function SchedulePage() {
      <div> 
        <GanttTable/>
      </div>
-     <div style={{ maxWidth: '800px', marginTop: '0px',height: '398px', backgroundColor: '#2B2D42', borderRadius: '0 15px 15px 0' }}>
+     <div style={{ maxWidth: '800px', marginTop: '0px', height: 'auto', backgroundColor: '#2B2D42', borderRadius: '0 15px 15px 0' }}>
     <div style={{ marginTop: '21px', marginLeft: '0px', maxWidth: '1000px'}}>
-      {tasks && <Gantt 
+      {tasks[0] && <Gantt 
         tasks={tasks}
         viewMode={"Week"} 
         barCornerRadius={15}

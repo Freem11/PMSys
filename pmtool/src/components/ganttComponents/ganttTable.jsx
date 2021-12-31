@@ -62,8 +62,8 @@ function GanttTable() {
         }
     return (
   
-       <ul id='teamList3'>
-           <div className="listHeader2">
+       <ul id='teamList3' style={{marginBottom: '0px'}}>
+           <div className="listHeader2"> 
                <p style={{minWidth: '127px', marginLeft: '10px', color: 'white', wordWrap: 'break-word'}}><strong>Task</strong></p>
                <p style={{minWidth: '90px', marginLeft: '-10px', color: 'white'}}><strong>Type</strong></p>
                <p style={{minWidth: '160px', marginLeft: '-15px', color: 'white'}}><strong>Start</strong></p>
