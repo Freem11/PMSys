@@ -50,7 +50,6 @@ const getQuoteTotalCost = (projectId) => {
 
     return db.query(`SELECT SUM(totalcost) FROM quotes WHERE project_id = $1`,[projectId])
     .then((response) => {
-        console.log("db gives", response.rows)
         return response.rows;
     })
     .catch((error) => {

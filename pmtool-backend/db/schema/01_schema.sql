@@ -6,6 +6,9 @@ DROP TABLE IF EXISTS projects CASCADE;
 DROP TABLE IF EXISTS user_projects CASCADE;
 DROP TABLE IF EXISTS locations CASCADE;
 DROP TABLE IF EXISTS materials CASCADE;
+DROP TABLE IF EXISTS quotes CASCADE;
+DROP TABLE IF EXISTS tasks CASCADE;
+
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY NOT NULL,
@@ -47,5 +50,19 @@ CREATE TABLE quotes (
     price DECIMAL(7,2) NOT NULL,
     quantity INTEGER NOT NULL,
     totalcost DECIMAL(12,2) NOT NULL,
+    project_id INTEGER REFERENCES projects(id) ON DELETE CASCADE
+);
+
+CREATE TABLE tasks (
+    id SERIAL PRIMARY KEY NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    start DATE,
+    "end" DATE,
+    type VARCHAR(255) NOT NULL,
+    progress INTEGER NOT NULL,
+    dependencies TEXT [],
+    barchildren TEXT [],
+    hidechildren BOOLEAN DEFAULT FALSE Not NULL,
+    project VARCHAR(255),
     project_id INTEGER REFERENCES projects(id) ON DELETE CASCADE
 );

@@ -24,6 +24,17 @@ const TeamListItem = (props) => {
     
         let cst = Math.round((price * Number(e.target.value)) *100) /100
         setFormVals({id: id, name: name, price: price, quantity: e.target.value, cost: cst, projId: projId})
+    
+
+        let total = quoteTotal(projId)
+
+        Promise.all([total])
+        .then((response) => {
+            setQuoteCosts(response[0].sum) 
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     };
 
     const handleSubmit = (e) => {

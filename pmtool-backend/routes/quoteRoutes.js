@@ -73,7 +73,6 @@ const getQuoteCosts = router.get("/quotes/total/:id", (req, res) => {
 
     db.getQuoteTotalCost(projId)
     .then(zones => {
-        console.log("Route", zones)
         res.json(zones);
     })
     .catch(err => {

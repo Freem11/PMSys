@@ -20,6 +20,7 @@ import ListItem from "@mui/material/ListItem";
 import QuotesPage from "./quotesPage";
 import DetailsPage from "./detailsPage";
 import SchedulePage from './schedulePage';
+import SchedulePage2 from './schedulePageFrappe';
 import { Button } from "reactstrap";
 import "./projectsPage.scss";
 
