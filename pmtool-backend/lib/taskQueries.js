@@ -24,16 +24,16 @@ const addTask = (name, start, end, type, progress, dependencies, barChildren, hi
     })
 }
 
-// const updateQuoteItem = (quantity, totalcost, itemId, projectId) => {
+const updateTaskHider = (itemId, hide) => {
 
-//     return db.query(`UPDATE quotes SET quantity = $1, totalcost = $2 WHERE id= $3 AND project_id =$4 RETURNING *;`, [quantity, totalcost, itemId, projectId])
-//     .then((response) => {
-//         return response.rows;
-//     })
-//     .catch((error) => {
-//         console.log("unable to query db got error:", error);
-//     })
-// }
+    return db.query(`UPDATE tasks SET hideChildren = $1 WHERE id= $2 RETURNING *;`, [hide, itemId])
+    .then((response) => {
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })
+}
 
 // const deleteQuoteItem = (itemId) => {
 
@@ -57,4 +57,4 @@ const addTask = (name, start, end, type, progress, dependencies, barChildren, hi
 //     })
 // }
 
-module.exports = { getProjectTasks, addTask }
+module.exports = { getProjectTasks, updateTaskHider, addTask }

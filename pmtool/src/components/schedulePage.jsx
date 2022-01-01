@@ -2,7 +2,7 @@ import React from "react";
 import { useContext, useState, useEffect } from 'react'
 import GanttTable from './ganttComponents/ganttTable'
 import { ProjectContext } from './projectContext'
-import { TasksContext} from './ganttComponents/taskContext'
+import { TasksContext, GanttContext } from './ganttComponents/taskContext'
 import { allTasks } from './AxiosFuncs/taskAxiosFuncs'
 import Split from 'react-split'
 import "./schedulePage.scss"; 
@@ -15,85 +15,8 @@ import {
   StylingOption,
   ViewMode,
   DisplayOption,
-  onExpanderClick,
-  onDateChange,
-  onTaskDelete,
-  onProgressChange,
-  onDoubleClick,
 } from "gantt-task-react";
 import "gantt-task-react/dist/index.css";
-
-// let tasks = [
-//   {
-//     start: new Date(2022, 0, 3),
-//     end: new Date(2022, 0, 16),
-//     name: "Build",
-//     id: "big",
-//     type: "project",
-//     progress: 100,
-//     dependencies: [],
-//     styles: { progressColor: "blue", progressSelectedColor: "#ff9e0d" },
-//     barChildren: [1,2],
-//     hideChildren: false,
-//   },
-//   {
-//     start: new Date(2022, 0, 3),
-//     end: new Date(2022, 0, 17),
-//     name: "City Permit",
-//     id: 1,
-//     type: "task",
-//     progress: 100,
-//     dependencies: [],
-//     styles: { progressColor: "blue", progressSelectedColor: "#ff9e0d" },
-//     project: "big",
-//   },
-//   {
-//     start: new Date(2022, 0, 18),
-//     end: new Date(2022, 0, 24),
-//     name: "Civil Build",
-//     id: 2,
-//     type: "task",
-//     progress: 50,
-//     dependencies: [1],
-//     styles: { progressColor: "blue", progressSelectedColor: "#ff9e0d" },
-//     project: "big",
-//   },
-//   {
-//     start: new Date(2022, 1, 3),
-//     end: new Date(2022, 1, 16),
-//     name: "Plant",
-//     id: "big2",
-//     type: "project",
-//     progress: 100,
-//     dependencies: ["big"],
-//     styles: { progressColor: "blue", progressSelectedColor: "#ff9e0d" },
-//     barChildren: [1,2],
-//     hideChildren: false,
-//   },
-//   {
-//     start: new Date(2022, 1, 3),
-//     end: new Date(2022, 1, 17),
-//     name: "Fibre Build",
-//     id: 3,
-//     type: "task",
-//     progress: 100,
-//     dependencies: [],
-//     styles: { progressColor: "blue", progressSelectedColor: "#ff9e0d" },
-//     project: "big2",
-//   },
-//   {
-//     start: new Date(2022, 1, 18),
-//     end: new Date(2022, 1, 24),
-//     name: "Place Fibre",
-//     id: 4,
-//     type: "task",
-//     progress: 50,
-//     dependencies: [3],
-//     styles: { progressColor: "blue", progressSelectedColor: "#ff9e0d" },
-//     project: "big2",
-//   },
-
-// ];
 
 function SchedulePage() {
 
@@ -122,22 +45,24 @@ function SchedulePage() {
           let arr =[]
 
           response[0].forEach(tsk => {
+  
             let Sd = tsk.start.substring(0,10)
             let Ed = tsk.end.substring(0,10)
             let nm = tsk.name
-
+            let rId = tsk.id
             let Std = Sd.split("-")
             let Ent = Ed.split("-")
+            let hide = tsk.hidechildren
 
             let StMod = new Date(Std[0] + ", " + (Std[1]) + ", " +  Std[2])
             let EnMod = new Date(Ent[0] + ", " +  (Ent[1]) + ", " +  Ent[2])
 
-            arr.push({...tsk, id : nm, start : StMod, end: EnMod})
-         
+            arr.push({...tsk, trueId: rId, id : nm, start : StMod, end: EnMod, hideChildren : hide})
           });
 
           setGanttTasks(response[0])
           setTasks(arr) 
+ 
       })
       .catch((error) => {
         console.log(error);
@@ -147,6 +72,7 @@ function SchedulePage() {
 
   return (
     <TasksContext.Provider value={{ganttTasks, setGanttTasks}}>
+       <GanttContext.Provider value={{tasks, setTasks}}>
       <h2>Schedule:</h2>
     <div className="master">
       <Split 
@@ -182,6 +108,7 @@ function SchedulePage() {
     </div>
     </Split>
     </div>
+    </GanttContext.Provider>
     </TasksContext.Provider>
   );
 }

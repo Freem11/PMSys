@@ -61,8 +61,8 @@ CREATE TABLE tasks (
     type VARCHAR(255) NOT NULL,
     progress INTEGER NOT NULL,
     dependencies TEXT [],
-    barchildren TEXT [],
-    hidechildren BOOLEAN DEFAULT FALSE Not NULL,
+    barChildren TEXT [],
+    hideChildren BOOLEAN DEFAULT FALSE Not NULL,
     project VARCHAR(255),
     project_id INTEGER REFERENCES projects(id) ON DELETE CASCADE
 );

@@ -5,10 +5,34 @@ const db = require('../lib/taskQueries')
 const getProjTasks = router.get("/tasks/:id", (req, res) => {
 
     let projId = req.params.id
-    
+ 
+
     db.getProjectTasks(projId)
-    .then(zones => {
-        res.json(zones);
+    .then(taskList => {
+            tList = [...taskList]
+        taskList.forEach(task => {
+
+                //if barchildren is true
+            if (task.hidechildren) {
+                //have barchildren
+
+            task.barchildren.forEach(child => {
+                //for each barchild
+
+               for( let i = 0; i < tList.length; i++){ 
+                   //loop through data again
+    
+                    if ( tList[i].name === child && tList[i].project === task.name) { 
+                        //if childname = data taskname and data taskproject = nameofproject
+                        tList.splice(i, 1); 
+                    }
+                }
+            })
+            }
+        });
+
+        console.log('hope this works', tList)
+        res.json(tList);
     })
     .catch(err => {
         res
@@ -40,23 +64,23 @@ const addProjTask = router.post("/task", (req, res) => {
     });
 });
 
-// const updateProjQuote = router.post("/quote/edit", (req, res) => {
+const updateHiddenTasks = router.post("/task/edit/:id", (req, res) => {
 
-//     let numb =req.body.quantity
-//     let Tc = req.body.totalcost
-//     let itemId = req.body.id
-//     let projId = req.body.projId
+    console.log("route", req.body)
+    let swtch = req.body.swtch
+    let itemId = req.body.id
 
-//     db.updateQuoteItem(numb, Tc, itemId, projId)
-//     .then(zones => {
-//         res.json(zones);
-//     })
-//     .catch(err => {
-//         res
-//         .status(500)
-//         .json({ error: err.message});
-//     });
-// });
+
+    db.updateTaskHider(itemId, swtch)
+    .then(zones => {
+        res.json(zones);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message});
+    });
+});
 
 // const delQuote = router.delete("/quote/delete/:id", (req, res) => {
 
@@ -85,4 +109,4 @@ const addProjTask = router.post("/task", (req, res) => {
 //         .json({ error: err.message});
 //     });
 // });
-module.exports = { getProjTasks, addProjTask }
+module.exports = { getProjTasks, updateHiddenTasks, addProjTask }

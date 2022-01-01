@@ -21,8 +21,8 @@ export const addTask = (info) => {
       type: info.type,
       progress: info.progress,
       dependencies: info.dependencies,
-      barchildren: info.barchildren,
-      hidechildren: info.hidechildren,
+      barChildren: info.barchildren,
+      hideChildren: info.hidechildren,
       projId: info.id,
     })
     .then((response) => {
@@ -33,24 +33,23 @@ export const addTask = (info) => {
     });
 };
 
-// export const updateQuote = (info) => {
+export const updateHiddenTasks = (info) => {
 
-//   return axios
-//     .post(`http://localhost:5000/quote/edit`, {
-//       id: info.id,
-//       name: info.name,
-//       price: info.price,
-//       quantity: info.quantity,
-//       totalcost: info.cost,
-//       projId: info.projId,
-//     })
-//     .then((response) => {
-//       return response.data[0];
-//     })
-//     .catch((err) => {
-//       return err;
-//     });
-// };
+  console.log("axios", info)
+  let id = info.id
+
+  return axios
+    .post(`http://localhost:5000/task/edit/${id}`, {
+      id: info.id,
+      swtch: info.holder,
+    })
+    .then((response) => {
+      return response.data[0];
+    })
+    .catch((err) => {
+      return err;
+    });
+};
 
 // export const deleteQuoteItem = (id) => {
 //   return axios

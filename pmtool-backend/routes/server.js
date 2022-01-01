@@ -9,7 +9,7 @@ const express = require("express"),
   const { getZones } = require('./locationRoutes')
   const { getAllMaterials, getMaterialtypes } = require('./materialRoutes')
   const { getProjQuote, addProjQuote, updateProjQuote, delQuote, getQuoteCosts } = require('./quoteRoutes')
-  const { getProjTasks, addProjTask } = require('./taskRoutes')
+  const { getProjTasks, updateHiddenTasks, addProjTask } = require('./taskRoutes')
 
 
 app.use(express.urlencoded({ extended: true}));
@@ -55,4 +55,5 @@ app.use(getQuoteCosts)
 
 //TaskRoutes
 app.use(getProjTasks)
+app.use(updateHiddenTasks)
 app.use(addProjTask)

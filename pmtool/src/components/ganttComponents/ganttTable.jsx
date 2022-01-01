@@ -54,6 +54,7 @@ function GanttTable() {
                 dependencies={item.dependencies}
                 barchildren={item.barchildren}
                 hidechildren={item.hidechildren}
+                projId={jProject.id}
                 />
             );
         });

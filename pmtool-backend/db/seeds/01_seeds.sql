@@ -43,7 +43,7 @@ VALUES ('S-4000 Node', 'Fibre', 'Vancouver', 1000.00),
 ('S-4000 Node', 'Fibre', 'Calgary', 1000.00);
 
 
-INSERT INTO tasks(name, start, "end", type, progress, dependencies, barchildren, hidechildren, project, project_id)
+INSERT INTO tasks(name, start, "end", type, progress, dependencies, barChildren, hideChildren, project, project_id)
 VALUES ('Build', '2022-1-3', '2022-1-16', 'project', 75, '{}', '{City Permit, Civil Build}', false, '', 1),
 ('City Permit', '2022-1-3', '2022-1-10', 'task', 100, '{}', '{}', false, 'Build', 1),
 ('Civil Build', '2022-1-11', '2022-1-16', 'task', 50, '{City Permit}', '{}', false, 'Build', 1),
