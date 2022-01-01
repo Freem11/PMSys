@@ -59,9 +59,36 @@ function SchedulePage() {
 
             arr.push({...tsk, trueId: rId, id : nm, start : StMod, end: EnMod, hideChildren : hide})
           });
+          let sorted = response[0].sort(function (a, b) {
+            var nameA = a.id;
+            var nameB = b.id;
+            if (nameA < nameB) {
+              return -1;
+            }
+            if (nameA > nameB) {
+              return 1;
+            }
 
-          setGanttTasks(response[0])
-          setTasks(arr) 
+            // names must be equal
+            return 0;
+          });
+
+          let sorted2 = arr.sort(function (a, b) {
+            var nameA = a.trueId;
+            var nameB = b.trueId;
+            if (nameA < nameB) {
+              return -1;
+            }
+            if (nameA > nameB) {
+              return 1;
+            }
+
+            // names must be equal
+            return 0;
+          });
+
+          setGanttTasks(sorted)
+          setTasks(sorted2) 
  
       })
       .catch((error) => {

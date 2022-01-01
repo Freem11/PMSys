@@ -31,7 +31,6 @@ const getProjTasks = router.get("/tasks/:id", (req, res) => {
             }
         });
 
-        console.log('hope this works', tList)
         res.json(tList);
     })
     .catch(err => {
