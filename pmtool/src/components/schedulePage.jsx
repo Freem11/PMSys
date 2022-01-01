@@ -5,6 +5,7 @@ import { ProjectContext } from './projectContext'
 import { TasksContext, GanttContext } from './ganttComponents/taskContext'
 import { allTasks } from './AxiosFuncs/taskAxiosFuncs'
 import Split from 'react-split'
+import {formatForGannt, sortDataTable, sortDataGantt } from './ganttComponents/gantthelper'
 import "./schedulePage.scss"; 
 
 import {
@@ -42,53 +43,13 @@ function SchedulePage() {
       let quote = allTasks(jProject.id)
       Promise.all([quote])
       .then((response) => {
-          let arr =[]
+    
+          let newData = sortDataGantt(formatForGannt(response[0]))
 
-          response[0].forEach(tsk => {
-  
-            let Sd = tsk.start.substring(0,10)
-            let Ed = tsk.end.substring(0,10)
-            let nm = tsk.name
-            let rId = tsk.id
-            let Std = Sd.split("-")
-            let Ent = Ed.split("-")
-            let hide = tsk.hidechildren
-
-            let StMod = new Date(Std[0] + ", " + (Std[1]) + ", " +  Std[2])
-            let EnMod = new Date(Ent[0] + ", " +  (Ent[1]) + ", " +  Ent[2])
-
-            arr.push({...tsk, trueId: rId, id : nm, start : StMod, end: EnMod, hideChildren : hide})
-          });
-          let sorted = response[0].sort(function (a, b) {
-            var nameA = a.id;
-            var nameB = b.id;
-            if (nameA < nameB) {
-              return -1;
-            }
-            if (nameA > nameB) {
-              return 1;
-            }
-
-            // names must be equal
-            return 0;
-          });
-
-          let sorted2 = arr.sort(function (a, b) {
-            var nameA = a.trueId;
-            var nameB = b.trueId;
-            if (nameA < nameB) {
-              return -1;
-            }
-            if (nameA > nameB) {
-              return 1;
-            }
-
-            // names must be equal
-            return 0;
-          });
-
-          setGanttTasks(sorted)
-          setTasks(sorted2) 
+          let sortedData = sortDataTable(response[0])
+         
+          setGanttTasks(sortedData)
+          setTasks(newData) 
  
       })
       .catch((error) => {

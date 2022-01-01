@@ -7,7 +7,7 @@ import PositionedMenuTeam from "./taskPopUp";
 import Switch from "@mui/material/Switch";
 import "./taskList.scss";
 import { useEffect } from "react";
-
+import {formatForGannt, sortDataGantt, sortDataTable } from './gantthelper'
 const TeamListItem = (props) => {
   const {
     id,
@@ -50,60 +50,14 @@ const TeamListItem = (props) => {
 
         Promise.all([updated])
           .then((response2) => {
-            let sorted = response2[0].sort(function (a, b) {
-              var nameA = a.id;
-              var nameB = b.id;
-              if (nameA < nameB) {
-                return -1;
-              }
-              if (nameA > nameB) {
-                return 1;
-              }
 
-              // names must be equal
-              return 0;
-            });
+            let sortedData = sortDataTable(response2[0])
 
-            setGanttTasks(sorted);
-            let arr = [];
+            setGanttTasks(sortedData);
 
-            response2[0].forEach((tsk) => {
-              let Sd = tsk.start.substring(0, 10);
-              let Ed = tsk.end.substring(0, 10);
-              let nm = tsk.name;
-              let rId = tsk.id;
-              let Std = Sd.split("-");
-              let Ent = Ed.split("-");
-              let hide = tsk.hidechildren;
-
-              let StMod = new Date(Std[0] + ", " + Std[1] + ", " + Std[2]);
-              let EnMod = new Date(Ent[0] + ", " + Ent[1] + ", " + Ent[2]);
-
-              arr.push({
-                ...tsk,
-                trueId: rId,
-                id: nm,
-                start: StMod,
-                end: EnMod,
-                hideChildren: hide,
-              });
-            });
-
-            let sorted2 = arr.sort(function (a, b) {
-              var nameA = a.trueId;
-              var nameB = b.trueId;
-              if (nameA < nameB) {
-                return -1;
-              }
-              if (nameA > nameB) {
-                return 1;
-              }
-
-              // names must be equal
-              return 0;
-            });
-
-            setTasks(sorted2);
+            let newData = sortDataGantt(formatForGannt(response2[0]))
+            setTasks(newData);
+            
           })
           .catch((error) => {
             console.log(error);
@@ -140,6 +94,7 @@ const TeamListItem = (props) => {
           <Input
             id="inpt"
             readOnly
+            name="name"
             value={formVals.name}
             style={{ minWidth: "120px", maxWidth: "120px" }}
           >
@@ -149,8 +104,8 @@ const TeamListItem = (props) => {
             id="inpt"
             onChange={handleChange}
             name="type"
+            value={formVals.type}
             style={{ minWidth: "70px", maxWidth: "70px" }}
-            defaulValue={formVals.type}
           >
             {formVals.type}
           </Input>
@@ -200,7 +155,7 @@ const TeamListItem = (props) => {
             readOnly={formVals.type !== "project" ? true : false}
             onChange={handleChange}
             name="barChildren"
-            style={{ minWidth: "100px", maxWidth: "100px" }}
+            style={{ minWidth: "100px", maxWidth: "100px", overflow: 'scroll'}}
             defaultValue={formVals.barChildren}
           >
             {formVals.barChildren}
@@ -212,6 +167,7 @@ const TeamListItem = (props) => {
               name="hideChildren"
               value={formVals.hideChildren}
               onClick={() => handleSwitch()}
+              sx={{marginTop: '5px'}}
             >
               {formVals.hideChildren}
             </Switch>
@@ -224,9 +180,12 @@ const TeamListItem = (props) => {
               backgroundColor: "rgb(57, 60, 87)",
               paddingRight: "20px",
               marginLeft: "-9px",
+              paddingTop: '5px'
             }}
           >
-            <PositionedMenuTeam partId={id} />
+            <PositionedMenuTeam 
+            partId={id} 
+            />
           </div>
         </Form>
       </div>
