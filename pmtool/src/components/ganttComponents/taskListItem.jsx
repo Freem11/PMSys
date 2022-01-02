@@ -2,12 +2,12 @@
 import { useState, useContext, useCallback } from "react";
 import { Form, FormGroup, Input } from "reactstrap";
 import { TasksContext, GanttContext } from "./taskContext";
-import { allTasks, updateHiddenTasks } from "../AxiosFuncs/taskAxiosFuncs";
+import { allTasks, updateHiddenTasks, updateRestTasks, getTaskByName, getTaskStartMin, getTaskStart2Min, getTaskEndMax, getTaskEnd2Max } from "../AxiosFuncs/taskAxiosFuncs";
 import PositionedMenuTeam from "./taskPopUp";
 import Switch from "@mui/material/Switch";
 import "./taskList.scss";
 import { useEffect } from "react";
-import {formatForGannt, sortDataGantt, sortDataTable } from './gantthelper'
+import {formatForGannt, sortDataGantt, sortDataTable, checkParent } from './gantthelper'
 const TeamListItem = (props) => {
   const {
     id,
@@ -19,6 +19,7 @@ const TeamListItem = (props) => {
     dependencies,
     barchildren,
     hidechildren,
+    project,
     projId,
   } = props;
   const { ganttTasks, setGanttTasks } = useContext(TasksContext);
@@ -34,6 +35,7 @@ const TeamListItem = (props) => {
     dependencies: dependencies,
     barChildren: barchildren,
     hideChildren: hidechildren,
+    project: project,
     projId: projId,
   });
 
@@ -52,12 +54,11 @@ const TeamListItem = (props) => {
           .then((response2) => {
 
             let sortedData = sortDataTable(response2[0])
-
             setGanttTasks(sortedData);
 
             let newData = sortDataGantt(formatForGannt(response2[0]))
             setTasks(newData);
-            
+
           })
           .catch((error) => {
             console.log(error);
@@ -69,22 +70,103 @@ const TeamListItem = (props) => {
   }, [swtch]);
 
   const handleChange = (e) => {
+
     setFormVals({ ...formVals, [e.target.name]: e.target.value });
-    console.log(formVals);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+   
+    if (e.target.name === 'end' || e.target.name === 'start'){
+      let parentz = getTaskByName({name: formVals.project, id: projId})
 
-    // let updated = updateQuote(formVals)
+      let minStart = getTaskStartMin({project: formVals.project})
+      let min2Start = getTaskStart2Min({project: formVals.project})
+      let maxEnd = getTaskEndMax({project: formVals.project})
+      let max2End = getTaskEnd2Max({project: formVals.project})
 
-    // Promise.all([updated])
-    // .then((response) => {
+     
+      Promise.all([parentz, minStart, min2Start, maxEnd, max2End])
+      .then((responsex) => {
+        let passVal = responsex[0];
 
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+        console.log("right?", responsex)
+        console.log("yip?", responsex[3].ender, e.target.value, responsex[4].ender)
+        
+        if (e.target.name === 'start' && (responsex[1].starter < e.target.value && e.target.value < responsex[2].starter) ){
+              passVal = {...responsex[0], start: responsex[1].starter}
+        } else if (e.target.name === 'start' && e.target.value < responsex[1].starter ){
+              passVal = {...responsex[0], start: e.target.value}
+        } else if (e.target.name === 'start' && e.target.value > responsex[2].starter ){
+          passVal = {...responsex[0], start: responsex[2].starter}
+        }
+
+        if (e.target.name === 'end' && (responsex[3].ender > e.target.value && e.target.value > responsex[4].ender) ){
+               passVal = {...responsex[0], end: responsex[3].ender}
+        } else if (e.target.name === 'end' && responsex[3].ender < e.target.value){
+              passVal = {...responsex[0], end: e.target.value}
+        } else if (e.target.name === 'end' && responsex[4].ender > e.target.value){
+          passVal = {...responsex[0], end: responsex[4].ender}
+        }
+
+        console.log("please", passVal)
+          let updated = updateRestTasks(passVal)
+
+          Promise.all([updated])
+          .then((response) => {
+      
+            let updated = allTasks(projId);
+      
+            Promise.all([updated])
+              .then((response2) => {
+      
+                let sortedData = sortDataTable(response2[0])
+                setGanttTasks(sortedData);
+      
+                let newData = sortDataGantt(formatForGannt(response2[0]))
+                setTasks(newData);
+      
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+      
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
+
+    let updated = updateRestTasks(formVals)
+
+    Promise.all([updated])
+    .then((response) => {
+
+      let updated = allTasks(projId);
+
+      Promise.all([updated])
+        .then((response2) => {
+
+          let sortedData = sortDataTable(response2[0])
+          setGanttTasks(sortedData);
+
+          let newData = sortDataGantt(formatForGannt(response2[0]))
+          setTasks(newData);
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -98,7 +180,6 @@ const TeamListItem = (props) => {
             value={formVals.name}
             style={{ minWidth: "120px", maxWidth: "120px" }}
           >
-            {formVals.name}
           </Input>
           <Input
             id="inpt"
@@ -107,58 +188,67 @@ const TeamListItem = (props) => {
             value={formVals.type}
             style={{ minWidth: "70px", maxWidth: "70px" }}
           >
-            {formVals.type}
           </Input>
           <Input
             id="inpt"
             readOnly={formVals.type === "project" ? true : false}
             onChange={handleChange}
+            onBlur={handleSubmit}
             name="start"
             type="date"
             style={{ minWidth: "160px", maxWidth: "160px" }}
             defaultValue={formVals.start.substring(0, 10)}
           >
-            {formVals.start}
           </Input>
           <Input
             id="inpt"
             readOnly={formVals.type === "project" ? true : false}
             onChange={handleChange}
+            onBlur={handleSubmit}
             name="end"
             type="date"
             style={{ minWidth: "160px", maxWidth: "160px" }}
             defaultValue={formVals.end.substring(0, 10)}
           >
-            {formVals.end}
           </Input>
           <Input
             id="inpt"
             readOnly={formVals.type === "project" ? true : false}
             onChange={handleChange}
+            onBlur={handleSubmit}
             name="progress"
             defaultValue={formVals.progress}
             style={{ minWidth: "60px", maxWidth: "60px", textAlign: "center" }}
           >
-            {formVals.progress}{" "}
           </Input>
           <Input
             id="inpt"
             onChange={handleChange}
+            onBlur={handleSubmit}
             name="dependencies"
             style={{ minWidth: "100px", maxWidth: "100px" }}
             defaultValue={formVals.dependencies}
           >
-            {formVals.dependencies}
           </Input>
           <Input
             id="inpt"
             readOnly={formVals.type !== "project" ? true : false}
             onChange={handleChange}
+            onBlur={handleSubmit}
             name="barChildren"
             style={{ minWidth: "100px", maxWidth: "100px", overflow: 'scroll'}}
             defaultValue={formVals.barChildren}
           >
-            {formVals.barChildren}
+          </Input>
+          <Input
+            id="inpt"
+            readOnly={formVals.type === "project" ? true : false}
+            onChange={handleChange}
+            onBlur={handleSubmit}
+            name="project"
+            style={{ minWidth: "100px", maxWidth: "100px", overflow: 'scroll'}}
+            value={formVals.project}
+          >
           </Input>
           <div style={{ backgroundColor: "rgb(57, 60, 87)" }}>
             <Switch
@@ -169,12 +259,10 @@ const TeamListItem = (props) => {
               onClick={() => handleSwitch()}
               sx={{marginTop: '5px'}}
             >
-              {formVals.hideChildren}
             </Switch>
           </div>
           <div
             id="inpt"
-            contentEditable={formVals.type !== "project" ? true : false}
             style={{
               width: 79,
               backgroundColor: "rgb(57, 60, 87)",

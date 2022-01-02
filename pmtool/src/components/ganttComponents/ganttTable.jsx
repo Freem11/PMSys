@@ -4,7 +4,6 @@ import { ProjectContext } from '../projectContext'
 import { TasksContext } from './taskContext'
 import { allTasks } from '../AxiosFuncs/taskAxiosFuncs'
 import TaskListItem from './taskListItem'
-import { ListItemSecondaryAction } from '@mui/material';
 import "./taskList.scss";
 
 
@@ -54,6 +53,7 @@ function GanttTable() {
                 dependencies={item.dependencies}
                 barchildren={item.barchildren}
                 hidechildren={item.hidechildren}
+                project={item.project}
                 projId={jProject.id}
                 />
             );
@@ -72,6 +72,7 @@ function GanttTable() {
                <p style={{minWidth: '50px', marginLeft: '-20px', color: 'white'}}><strong>Prg</strong></p>
                <p style={{minWidth: '100px', marginLeft: '0px', color: 'white'}}><strong>Depends</strong></p>
                <p style={{minWidth: '100px', marginLeft: '0px', color: 'white'}}><strong>Children</strong></p>
+               <p style={{minWidth: '100px', marginLeft: '0px', color: 'white'}}><strong>Parent</strong></p>
            </div>
            <p>{list}</p>
        </ul>

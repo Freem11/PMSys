@@ -35,6 +35,82 @@ const updateTaskHider = (itemId, hide) => {
     })
 }
 
+const updateTask = (name, type, start, end, progress, dependencies, barChildren, project, itemId) => {
+
+  
+    console.log('db gets', name, type, start, end, progress, dependencies, barChildren, project, itemId)
+    return db.query(`UPDATE tasks SET name = $1, type = $2, start = $3, "end" = $4, progress = $5, dependencies = $6, barChildren = $7, project = $8 WHERE id= $9 RETURNING *;`, [name, type, start, end, progress, dependencies, barChildren, project, itemId])
+    .then((response) => {
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })
+}
+
+const getTaskByName = (name, projectId) => {
+
+    return db.query(`SELECT * FROM tasks WHERE name = $1 AND project_id = $2`,[name, projectId])
+    .then((response) => {
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })
+}
+
+const getMaxTaskEnd = (projectName) => {
+
+    // console.log("db gets", projectName)
+
+    return db.query(`SELECT MAX("end") as "ender" FROM tasks WHERE project = $1 `,[projectName])
+    .then((response) => {
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })
+}
+
+const get2MaxTaskEnd = (projectName) => {
+
+    // console.log("db gets", projectName)
+
+    return db.query(`SELECT MAX("end") as "ender" FROM tasks WHERE project = $1 AND "end" < (SELECT MAX("end") as "ender" FROM tasks WHERE project = $1)`,[projectName])
+    .then((response) => {
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })
+}
+
+const getMinTaskStart = (projectName) => {
+
+    // console.log("db gets", projectName)
+
+    return db.query(`SELECT MIN(start) as "starter" FROM tasks WHERE project = $1 `,[projectName])
+    .then((response) => {
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })
+}
+
+const get2MinTaskStart = (projectName) => {
+
+    // console.log("db gets", projectName)
+
+    return db.query(`SELECT MIN(start) as "starter" FROM tasks WHERE project = $1 AND start > (SELECT MIN(start) as "starter" FROM tasks WHERE project = $1)`,[projectName])
+    .then((response) => {
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })
+}
+
 // const deleteQuoteItem = (itemId) => {
 
 //     return db.query(`DELETE FROM quotes WHERE id= $1 RETURNING *;`, [itemId])
@@ -46,15 +122,4 @@ const updateTaskHider = (itemId, hide) => {
 //     })
 // }
 
-// const getQuoteTotalCost = (projectId) => {
-
-//     return db.query(`SELECT SUM(totalcost) FROM quotes WHERE project_id = $1`,[projectId])
-//     .then((response) => {
-//         return response.rows;
-//     })
-//     .catch((error) => {
-//         console.log("unable to query db got error:", error);
-//     })
-// }
-
-module.exports = { getProjectTasks, updateTaskHider, addTask }
+module.exports = { getProjectTasks, updateTaskHider, updateTask, getTaskByName, getMinTaskStart, get2MinTaskStart, getMaxTaskEnd, get2MaxTaskEnd, addTask }

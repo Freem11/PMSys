@@ -142,7 +142,7 @@ useEffect(() => {
   });
 
 }
-console.log("this", matTypes)
+
   return (
     <div style={{width: '300px' }}>
         <h3 style={{marginLeft: 7}}>Available Options</h3>

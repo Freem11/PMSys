@@ -45,12 +45,11 @@ function SchedulePage() {
       .then((response) => {
     
           let newData = sortDataGantt(formatForGannt(response[0]))
+          setTasks(newData) 
 
           let sortedData = sortDataTable(response[0])
-         
           setGanttTasks(sortedData)
-          setTasks(newData) 
- 
+          
       })
       .catch((error) => {
         console.log(error);
@@ -63,17 +62,16 @@ function SchedulePage() {
        <GanttContext.Provider value={{tasks, setTasks}}>
       <h2>Schedule:</h2>
     <div className="master">
-      <Split 
-              minSize={[90]}
-              // expandToMin={false}
+      <Split  sizes={[56,44]}
+              maxSize={[1015]}
+              minSize={[220]}
+              expandToMin={false}
               gutterSize={10}
               gutterAlign="center"
               snapOffset={30}
               dragInterval={2}
               direction="horizontal"
               cursor="col-resize"
-              sizes={[20,80]}
-              maxSize={[610]}
               style={{display: 'flex', flexDirection: 'row', height: 'auto'}}
               >
      <div> 
