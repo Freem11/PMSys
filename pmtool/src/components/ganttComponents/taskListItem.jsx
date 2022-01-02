@@ -252,6 +252,7 @@ const TeamListItem = (props) => {
           >
           </Input>
           <div style={{ backgroundColor: "rgb(57, 60, 87)" }}>
+            {formVals.type === 'project' ?
             <Switch
               readOnly={formVals.type !== "project" ? true : false}
               checked={swtch}
@@ -259,8 +260,10 @@ const TeamListItem = (props) => {
               value={formVals.hideChildren}
               onClick={() => handleSwitch()}
               sx={{marginTop: '5px'}}
+              
             >
             </Switch>
+            : <div style={{width: '58px'}}></div>}
           </div>
           <div
             id="inpt"
