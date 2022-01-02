@@ -2,7 +2,7 @@
 import { useState, useContext, useCallback, useRef, useEffect} from "react";
 import { Form, FormGroup, Input } from "reactstrap";
 import { TasksContext, GanttContext } from "./taskContext";
-import { allTasks, updateHiddenTasks, updateRestTasks, getTaskByName, getTaskStartMin, getTaskStart2Min, getTaskEndMax, getTaskEnd2Max } from "../AxiosFuncs/taskAxiosFuncs";
+import { allTasks, updateHiddenTasks, updateRestTasks, getTaskByName, getTaskStartMin, getTaskStart2Min, getTaskEndMax, getTaskEnd2Max, getprTskPr } from "../AxiosFuncs/taskAxiosFuncs";
 import PositionedMenuTeam from "./taskPopUp";
 import Switch from "@mui/material/Switch";
 import "./taskList.scss";
@@ -29,6 +29,20 @@ const TeamListItem = (props) => {
     prevTasks.current = props
   })
   const oldTasks = prevTasks.current
+
+  const [projVals, setprojVals] = useState('')
+
+  useEffect(() => {
+    let data = getprTskPr(projId);
+
+    Promise.all([data])
+      .then((response) => {
+        setprojVals(response[0]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const [formVals, setFormVals] = useState({
     id: id,
@@ -231,18 +245,11 @@ const TeamListItem = (props) => {
             defaultValue={formVals.dependencies}
           >
           </Input>
+         
+          {formVals.type !== 'project' ?
           <Input
             id="inpt"
-            readOnly={formVals.type !== "project" ? true : false}
-            onChange={handleChange}
-            onBlur={handleSubmit}
-            name="barChildren"
-            style={{ minWidth: "100px", maxWidth: "100px", overflow: 'scroll'}}
-            defaultValue={formVals.barChildren}
-          >
-          </Input>
-          <Input
-            id="inpt"
+            type="select"
             readOnly={formVals.type === "project" ? true : false}
             onChange={handleChange}
             onBlur={handleSubmit}
@@ -250,7 +257,29 @@ const TeamListItem = (props) => {
             style={{ minWidth: "100px", maxWidth: "100px", overflow: 'scroll'}}
             value={formVals.project}
           >
+             <option
+                  id={-1}
+                  name="localed"
+                  key={id}
+                  values={id}
+                  className="modalSelect"
+                >
+                </option>
+            {projVals && projVals.map((name, index) => (
+                <option
+                  id={index}
+                  name="user_id"
+                  key={name.id}
+                  values={name.id}
+                  className="modalSelect"
+                >
+                  {name.name}
+                </option>
+              ))}
           </Input>
+          : <div style={{width: '100px', backgroundColor: "rgb(57, 60, 87)"}}></div>}
+
+
           <div style={{ backgroundColor: "rgb(57, 60, 87)" }}>
             {formVals.type === 'project' ?
             <Switch

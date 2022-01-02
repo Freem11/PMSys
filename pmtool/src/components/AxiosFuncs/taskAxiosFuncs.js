@@ -151,6 +151,17 @@ return axios
 });
 };
 
+export const getprTskPr = (projId) => {
+
+  return axios
+    .get(`http://localhost:5000/tasks/project/${projId}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
 
 
 // export const deleteQuoteItem = (id) => {

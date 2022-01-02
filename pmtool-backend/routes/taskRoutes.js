@@ -176,6 +176,23 @@ const get2MaxEnd = router.post("/tasks/max2", (req, res) => {
     });
 });
 
+const getProjTaskProj = router.get("/tasks/project/:id", (req, res) => {
+
+  let projId = req.params.id
+  // console.log("route",  projId )
+
+  db.getProjectTaskProject(projId)
+  .then(zones => {
+      res.json(zones);
+  })
+  .catch(err => {
+      res
+      .status(500)
+      .json({ error: err.message});
+  });
+});
+
+
 // const delQuote = router.delete("/quote/delete/:id", (req, res) => {
 
 //     db.deleteQuoteItem(req.params.id)
@@ -198,5 +215,6 @@ module.exports = {
   get2MinStart,
   getMaxEnd,
   get2MaxEnd,
+  getProjTaskProj,
   addProjTask,
 };

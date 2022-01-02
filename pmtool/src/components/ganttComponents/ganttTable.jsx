@@ -71,7 +71,6 @@ function GanttTable() {
                <p style={{minWidth: '183px', marginLeft: '5px', color: 'white'}}><strong>End</strong></p>
                <p style={{minWidth: '50px', marginLeft: '-20px', color: 'white'}}><strong>Prg</strong></p>
                <p style={{minWidth: '100px', marginLeft: '0px', color: 'white'}}><strong>Depends</strong></p>
-               <p style={{minWidth: '100px', marginLeft: '0px', color: 'white'}}><strong>Children</strong></p>
                <p style={{minWidth: '100px', marginLeft: '0px', color: 'white'}}><strong>Parent</strong></p>
            </div>
            <p>{list}</p>
