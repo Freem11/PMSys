@@ -90,9 +90,6 @@ const TeamListItem = (props) => {
       .then((responsex) => {
         let passVal = responsex[0];
 
-        console.log("right?", responsex)
-        console.log("yip?", responsex[3].ender, e.target.value, responsex[4].ender)
-        
         if (e.target.name === 'start' && (responsex[1].starter < e.target.value && e.target.value < responsex[2].starter) ){
               passVal = {...responsex[0], start: responsex[1].starter}
         } else if (e.target.name === 'start' && e.target.value < responsex[1].starter ){
@@ -102,7 +99,7 @@ const TeamListItem = (props) => {
         }
 
         if (e.target.name === 'end' && (responsex[3].ender > e.target.value && e.target.value > responsex[4].ender) ){
-               passVal = {...responsex[0], end: responsex[3].ender}
+               passVal = {...responsex[0], end: e.target.value}
         } else if (e.target.name === 'end' && responsex[3].ender < e.target.value){
               passVal = {...responsex[0], end: e.target.value}
         } else if (e.target.name === 'end' && responsex[4].ender > e.target.value){
@@ -115,9 +112,9 @@ const TeamListItem = (props) => {
           Promise.all([updated])
           .then((response) => {
       
-            let updated = allTasks(projId);
+            let updated2 = allTasks(projId);
       
-            Promise.all([updated])
+            Promise.all([updated2])
               .then((response2) => {
       
                 let sortedData = sortDataTable(response2[0])
