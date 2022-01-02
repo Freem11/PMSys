@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const allTasks = (projId) => {
 
-   console.log("axios", projId)
+  //  console.log("axios", projId)
   return axios
     .get(`http://localhost:5000/tasks/${projId}`)
     .then((response) => {
@@ -86,7 +86,6 @@ return axios
   name: info.name,
 })
 .then((response) => {
-  console.log("axios", response.data[0])
   return response.data[0];
 })
 .catch((err) => {

@@ -41,7 +41,7 @@ const sortDataGantt = (data) => {
     // names must be equal
     return 0;
   });
-
+  console.log("working",sorted)
   return sorted;
 };
 
@@ -59,8 +59,58 @@ const sortDataTable = (data) => {
     // names must be equal
     return 0;
   });
- 
+  console.log("busted",sorted)
   return sorted;
 };
 
-module.exports = { formatForGannt, sortDataGantt, sortDataTable };
+const updateParentStartDate = (parentData, maxStart, maxStart2, newValue, oldStart) => {
+
+    let finalVal = parentData
+
+    if (maxStart === oldStart) {
+      if (maxStart > newValue) {
+        finalVal = {...parentData, start: newValue}
+
+      } else if ( maxStart < newValue && newValue < maxStart2){
+        finalVal = {...parentData, start: newValue}
+
+      } else if ( maxStart2 < newValue){
+        finalVal = {...parentData, start: maxStart2}
+      } 
+        return finalVal
+    } else {
+
+      if (maxStart > newValue) {
+        finalVal = {...parentData, start: newValue}
+      }
+      return finalVal
+    }
+  }
+
+const updateParentEndDate = (parentData, maxEnd, maxEnd2, newValue, oldEnd) => {
+
+  let finalVal = parentData
+
+  if (maxEnd === oldEnd) {
+    if (maxEnd < newValue) {
+        finalVal = {...parentData, end: newValue}
+
+    } else if (maxEnd > newValue && newValue > maxEnd2) {
+        finalVal = {...parentData, end: newValue}
+
+    }else if (maxEnd2 > newValue) {
+      finalVal = {...parentData, end: maxEnd2}
+  }
+      return finalVal
+
+  } else {
+
+    if (maxEnd < newValue) {
+      finalVal = {...parentData, end: newValue}
+    }
+    return finalVal
+  }
+  }
+
+
+module.exports = { formatForGannt, sortDataGantt, sortDataTable, updateParentStartDate, updateParentEndDate };

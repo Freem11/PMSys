@@ -1,13 +1,12 @@
 // import PositionedMenuTeam from './teamPopUp'
-import { useState, useContext, useCallback } from "react";
+import { useState, useContext, useCallback, useRef, useEffect} from "react";
 import { Form, FormGroup, Input } from "reactstrap";
 import { TasksContext, GanttContext } from "./taskContext";
 import { allTasks, updateHiddenTasks, updateRestTasks, getTaskByName, getTaskStartMin, getTaskStart2Min, getTaskEndMax, getTaskEnd2Max } from "../AxiosFuncs/taskAxiosFuncs";
 import PositionedMenuTeam from "./taskPopUp";
 import Switch from "@mui/material/Switch";
 import "./taskList.scss";
-import { useEffect } from "react";
-import {formatForGannt, sortDataGantt, sortDataTable, checkParent } from './gantthelper'
+import {formatForGannt, sortDataGantt, sortDataTable, updateParentStartDate, updateParentEndDate } from './gantthelper'
 const TeamListItem = (props) => {
   const {
     id,
@@ -24,6 +23,12 @@ const TeamListItem = (props) => {
   } = props;
   const { ganttTasks, setGanttTasks } = useContext(TasksContext);
   const { tasks, setTasks } = useContext(GanttContext);
+
+  const prevTasks = useRef()
+  useEffect(() => {
+    prevTasks.current = props
+  })
+  const oldTasks = prevTasks.current
 
   const [formVals, setFormVals] = useState({
     id: id,
@@ -49,16 +54,16 @@ const TeamListItem = (props) => {
     Promise.all([response])
       .then((response1) => {
         let updated = allTasks(projId);
-          console.log("hmm?", response1)
+
         Promise.all([updated])
           .then((response2) => {
 
             let sortedData = sortDataTable(response2[0])
-            console.log("table", sortedData);
+
             setGanttTasks(sortedData);
 
             let newData = sortDataGantt(formatForGannt(response2[0]))
-            console.log("gannt", newData);
+
             setTasks(newData);
 
           })
@@ -91,23 +96,15 @@ const TeamListItem = (props) => {
       Promise.all([parentz, minStart, min2Start, maxEnd, max2End])
       .then((responsex) => {
         let passVal = responsex[0];
-          console.log("work", responsex[0])
-        if (e.target.name === 'start' && (responsex[1].starter < e.target.value && e.target.value < responsex[2].starter) ){
-              passVal = {...responsex[0], start: e.target.value}
-        } else if (e.target.name === 'start' && e.target.value < responsex[1].starter ){
-              passVal = {...responsex[0], start: e.target.value}
-        } else if (e.target.name === 'start' && e.target.value > responsex[2].starter ){
-              passVal = {...responsex[0], start: responsex[2].starter}
+
+        if (e.target.name === 'start') {
+            passVal = updateParentStartDate(responsex[0], responsex[1].starter, responsex[2].starter, e.target.value, oldTasks.start)
         }
 
-        if (e.target.name === 'end' && (responsex[3].ender > e.target.value && e.target.value > responsex[4].ender) ){
-               passVal = {...responsex[0], end: e.target.value}
-        } else if (e.target.name === 'end' && responsex[3].ender < e.target.value){
-              passVal = {...responsex[0], end: e.target.value}
-        } else if (e.target.name === 'end' && responsex[4].ender > e.target.value){
-              passVal = {...responsex[0], end: responsex[4].ender}
+        if (e.target.name === 'end') {
+            passVal = updateParentEndDate(responsex[0],responsex[3].ender, responsex[4].ender, e.target.value, oldTasks.end)
         }
-        console.log("work", passVal)
+
           let updated = updateRestTasks(passVal)
 
           Promise.all([updated])
@@ -123,7 +120,7 @@ const TeamListItem = (props) => {
 
                 let sortedData = sortDataTable(response4[0])
                 setGanttTasks(sortedData);
-      
+                
               })
               .catch((error) => {
                 console.log(error);

@@ -82,11 +82,13 @@ function SchedulePage() {
       {tasks[0] && <Gantt 
         tasks={tasks}
         viewMode={"Week"} 
-        barCornerRadius={15}
-        arrowColor={'green'}
-        barProgressColor={'blue'}
-        barProgressSelectedColor={'maroon'}
-        onExpanderClick
+        barCornerRadius={12}
+        arrowColor={'darkred'}
+        barProgressColor={'lightblue'}
+        barProgressSelectedColor={'pink'}
+        barBackgroundColor={'lightgrey'}
+        barBackgroundSelectedColor={'lightgrey'}
+        // onExpanderClick
         TaskListTable={'hidden'}
         TaskListHeader={'hiden'}
       />}
