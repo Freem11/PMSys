@@ -52,6 +52,7 @@ const getTaskByName = (name, projectId) => {
 
     return db.query(`SELECT * FROM tasks WHERE name = $1 AND project_id = $2`,[name, projectId])
     .then((response) => {
+        console.log("db prod",response.rows)
         return response.rows;
     })
     .catch((error) => {

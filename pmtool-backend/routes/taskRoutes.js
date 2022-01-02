@@ -12,10 +12,8 @@ const getProjTasks = router.get("/tasks/:id", (req, res) => {
         //if barchildren is true
         if (task.hidechildren) {
           //have barchildren
-
           task.barchildren.forEach((child) => {
             //for each barchild
-
             for (let i = 0; i < tList.length; i++) {
               //loop through data again
 
@@ -27,7 +25,6 @@ const getProjTasks = router.get("/tasks/:id", (req, res) => {
           });
         }
       });
-
       res.json(tList);
     })
     .catch((err) => {

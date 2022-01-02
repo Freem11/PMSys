@@ -1,6 +1,8 @@
 import axios from "axios";
 
 export const allTasks = (projId) => {
+
+   console.log("axios", projId)
   return axios
     .get(`http://localhost:5000/tasks/${projId}`)
     .then((response) => {
@@ -62,7 +64,7 @@ export const updateRestTasks = (info) => {
       end: info.end,
       progress: info.progress,
       dependencies: info.dependencies,
-      barChildren: info.barChildren,
+      barChildren: info.barchildren,
       project: info.project,
       id: info.id,
     })
@@ -77,13 +79,14 @@ export const updateRestTasks = (info) => {
 export const getTaskByName = (info) => {
 
   let id = info.id
-  // console.log("axios", info)
+ 
 return axios
 .post(`http://localhost:5000/task/${id}`, {
   id: info.id,
   name: info.name,
 })
 .then((response) => {
+  console.log("axios", response.data[0])
   return response.data[0];
 })
 .catch((err) => {

@@ -59,28 +59,8 @@ const sortDataTable = (data) => {
     // names must be equal
     return 0;
   });
-
+ 
   return sorted;
 };
-
-
-// const checkParent = (parentProject, date, projId) => {
-  
-//     let record = updateGetTaskByName({id: projId, name: parentProject})
-
-//     console.log("opts", record)
-
-//     Promise.all([record])
-//     .then((response) => {
-//         console.log("opt", response)
-    
-
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
-
-//     return
-// }
 
 module.exports = { formatForGannt, sortDataGantt, sortDataTable };

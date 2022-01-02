@@ -49,14 +49,16 @@ const TeamListItem = (props) => {
     Promise.all([response])
       .then((response1) => {
         let updated = allTasks(projId);
-
+          console.log("hmm?", response1)
         Promise.all([updated])
           .then((response2) => {
 
             let sortedData = sortDataTable(response2[0])
+            console.log("table", sortedData);
             setGanttTasks(sortedData);
 
             let newData = sortDataGantt(formatForGannt(response2[0]))
+            console.log("gannt", newData);
             setTasks(newData);
 
           })
@@ -89,13 +91,13 @@ const TeamListItem = (props) => {
       Promise.all([parentz, minStart, min2Start, maxEnd, max2End])
       .then((responsex) => {
         let passVal = responsex[0];
-
+          console.log("work", responsex[0])
         if (e.target.name === 'start' && (responsex[1].starter < e.target.value && e.target.value < responsex[2].starter) ){
-              passVal = {...responsex[0], start: responsex[1].starter}
+              passVal = {...responsex[0], start: e.target.value}
         } else if (e.target.name === 'start' && e.target.value < responsex[1].starter ){
               passVal = {...responsex[0], start: e.target.value}
         } else if (e.target.name === 'start' && e.target.value > responsex[2].starter ){
-          passVal = {...responsex[0], start: responsex[2].starter}
+              passVal = {...responsex[0], start: responsex[2].starter}
         }
 
         if (e.target.name === 'end' && (responsex[3].ender > e.target.value && e.target.value > responsex[4].ender) ){
@@ -103,10 +105,9 @@ const TeamListItem = (props) => {
         } else if (e.target.name === 'end' && responsex[3].ender < e.target.value){
               passVal = {...responsex[0], end: e.target.value}
         } else if (e.target.name === 'end' && responsex[4].ender > e.target.value){
-          passVal = {...responsex[0], end: responsex[4].ender}
+              passVal = {...responsex[0], end: responsex[4].ender}
         }
-
-        console.log("please", passVal)
+        console.log("work", passVal)
           let updated = updateRestTasks(passVal)
 
           Promise.all([updated])
@@ -115,13 +116,13 @@ const TeamListItem = (props) => {
             let updated2 = allTasks(projId);
       
             Promise.all([updated2])
-              .then((response2) => {
-      
-                let sortedData = sortDataTable(response2[0])
-                setGanttTasks(sortedData);
-      
-                let newData = sortDataGantt(formatForGannt(response2[0]))
+              .then((response4) => {
+     
+                let newData = sortDataGantt(formatForGannt(response4[0]))
                 setTasks(newData);
+
+                let sortedData = sortDataTable(response4[0])
+                setGanttTasks(sortedData);
       
               })
               .catch((error) => {
@@ -138,7 +139,7 @@ const TeamListItem = (props) => {
         console.log(error);
       });
     }
-
+    
     let updated = updateRestTasks(formVals)
 
     Promise.all([updated])
@@ -188,7 +189,7 @@ const TeamListItem = (props) => {
           </Input>
           <Input
             id="inpt"
-            readOnly={formVals.type === "project" ? true : false}
+            disabled={formVals.type === "project" ? true : false}
             onChange={handleChange}
             onBlur={handleSubmit}
             name="start"
@@ -199,7 +200,7 @@ const TeamListItem = (props) => {
           </Input>
           <Input
             id="inpt"
-            readOnly={formVals.type === "project" ? true : false}
+            disabled={formVals.type === "project" ? true : false}
             onChange={handleChange}
             onBlur={handleSubmit}
             name="end"
