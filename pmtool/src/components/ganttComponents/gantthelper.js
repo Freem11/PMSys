@@ -112,5 +112,38 @@ const updateParentEndDate = (parentData, maxEnd, maxEnd2, newValue, oldEnd) => {
   }
   }
 
+  const updateParentChildArray = (parentData, newChild, exParent) => {
+    
+    console.log("values", parentData, newChild, exParent)
+    let finalVal
 
-module.exports = { formatForGannt, sortDataGantt, sortDataTable, updateParentStartDate, updateParentEndDate };
+    if (parentData === undefined){
+
+      console.log("yeah?", exParent, newChild)
+      finalVal = exParent.barchildren
+      let dataMinus =  finalVal.filter(item => item !== newChild)
+      console.log("yeah1?",dataMinus, newChild)
+
+      exParent.barchildren = dataMinus
+      console.log("yip", exParent)
+      return exParent
+
+    } else {
+
+      finalVal = parentData
+      let arrayVal = parentData.barchildren
+
+    if (arrayVal == null){
+      finalVal.barchildren = [newChild]
+    } else {
+    arrayVal = [...arrayVal, newChild]
+
+    finalVal = {...parentData, barchildren: arrayVal}
+    }
+    console.log("yeah2?",finalVal, newChild)
+    return finalVal
+    }
+  }
+
+
+module.exports = { formatForGannt, sortDataGantt, sortDataTable, updateParentStartDate, updateParentEndDate, updateParentChildArray };

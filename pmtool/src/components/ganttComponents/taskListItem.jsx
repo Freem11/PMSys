@@ -6,7 +6,7 @@ import { allTasks, updateHiddenTasks, updateRestTasks, getTaskByName, getTaskSta
 import PositionedMenuTeam from "./taskPopUp";
 import Switch from "@mui/material/Switch";
 import "./taskList.scss";
-import {formatForGannt, sortDataGantt, sortDataTable, updateParentStartDate, updateParentEndDate } from './gantthelper'
+import {formatForGannt, sortDataGantt, sortDataTable, updateParentStartDate, updateParentEndDate, updateParentChildArray } from './gantthelper'
 const TeamListItem = (props) => {
   const {
     id,
@@ -84,7 +84,6 @@ const TeamListItem = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
    
-    if (e.target.name === 'end' || e.target.name === 'start'){
       let parentz = getTaskByName({name: formVals.project, id: projId})
 
       let minStart = getTaskStartMin({project: formVals.project})
@@ -92,8 +91,10 @@ const TeamListItem = (props) => {
       let maxEnd = getTaskEndMax({project: formVals.project})
       let max2End = getTaskEnd2Max({project: formVals.project})
 
-     
-      Promise.all([parentz, minStart, min2Start, maxEnd, max2End])
+      let parento = getTaskByName({name: e.target.value, id: projId})
+      let exParent = getTaskByName({name: oldTasks.project, id: projId})
+
+      Promise.all([parentz, minStart, min2Start, maxEnd, max2End, parento, exParent])
       .then((responsex) => {
         let passVal = responsex[0];
 
@@ -105,11 +106,16 @@ const TeamListItem = (props) => {
             passVal = updateParentEndDate(responsex[0],responsex[3].ender, responsex[4].ender, e.target.value, oldTasks.end)
         }
 
+        if (e.target.name === 'project') {
+            passVal = updateParentChildArray(responsex[5], formVals.name, responsex[6])
+        }
+         
+        console.log("didi i work1?", passVal)
           let updated = updateRestTasks(passVal)
 
           Promise.all([updated])
           .then((response) => {
-      
+            console.log("didi i work2?", response)
             let updated2 = allTasks(projId);
       
             Promise.all([updated2])
@@ -135,7 +141,7 @@ const TeamListItem = (props) => {
       .catch((error) => {
         console.log(error);
       });
-    }
+    
     
     let updated = updateRestTasks(formVals)
 
