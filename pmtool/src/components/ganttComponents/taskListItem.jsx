@@ -7,6 +7,7 @@ import PositionedMenuTeam from "./taskPopUp";
 import Switch from "@mui/material/Switch";
 import "./taskList.scss";
 import {formatForGannt, sortDataGantt, sortDataTable, updateParentStartDate, updateParentEndDate, updateParentChildArray } from './gantthelper'
+import { border } from "@mui/system";
 const TeamListItem = (props) => {
   const {
     id,
@@ -228,7 +229,7 @@ const TeamListItem = (props) => {
           </Input>
           <Input
             id="inpt"
-            readOnly={formVals.type === "project" ? true : false}
+            disabled={formVals.type === "project" ? true : false}
             onChange={handleChange}
             onBlur={handleSubmit}
             name="progress"
@@ -241,25 +242,24 @@ const TeamListItem = (props) => {
             onChange={handleChange}
             onBlur={handleSubmit}
             name="dependencies"
-            style={{ minWidth: "100px", maxWidth: "100px" }}
+            style={{ minWidth: "160px", maxWidth: "160px" }}
             defaultValue={formVals.dependencies}
           >
           </Input>
-         
+    
           {formVals.type !== 'project' ?
           <Input
-            id="inpt"
+            id="selecter"
             type="select"
-            readOnly={formVals.type === "project" ? true : false}
             onChange={handleChange}
             onBlur={handleSubmit}
             name="project"
-            style={{ minWidth: "100px", maxWidth: "100px", overflow: 'scroll'}}
+            style={{fontSize: '15px', color: 'white', minWidth: "90px", maxWidth: "90px", backgroundColor: "rgb(57, 60, 87)", border: 'transparent'}}
             value={formVals.project}
           >
              <option
                   id={-1}
-                  name="localed"
+                  name="empty"
                   key={id}
                   values={id}
                   className="modalSelect"
@@ -268,7 +268,7 @@ const TeamListItem = (props) => {
             {projVals && projVals.map((name, index) => (
                 <option
                   id={index}
-                  name="user_id"
+                  name="projname"
                   key={name.id}
                   values={name.id}
                   className="modalSelect"
@@ -277,30 +277,25 @@ const TeamListItem = (props) => {
                 </option>
               ))}
           </Input>
-          : <div style={{width: '100px', backgroundColor: "rgb(57, 60, 87)"}}></div>}
-
-
-          <div style={{ backgroundColor: "rgb(57, 60, 87)" }}>
-            {formVals.type === 'project' ?
+          :   
+          <div style={{ backgroundColor: "rgb(57, 60, 87)", minWidth: '90px', maxWidth: '90px'}}>
             <Switch
-              readOnly={formVals.type !== "project" ? true : false}
               checked={swtch}
               name="hideChildren"
               value={formVals.hideChildren}
               onClick={() => handleSwitch()}
-              sx={{marginTop: '5px'}}
-              
+              sx={{marginTop: '5px', marginLeft: '-5px'}}
             >
             </Switch>
-            : <div style={{width: '58px'}}></div>}
           </div>
+          }
           <div
             id="inpt"
             style={{
               width: 79,
               backgroundColor: "rgb(57, 60, 87)",
-              paddingRight: "20px",
-              marginLeft: "-9px",
+              paddingRight: "0px",
+              marginLeft: "0px",
               paddingTop: '5px'
             }}
           >

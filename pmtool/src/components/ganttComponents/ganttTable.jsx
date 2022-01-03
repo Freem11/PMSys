@@ -70,7 +70,7 @@ function GanttTable() {
                <p style={{minWidth: '160px', marginLeft: '-15px', color: 'white'}}><strong>Start</strong></p>
                <p style={{minWidth: '183px', marginLeft: '5px', color: 'white'}}><strong>End</strong></p>
                <p style={{minWidth: '50px', marginLeft: '-20px', color: 'white'}}><strong>Prg</strong></p>
-               <p style={{minWidth: '100px', marginLeft: '0px', color: 'white'}}><strong>Depends</strong></p>
+               <p style={{minWidth: '150px', marginLeft: '0px', color: 'white'}}><strong>Dependencies</strong></p>
                <p style={{minWidth: '100px', marginLeft: '0px', color: 'white'}}><strong>Parent</strong></p>
            </div>
            <p>{list}</p>
