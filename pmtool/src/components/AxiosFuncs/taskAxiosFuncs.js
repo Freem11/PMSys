@@ -138,7 +138,6 @@ return axios
 
 export const getTaskEnd2Max = (info) => {
 
-  // console.log("axios", info)
 return axios
 .post(`http://localhost:5000/tasks/max2`, {
   project: info.project,
@@ -163,6 +162,22 @@ export const getprTskPr = (projId) => {
     });
 };
 
+export const getAvgProgress = (info) => {
+
+//  console.log("axios", info)
+
+return axios
+.post(`http://localhost:5000/tasks/avgprogress`, {
+  id: info.id,
+  project: info.project,
+})
+.then((response) => {
+  return response.data;
+})
+.catch((err) => {
+  return err;
+});
+};
 
 // export const deleteQuoteItem = (id) => {
 //   return axios

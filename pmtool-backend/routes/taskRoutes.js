@@ -109,8 +109,6 @@ const getSingleTask = router.post("/task/:id", (req, res) => {
   let projId = req.body.id;
   let name = req.body.name;
 
-  console.log("route", req.body);
-
   db.getTaskByName(name, projId)
     .then((zones) => {
       res.json(zones);
@@ -192,6 +190,19 @@ const getProjTaskProj = router.get("/tasks/project/:id", (req, res) => {
   });
 });
 
+const getAvgProg = router.post("/tasks/avgprogress", (req, res) => {
+  let project = req.body.project;
+  let projId = req.body.id;
+  console.log("route", req.body)
+
+  db.getAvgProgress(project, projId)
+    .then((zones) => {
+      res.json(zones);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
 
 // const delQuote = router.delete("/quote/delete/:id", (req, res) => {
 
@@ -216,5 +227,6 @@ module.exports = {
   getMaxEnd,
   get2MaxEnd,
   getProjTaskProj,
+  getAvgProg,
   addProjTask,
 };

@@ -114,7 +114,6 @@ const getTaskByName = (name, projectId) => {
       projectId,
     ])
     .then((response) => {
-      console.log("db prod", response.rows);
       return response.rows;
     })
     .catch((error) => {
@@ -154,7 +153,6 @@ const get2MaxTaskEnd = (projectName) => {
 };
 
 const getMinTaskStart = (projectName) => {
-  // console.log("db gets", projectName)
 
   return db
     .query(`SELECT MIN(start) as "starter" FROM tasks WHERE project = $1 `, [
@@ -169,7 +167,6 @@ const getMinTaskStart = (projectName) => {
 };
 
 const get2MinTaskStart = (projectName) => {
-  // console.log("db gets", projectName)
 
   return db
     .query(
@@ -190,6 +187,22 @@ const getProjectTaskProject = (projId) => {
       `SELECT DISTINCT name FROM tasks WHERE type = 'project' AND project_id =$1`,
       [projId]
     )
+    .then((response) => {
+      return response.rows;
+    })
+    .catch((error) => {
+      console.log("unable to query db got error:", error);
+    });
+};
+
+const getAvgProgress = (parent, projectId) => {
+
+  // console.log("db gets", parent, projectId)
+  return db
+    .query(`SELECT name, progress FROM tasks WHERE project = $1 AND project_id = $2`, [
+      parent,
+      projectId,
+    ])
     .then((response) => {
       return response.rows;
     })
@@ -219,5 +232,6 @@ module.exports = {
   getMaxTaskEnd,
   get2MaxTaskEnd,
   getProjectTaskProject,
+  getAvgProgress,
   addTask,
 };

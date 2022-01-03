@@ -2,11 +2,11 @@
 import { useState, useContext, useCallback, useRef, useEffect} from "react";
 import { Form, Input } from "reactstrap";
 import { TasksContext, GanttContext } from "./taskContext";
-import { allTasks, updateHiddenTasks, updateRestTasks, getTaskByName, getTaskStartMin, getTaskStart2Min, getTaskEndMax, getTaskEnd2Max, getprTskPr } from "../AxiosFuncs/taskAxiosFuncs";
+import { allTasks, updateHiddenTasks, updateRestTasks, getTaskByName, getTaskStartMin, getTaskStart2Min, getTaskEndMax, getTaskEnd2Max, getprTskPr, getAvgProgress } from "../AxiosFuncs/taskAxiosFuncs";
 import PositionedMenuTeam from "./taskPopUp";
 import Switch from "@mui/material/Switch";
 import "./taskList.scss";
-import {formatForGannt, sortDataGantt, sortDataTable, updateParentStartDate, updateParentEndDate, updateParentChildArray, manageDependencyArray } from './gantthelper'
+import {formatForGannt, sortDataGantt, sortDataTable, updateParentStartDate, updateParentEndDate, updateParentChildArray, manageDependencyArray, handleAvgProgress } from './gantthelper'
 const TeamListItem = (props) => {
   const {
     id,
@@ -108,9 +108,9 @@ const TeamListItem = (props) => {
       let parento = getTaskByName({name: e.target.value, id: projId})
       let exParent = getTaskByName({name: oldTasks.project, id: projId})
 
-      let parenti = getTaskByName({name: formVals.name, id: projId})
+      let avgprg = getAvgProgress({project: formVals.project, id: projId})
 
-      Promise.all([parentz, minStart, min2Start, maxEnd, max2End, parento, exParent, parenti])
+      Promise.all([parentz, minStart, min2Start, maxEnd, max2End, parento, exParent, avgprg])
       .then((responsex) => {
         let passVal = responsex[0];
 
@@ -128,8 +128,13 @@ const TeamListItem = (props) => {
 
         if (e.target.name === 'dependencies') {
           passVal = manageDependencyArray(responsex[7], e.target.value)
-      }
+        }
          
+        if (e.target.name === 'progress') {
+          passVal = handleAvgProgress(responsex[0], responsex[7], formVals.name, e.target.value)
+        }
+
+
         console.log("didi i work1?", passVal)
           let updated = updateRestTasks(passVal)
 

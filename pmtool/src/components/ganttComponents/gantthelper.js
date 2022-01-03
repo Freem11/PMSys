@@ -149,6 +149,22 @@ const manageDependencyArray = (data, newVal) => {
   return data
 };
 
+const handleAvgProgress = (parent, progressList, taskName, newVal) => {
+
+  let progressArray = [Number(newVal)]
+
+  progressList.forEach(task => {
+    if (task.name !== taskName){
+      progressArray.push(task.progress)
+    }
+  });
+
+  const average = Math.round(progressArray.reduce((a,b) => a+b, 0) / progressArray.length)
+
+  parent.progress = average
+  return parent
+
+};
 
 module.exports = {
   formatForGannt,
@@ -158,4 +174,5 @@ module.exports = {
   updateParentEndDate,
   updateParentChildArray,
   manageDependencyArray,
+  handleAvgProgress,
 };
