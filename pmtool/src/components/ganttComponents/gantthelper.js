@@ -1,4 +1,3 @@
-
 const formatForGannt = (data) => {
   let arr = [];
 
@@ -41,7 +40,7 @@ const sortDataGantt = (data) => {
     // names must be equal
     return 0;
   });
-  console.log("working",sorted)
+
   return sorted;
 };
 
@@ -59,91 +58,104 @@ const sortDataTable = (data) => {
     // names must be equal
     return 0;
   });
-  console.log("busted",sorted)
+  console.log("busted", sorted);
   return sorted;
 };
 
-const updateParentStartDate = (parentData, maxStart, maxStart2, newValue, oldStart) => {
+const updateParentStartDate = (
+  parentData,
+  maxStart,
+  maxStart2,
+  newValue,
+  oldStart
+) => {
+  let finalVal = parentData;
 
-    let finalVal = parentData
-
-    if (maxStart === oldStart) {
-      if (maxStart > newValue) {
-        finalVal = {...parentData, start: newValue}
-
-      } else if ( maxStart < newValue && newValue < maxStart2){
-        finalVal = {...parentData, start: newValue}
-
-      } else if ( maxStart2 < newValue){
-        finalVal = {...parentData, start: maxStart2}
-      } 
-        return finalVal
-    } else {
-
-      if (maxStart > newValue) {
-        finalVal = {...parentData, start: newValue}
-      }
-      return finalVal
+  if (maxStart === oldStart) {
+    if (maxStart > newValue) {
+      finalVal = { ...parentData, start: newValue };
+    } else if (maxStart < newValue && newValue < maxStart2) {
+      finalVal = { ...parentData, start: newValue };
+    } else if (maxStart2 < newValue) {
+      finalVal = { ...parentData, start: maxStart2 };
     }
+    return finalVal;
+  } else {
+    if (maxStart > newValue) {
+      finalVal = { ...parentData, start: newValue };
+    }
+    return finalVal;
   }
+};
 
 const updateParentEndDate = (parentData, maxEnd, maxEnd2, newValue, oldEnd) => {
-
-  let finalVal = parentData
+  let finalVal = parentData;
 
   if (maxEnd === oldEnd) {
     if (maxEnd < newValue) {
-        finalVal = {...parentData, end: newValue}
-
+      finalVal = { ...parentData, end: newValue };
     } else if (maxEnd > newValue && newValue > maxEnd2) {
-        finalVal = {...parentData, end: newValue}
-
-    }else if (maxEnd2 > newValue) {
-      finalVal = {...parentData, end: maxEnd2}
-  }
-      return finalVal
-
+      finalVal = { ...parentData, end: newValue };
+    } else if (maxEnd2 > newValue) {
+      finalVal = { ...parentData, end: maxEnd2 };
+    }
+    return finalVal;
   } else {
-
     if (maxEnd < newValue) {
-      finalVal = {...parentData, end: newValue}
+      finalVal = { ...parentData, end: newValue };
     }
-    return finalVal
+    return finalVal;
   }
-  }
+};
 
-  const updateParentChildArray = (parentData, newChild, exParent) => {
-    
-    console.log("values", parentData, newChild, exParent)
-    let finalVal
+const updateParentChildArray = (parentData, newChild, exParent) => {
+  console.log("values", parentData, newChild, exParent);
+  let finalVal;
 
-    if (parentData === undefined){
+  if (parentData === undefined) {
+    console.log("yeah?", exParent, newChild);
+    finalVal = exParent.barchildren;
+    let dataMinus = finalVal.filter((item) => item !== newChild);
 
-      console.log("yeah?", exParent, newChild)
-      finalVal = exParent.barchildren
-      let dataMinus =  finalVal.filter(item => item !== newChild)
-      console.log("yeah1?",dataMinus, newChild)
+    exParent.barchildren = dataMinus;
+ 
+    return exParent;
+  } else {
+    finalVal = parentData;
+    let arrayVal = parentData.barchildren;
 
-      exParent.barchildren = dataMinus
-      console.log("yip", exParent)
-      return exParent
-
+    if (arrayVal == null) {
+      finalVal.barchildren = [newChild];
     } else {
+      arrayVal = [...arrayVal, newChild];
 
-      finalVal = parentData
-      let arrayVal = parentData.barchildren
-
-    if (arrayVal == null){
-      finalVal.barchildren = [newChild]
-    } else {
-    arrayVal = [...arrayVal, newChild]
-
-    finalVal = {...parentData, barchildren: arrayVal}
+      finalVal = { ...parentData, barchildren: arrayVal };
     }
-    console.log("yeah2?",finalVal, newChild)
-    return finalVal
-    }
+    console.log("yeah2?", finalVal, newChild);
+    return finalVal;
   }
+};
+
+const manageDependencyArray = (data, newVal) => {
+
+  let stringManage = newVal.split(",");
+  let finalArr = []
+
+  stringManage.forEach(dep => {
+      finalArr.push(dep)  
+  });
+
+  data.dependencies = finalArr
+  return data
+};
 
 
-module.exports = { formatForGannt, sortDataGantt, sortDataTable, updateParentStartDate, updateParentEndDate, updateParentChildArray };
+module.exports = {
+  formatForGannt,
+  sortDataGantt,
+  sortDataTable,
+  updateParentStartDate,
+  updateParentEndDate,
+  updateParentChildArray,
+  manageDependencyArray,
+};

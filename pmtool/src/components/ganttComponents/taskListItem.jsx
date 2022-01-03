@@ -1,13 +1,12 @@
 // import PositionedMenuTeam from './teamPopUp'
 import { useState, useContext, useCallback, useRef, useEffect} from "react";
-import { Form, FormGroup, Input } from "reactstrap";
+import { Form, Input } from "reactstrap";
 import { TasksContext, GanttContext } from "./taskContext";
 import { allTasks, updateHiddenTasks, updateRestTasks, getTaskByName, getTaskStartMin, getTaskStart2Min, getTaskEndMax, getTaskEnd2Max, getprTskPr } from "../AxiosFuncs/taskAxiosFuncs";
 import PositionedMenuTeam from "./taskPopUp";
 import Switch from "@mui/material/Switch";
 import "./taskList.scss";
-import {formatForGannt, sortDataGantt, sortDataTable, updateParentStartDate, updateParentEndDate, updateParentChildArray } from './gantthelper'
-import { border } from "@mui/system";
+import {formatForGannt, sortDataGantt, sortDataTable, updateParentStartDate, updateParentEndDate, updateParentChildArray, manageDependencyArray } from './gantthelper'
 const TeamListItem = (props) => {
   const {
     id,
@@ -22,8 +21,8 @@ const TeamListItem = (props) => {
     project,
     projId,
   } = props;
-  const { ganttTasks, setGanttTasks } = useContext(TasksContext);
-  const { tasks, setTasks } = useContext(GanttContext);
+  const { setGanttTasks } = useContext(TasksContext);
+  const { setTasks } = useContext(GanttContext);
 
   const prevTasks = useRef()
   useEffect(() => {
@@ -109,7 +108,9 @@ const TeamListItem = (props) => {
       let parento = getTaskByName({name: e.target.value, id: projId})
       let exParent = getTaskByName({name: oldTasks.project, id: projId})
 
-      Promise.all([parentz, minStart, min2Start, maxEnd, max2End, parento, exParent])
+      let parenti = getTaskByName({name: formVals.name, id: projId})
+
+      Promise.all([parentz, minStart, min2Start, maxEnd, max2End, parento, exParent, parenti])
       .then((responsex) => {
         let passVal = responsex[0];
 
@@ -124,6 +125,10 @@ const TeamListItem = (props) => {
         if (e.target.name === 'project') {
             passVal = updateParentChildArray(responsex[5], formVals.name, responsex[6])
         }
+
+        if (e.target.name === 'dependencies') {
+          passVal = manageDependencyArray(responsex[7], e.target.value)
+      }
          
         console.log("didi i work1?", passVal)
           let updated = updateRestTasks(passVal)
@@ -254,7 +259,7 @@ const TeamListItem = (props) => {
             onChange={handleChange}
             onBlur={handleSubmit}
             name="project"
-            style={{fontSize: '15px', color: 'white', minWidth: "90px", maxWidth: "90px", backgroundColor: "rgb(57, 60, 87)", border: 'transparent'}}
+            style={{fontSize: '15px', color: 'white', minWidth: "80px", maxWidth: "80px", backgroundColor: "rgb(57, 60, 87)", border: 'transparent'}}
             value={formVals.project}
           >
              <option
@@ -278,7 +283,7 @@ const TeamListItem = (props) => {
               ))}
           </Input>
           :   
-          <div style={{ backgroundColor: "rgb(57, 60, 87)", minWidth: '90px', maxWidth: '90px'}}>
+          <div style={{ backgroundColor: "rgb(57, 60, 87)", minWidth: '80px', maxWidth: '80px'}}>
             <Switch
               checked={swtch}
               name="hideChildren"
