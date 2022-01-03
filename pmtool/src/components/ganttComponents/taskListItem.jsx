@@ -2,7 +2,7 @@
 import { useState, useContext, useCallback, useRef, useEffect} from "react";
 import { Form, Input } from "reactstrap";
 import { TasksContext, GanttContext } from "./taskContext";
-import { allTasks, updateHiddenTasks, updateRestTasks, getTaskByName, getTaskStartMin, getTaskStart2Min, getTaskEndMax, getTaskEnd2Max, getprTskPr, getAvgProgress } from "../AxiosFuncs/taskAxiosFuncs";
+import { allTasks, updateHiddenTasks, updateRestTasks, getTaskByName, getTaskStartMin, getTaskStart2Min, getTaskEndMax, getTaskEnd2Max, getprTskPr, getAvgProgress, getTaskTypes, getTaskNames } from "../AxiosFuncs/taskAxiosFuncs";
 import PositionedMenuTeam from "./taskPopUp";
 import Switch from "@mui/material/Switch";
 import "./taskList.scss";
@@ -10,6 +10,7 @@ import {formatForGannt, sortDataGantt, sortDataTable, updateParentStartDate, upd
 const TeamListItem = (props) => {
   const {
     id,
+    seq,
     name,
     start,
     end,
@@ -21,6 +22,7 @@ const TeamListItem = (props) => {
     project,
     projId,
   } = props;
+
   const { setGanttTasks } = useContext(TasksContext);
   const { setTasks } = useContext(GanttContext);
 
@@ -31,8 +33,11 @@ const TeamListItem = (props) => {
   const oldTasks = prevTasks.current
 
   const [projVals, setprojVals] = useState('')
+  const [taskTypes, setTaskTypes] = useState('')
+  const [taskNames, setTaskNames] = useState('')
 
   useEffect(() => {
+
     let data = getprTskPr(projId);
 
     Promise.all([data])
@@ -42,10 +47,32 @@ const TeamListItem = (props) => {
       .catch((error) => {
         console.log(error);
       });
+
+    let types = getTaskTypes();
+
+    Promise.all([types])
+      .then((response1) => {
+        setTaskTypes(response1[0]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+      let names = getTaskNames();
+
+      Promise.all([names])
+        .then((response2) => {
+          setTaskNames(response2[0]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
   }, []);
 
   const [formVals, setFormVals] = useState({
     id: id,
+    seq: seq,
     name: name,
     start: start,
     end: end,
@@ -91,7 +118,6 @@ const TeamListItem = (props) => {
   }, [swtch]);
 
   const handleChange = (e) => {
-
     setFormVals({ ...formVals, [e.target.name]: e.target.value });
   };
 
@@ -109,10 +135,21 @@ const TeamListItem = (props) => {
       let exParent = getTaskByName({name: oldTasks.project, id: projId})
 
       let avgprg = getAvgProgress({project: formVals.project, id: projId})
+      let currentTask = getTaskByName({name: formVals.name, id: projId})
 
-      Promise.all([parentz, minStart, min2Start, maxEnd, max2End, parento, exParent, avgprg])
+      Promise.all([parentz, minStart, min2Start, maxEnd, max2End, parento, exParent, avgprg, currentTask])
       .then((responsex) => {
         let passVal = responsex[0];
+
+        if (e.target.name === 'seq') {
+          console.log("seq change", formVals)
+        }
+        if (e.target.name === 'name') {
+          console.log("name change", formVals)
+        }
+        if (e.target.name === 'type') {
+          console.log("type change", formVals)
+        }
 
         if (e.target.name === 'start') {
             passVal = updateParentStartDate(responsex[0], responsex[1].starter, responsex[2].starter, e.target.value, oldTasks.start)
@@ -127,7 +164,7 @@ const TeamListItem = (props) => {
         }
 
         if (e.target.name === 'dependencies') {
-          passVal = manageDependencyArray(responsex[7], e.target.value)
+          passVal = manageDependencyArray(responsex[8], e.target.value)
         }
          
         if (e.target.name === 'progress') {
@@ -135,21 +172,23 @@ const TeamListItem = (props) => {
         }
 
 
-        console.log("didi i work1?", passVal)
+        // console.log("didi i work1?", passVal)
           let updated = updateRestTasks(passVal)
 
           Promise.all([updated])
           .then((response) => {
-            console.log("didi i work2?", response)
+            // console.log("didi i work2?", response)
             let updated2 = allTasks(projId);
       
             Promise.all([updated2])
               .then((response4) => {
      
                 let newData = sortDataGantt(formatForGannt(response4[0]))
+                console.log("didi i work3?", newData)
                 setTasks(newData);
 
                 let sortedData = sortDataTable(response4[0])
+                console.log("didi i work4?", sortedData)
                 setGanttTasks(sortedData);
                 
               })
@@ -172,16 +211,17 @@ const TeamListItem = (props) => {
 
     Promise.all([updated])
     .then((response) => {
-
       let updated = allTasks(projId);
 
       Promise.all([updated])
         .then((response2) => {
 
           let sortedData = sortDataTable(response2[0])
+          console.log(sortedData)
           setGanttTasks(sortedData);
 
           let newData = sortDataGantt(formatForGannt(response2[0]))
+          console.log(newData)
           setTasks(newData);
 
         })
@@ -199,21 +239,57 @@ const TeamListItem = (props) => {
     <li id={id} className="teamL2">
       <div id="teamBox3">
         <Form id="teamBox2" onSubmit={handleSubmit}>
-          <Input
+        <Input
             id="inpt"
-            readOnly
-            name="name"
-            value={formVals.name}
-            style={{ minWidth: "120px", maxWidth: "120px" }}
+            onChange={handleChange}
+            onBlur={handleSubmit}
+            name="seq"
+            type="text"
+            style={{ paddingLeft: '20px',minWidth: "50px", maxWidth: "50px" }}
+            value={formVals.seq}
           >
           </Input>
           <Input
             id="inpt"
             onChange={handleChange}
+            onBlur={handleSubmit}
+            type='select'
+            name="name"
+            value={formVals.name}
+            style={{ minWidth: "120px", maxWidth: "120px" }}
+          >
+             {taskNames && taskNames.map((name, index) => (
+                <option
+                  id={index}
+                  name="tsktyp"
+                  key={name.id}
+                  values={name.id}
+                  className="modalSelect"
+                >
+                  {name.name}
+                </option>
+              ))}
+          </Input>
+          <Input
+            id="inpt"
+            onChange={handleChange}
+            onBlur={handleSubmit}
+            type='select'
             name="type"
             value={formVals.type}
-            style={{ minWidth: "70px", maxWidth: "70px" }}
+            style={{ minWidth: "100px", maxWidth: "100px" }}
           >
+            {taskTypes && taskTypes.map((name, index) => (
+                <option
+                  id={index}
+                  name="tsktyp"
+                  key={name.id}
+                  values={name.id}
+                  className="modalSelect"
+                >
+                  {name.name}
+                </option>
+              ))}
           </Input>
           <Input
             id="inpt"

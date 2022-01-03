@@ -8,6 +8,8 @@ DELETE FROM locations;
 DELETE FROM materials;
 DELETE FROM quotes;
 DELETE FROM tasks;
+DELETE FROM taskTypes;
+DELETE FROM taskNames;
 
 ALTER SEQUENCE users_id_seq RESTART WITH 1;
 ALTER SEQUENCE projects_id_seq RESTART WITH 1;
@@ -16,6 +18,8 @@ ALTER SEQUENCE locations_id_seq RESTART WITH 1;
 ALTER SEQUENCE materials_id_seq RESTART WITH 1;
 ALTER SEQUENCE quotes_id_seq RESTART WITH 1;
 ALTER SEQUENCE tasks_id_seq RESTART WITH 1;
+ALTER SEQUENCE taskTypes_id_seq RESTART WITH 1;
+ALTER SEQUENCE taskNames_id_seq RESTART WITH 1;
 
 INSERT INTO users(name, email, password)
 VALUES ('Jerry', 'jerry@gmail.com', '$2b$10$79yCm1nJdNV6S8iAycSTnOlEaRCAjKa8EfxblOIdMjIFyrFXw56a.'),
@@ -43,10 +47,16 @@ VALUES ('S-4000 Node', 'Fibre', 'Vancouver', 1000.00),
 ('S-4000 Node', 'Fibre', 'Calgary', 1000.00);
 
 
-INSERT INTO tasks(name, start, "end", type, progress, dependencies, barChildren, hideChildren, project, project_id)
-VALUES ('Build', '2022-1-3', '2022-1-16', 'project', 75, '{}', '{City Permit, Civil Build}', false, '', 1),
-('City Permit', '2022-1-3', '2022-1-10', 'task', 100, '{}', '{}', false, 'Build', 1),
-('Civil Build', '2022-1-11', '2022-1-16', 'task', 50, '{City Permit}', '{}', false, 'Build', 1),
-('Plant', '2022-2-3', '2022-2-17', 'project', 0, '{Build}', '{Fibre Build, Place Fibre}', true, '', 1),
-('Fibre Build', '2022-2-3', '2022-2-10', 'task', 0, '{}', '{}', false, 'Plant', 1),
-('Place Fibre', '2022-2-11', '2022-2-17', 'task', 0, '{Fibre Build}', '{}', false, 'Plant', 1);
+INSERT INTO tasks(seq, name, start, "end", type, progress, dependencies, barChildren, hideChildren, project, project_id)
+VALUES (1, 'Civil', '2022-1-3', '2022-1-16', 'project', 75, '{}', '{City Permit, Civil Build}', false, '', 1),
+(2, 'City Permit', '2022-1-3', '2022-1-10', 'task', 100, '{}', '{}', false, 'Civil', 1),
+(3, 'Civil Build', '2022-1-11', '2022-1-16', 'task', 50, '{City Permit}', '{}', false, 'Civil', 1),
+(4, 'Fibre', '2022-2-3', '2022-2-17', 'project', 0, '{Civil}', '{Place Cable, Splice}', true, '', 1),
+(5, 'Place Cable', '2022-2-3', '2022-2-10', 'task', 0, '{}', '{}', false, 'Fibre', 1),
+(6, 'Splice', '2022-2-11', '2022-2-17', 'task', 0, '{Place Cable}', '{}', false, 'Fibre', 1);
+
+INSERT INTO taskTypes(name)
+VALUES ('project'), ('task'), ('milestone');
+
+INSERT INTO taskNames(name)
+VALUES ('Civil'), ('Fibre'), ('Riser'), ('City Permit'), ('Civil Build'), ('Place Cable'), ('Splice'), ('TELUS P408'), ('TELUS P408A'), ('Design');

@@ -27,9 +27,10 @@ const formatForGannt = (data) => {
 };
 
 const sortDataGantt = (data) => {
+
   let sorted = data.sort(function (a, b) {
-    var nameA = a.trueId;
-    var nameB = b.trueId;
+    var nameA = a.seq;
+    var nameB = b.seq;
     if (nameA < nameB) {
       return -1;
     }
@@ -45,9 +46,10 @@ const sortDataGantt = (data) => {
 };
 
 const sortDataTable = (data) => {
+
   let sorted = data.sort(function (a, b) {
-    var nameA = a.id;
-    var nameB = b.id;
+    var nameA = a.seq;
+    var nameB = b.seq;
     if (nameA < nameB) {
       return -1;
     }
@@ -58,7 +60,7 @@ const sortDataTable = (data) => {
     // names must be equal
     return 0;
   });
-  console.log("busted", sorted);
+
   return sorted;
 };
 
@@ -138,6 +140,7 @@ const updateParentChildArray = (parentData, newChild, exParent) => {
 
 const manageDependencyArray = (data, newVal) => {
 
+ 
   let stringManage = newVal.split(",");
   let finalArr = []
 

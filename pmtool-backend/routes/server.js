@@ -40,6 +40,8 @@ const {
   get2MaxEnd,
   getProjTaskProj,
   getAvgProg,
+  getTskTypes,
+  getTskNames,
   addProjTask,
 } = require("./taskRoutes");
 
@@ -95,4 +97,6 @@ app.use(get2MinStart);
 app.use(getMaxEnd);
 app.use(get2MaxEnd);
 app.use(getProjTaskProj);
-app.use(getAvgProg)
+app.use(getAvgProg);
+app.use(getTskTypes);
+app.use(getTskNames);

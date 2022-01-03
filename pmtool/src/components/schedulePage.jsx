@@ -62,9 +62,9 @@ function SchedulePage() {
        <GanttContext.Provider value={{tasks, setTasks}}>
       <h2>Schedule:</h2>
     <div className="master">
-      <Split  sizes={[53.5,46.5]}
-              maxSize={[915]}
-              minSize={[220]}
+      <Split  sizes={[55.5,44.5]}
+              maxSize={[985]}
+              minSize={[200]}
               expandToMin={false}
               gutterSize={10}
               gutterAlign="center"

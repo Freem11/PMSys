@@ -76,6 +76,7 @@ const updateHiddenTasks = router.post("/task/edit/hide/:id", (req, res) => {
 });
 
 const updateTaskRest = router.post("/task/edit/:id", (req, res) => {
+  let seq = req.body.seq;
   let name = req.body.name;
   let start = req.body.start;
   let end = req.body.end;
@@ -86,7 +87,9 @@ const updateTaskRest = router.post("/task/edit/:id", (req, res) => {
   let project = req.body.project;
   let itemId = req.body.id;
 
+  console.log("route", req.body)
   db.updateTask(
+    seq,
     name,
     type,
     start,
@@ -204,6 +207,33 @@ const getAvgProg = router.post("/tasks/avgprogress", (req, res) => {
     });
 });
 
+const getTskTypes = router.get("/task/types", (req, res) => {
+
+  console.log("got to route")
+  db.getTaskTypes()
+  .then(zones => {
+      res.json(zones);
+  })
+  .catch(err => {
+      res
+      .status(500)
+      .json({ error: err.message});
+  });
+});
+
+const getTskNames = router.get("/task/names", (req, res) => {
+
+  db.getTaskNames()
+  .then(zones => {
+      res.json(zones);
+  })
+  .catch(err => {
+      res
+      .status(500)
+      .json({ error: err.message});
+  });
+});
+
 // const delQuote = router.delete("/quote/delete/:id", (req, res) => {
 
 //     db.deleteQuoteItem(req.params.id)
@@ -228,5 +258,7 @@ module.exports = {
   get2MaxEnd,
   getProjTaskProj,
   getAvgProg,
+  getTskTypes,
+  getTskNames,
   addProjTask,
 };

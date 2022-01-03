@@ -53,11 +53,12 @@ export const updateHiddenTasks = (info) => {
 };
 
 export const updateRestTasks = (info) => {
-
+console.log("axios", info)
   let id = info.id
 
   return axios
     .post(`http://localhost:5000/task/edit/${id}`, {
+      seq: info.seq,
       name: info.name,
       type: info.type,
       start: info.start,
@@ -177,6 +178,30 @@ return axios
 .catch((err) => {
   return err;
 });
+};
+
+export const getTaskTypes = () => {
+
+  return axios
+    .get(`http://localhost:5000/task/types`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const getTaskNames = () => {
+
+  return axios
+    .get(`http://localhost:5000/task/names`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      return err;
+    });
 };
 
 // export const deleteQuoteItem = (id) => {

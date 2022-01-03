@@ -62,6 +62,7 @@ const updateTaskHider = (itemId, hide) => {
 };
 
 const updateTask = (
+  seq,
   name,
   type,
   start,
@@ -72,21 +73,10 @@ const updateTask = (
   project,
   itemId
 ) => {
-  console.log(
-    "db gets",
-    name,
-    type,
-    start,
-    end,
-    progress,
-    dependencies,
-    barChildren,
-    project,
-    itemId
-  );
+  console.log("db seq", seq)
   return db
     .query(
-      `UPDATE tasks SET name = $1, type = $2, start = $3, "end" = $4, progress = $5, dependencies = $6, barChildren = $7, project = $8 WHERE id= $9 RETURNING *;`,
+      `UPDATE tasks SET name = $1, type = $2, start = $3, "end" = $4, progress = $5, dependencies = $6, barChildren = $7, project = $8, seq = $9 WHERE id= $10 RETURNING *;`,
       [
         name,
         type,
@@ -96,6 +86,7 @@ const updateTask = (
         dependencies,
         barChildren,
         project,
+        seq,
         itemId,
       ]
     )
@@ -211,6 +202,28 @@ const getAvgProgress = (parent, projectId) => {
     });
 };
 
+const getTaskTypes = () => {
+
+  console.log("got to db")
+  return db.query('SELECT DISTINCT name FROM taskTypes')
+  .then((response) => {
+      return response.rows;
+  })
+  .catch((error) => {
+      console.log("unable to query db got error:", error);
+  })
+}
+
+const getTaskNames = () => {
+
+  return db.query('SELECT DISTINCT name FROM taskNames')
+  .then((response) => {
+      return response.rows;
+  })
+  .catch((error) => {
+      console.log("unable to query db got error:", error);
+  })
+}
 // const deleteQuoteItem = (itemId) => {
 
 //     return db.query(`DELETE FROM quotes WHERE id= $1 RETURNING *;`, [itemId])
@@ -233,5 +246,7 @@ module.exports = {
   get2MaxTaskEnd,
   getProjectTaskProject,
   getAvgProgress,
+  getTaskTypes,
+  getTaskNames,
   addTask,
 };
