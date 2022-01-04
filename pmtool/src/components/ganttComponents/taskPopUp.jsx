@@ -1,16 +1,19 @@
 import React, { useState, useContext } from 'react';
 import { ProjectContext } from '../projectContext'
+import { TasksContext, GanttContext } from "./taskContext";
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreRounded'
 import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteQuoteItem, allQuote, quoteTotal } from '../AxiosFuncs/quoteAxiosFuncs'
-
+import { allTasks, deleteParent, cleanUpDeps, deleteTask } from '../AxiosFuncs/taskAxiosFuncs'
+import {formatForGannt, sortDataGantt } from './gantthelper'
 const PositionedMenuTeam = (props) => {
 
-  const { partId } = props
+  const { taskId ,name, type } = props
   const { project } = useContext(ProjectContext);
+  const { setGanttTasks } = useContext(TasksContext);
+  const { setTasks } = useContext(GanttContext);
   const projectFromSession = window.sessionStorage.getItem("project")
 
 let jProject;
@@ -37,21 +40,73 @@ let jProject;
   };
 
 
-  const doTwo = (partId) => {
+  const doTwo = (taskId) => {
 
-    let dels = deleteQuoteItem(partId)
+    console.log("two", taskId, name, project1)
 
-      Promise.all([dels])
+    if (type === 'project') {
+      let clearParents = deleteParent({ name: name, projId: project1 })
+
+      Promise.all([clearParents])
       .then((response) => {
-        let list = allQuote(jProject[0].id)
+        let list = allTasks(jProject[0].id)
+
           Promise.all([list])
           .then((response) => {
-          // setQuote(response[0])
+
+          let newData = sortDataGantt(formatForGannt(response[0]))
+          setTasks(newData);
+
+          let sortedData = sortDataGantt(response[0])
+          setGanttTasks(sortedData);
     })
     .catch((error) => {
       console.log(error);
     });
-  })
+    })
+  }
+
+  let tidyDependencies = cleanUpDeps({ text: name, projId: project1 })
+
+  Promise.all([tidyDependencies])
+  .then((response) => {
+    let list = allTasks(jProject[0].id)
+
+      Promise.all([list])
+      .then((response) => {
+
+      let newData = sortDataGantt(formatForGannt(response[0]))
+      setTasks(newData);
+
+      let sortedData = sortDataGantt(response[0])
+      setGanttTasks(sortedData);
+})
+.catch((error) => {
+  console.log(error);
+});
+})
+
+let delTask = deleteTask(taskId)
+
+Promise.all([delTask])
+.then((response) => {
+  console.log(response);
+  let list = allTasks(jProject[0].id)
+
+    Promise.all([list])
+    .then((response) => {
+
+    let newData = sortDataGantt(formatForGannt(response[0]))
+    setTasks(newData);
+
+    let sortedData = sortDataGantt(response[0])
+    setGanttTasks(sortedData);
+})
+.catch((error) => {
+console.log(error);
+});
+})
+
 }
 
   return (
@@ -80,7 +135,7 @@ let jProject;
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={() => doTwo(partId)}><DeleteIcon/> Delete</MenuItem>
+        <MenuItem onClick={() => doTwo(taskId)}><DeleteIcon/> Delete</MenuItem>
         
       </Menu>
     </div>

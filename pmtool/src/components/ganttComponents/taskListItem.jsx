@@ -371,7 +371,9 @@ const TeamListItem = (props) => {
             }}
           >
             <PositionedMenuTeam 
-            partId={id} 
+            taskId={id} 
+            name={name}
+            type={type}
             />
           </div>
         </Form>

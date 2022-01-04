@@ -204,12 +204,45 @@ export const getTaskNames = () => {
     });
 };
 
-// export const deleteQuoteItem = (id) => {
-//   return axios
-//     .delete(`http://localhost:5000/quote/delete/${id}`, { id })
-//     .then((response) => {})
-//     .catch((err) => {
-//       return err;
-//     });
-// };
+export const deleteParent = (info) => {
+  console.log("axios", info)
+  
+    return axios
+      .post(`http://localhost:5000/tasks/delProject`, {
+        projId: info.projId,
+        project: info.name,
+      })
+      .then((response) => {
+        return response.data[0];
+      })
+      .catch((err) => {
+        return err;
+      });
+  };
 
+  export const cleanUpDeps = (info) => {
+   
+    
+      return axios
+        .post(`http://localhost:5000/tasks/depenencies`, {
+          projId: info.projId,
+          text: info.text,
+        })
+        .then((response) => {
+          return response.data[0];
+        })
+        .catch((err) => {
+          return err;
+        });
+    };
+
+export const deleteTask = (id) => {
+
+  console.log("axios", id)
+  return axios
+    .delete(`http://localhost:5000/task/delete/${id}`, { id })
+    .then((response) => {})
+    .catch((err) => {
+      return err;
+    });
+};

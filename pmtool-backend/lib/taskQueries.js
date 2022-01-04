@@ -204,7 +204,6 @@ const getAvgProgress = (parent, projectId) => {
 
 const getTaskTypes = () => {
 
-  console.log("got to db")
   return db.query('SELECT DISTINCT name FROM taskTypes')
   .then((response) => {
       return response.rows;
@@ -224,16 +223,54 @@ const getTaskNames = () => {
       console.log("unable to query db got error:", error);
   })
 }
-// const deleteQuoteItem = (itemId) => {
 
-//     return db.query(`DELETE FROM quotes WHERE id= $1 RETURNING *;`, [itemId])
-//     .then((response) => {
-//         return response.rows;
-//     })
-//     .catch((error) => {
-//         console.log("unable to query db got error:", error);
-//     })
-// }
+const updateParentOnDelete = (projId, project) => {
+  console.log('db gets', projId, project)
+  return db
+    .query(`UPDATE tasks SET project = '' WHERE project_id= $1 AND project = $2 RETURNING *;`, [projId, project])
+    .then((response) => {
+      console.log(response.rows)
+      return response.rows;
+    })
+    .catch((error) => {
+      console.log("unable to query db got error:", error);
+    });
+};
+
+const getTaskDependenciesContaining = (projId, text) => {
+
+  return db.query(`SELECT * FROM tasks WHERE $1=ANY(dependencies) AND project_id = $2;`, [text, projId])
+  .then((response) => {
+      return response.rows;
+  })
+  .catch((error) => {
+      console.log("unable to query db got error:", error);
+  })
+}
+
+const updateDependencyArray = (taskId, depArray) => {
+
+  return db
+    .query(`UPDATE tasks SET dependencies = $1 WHERE id = $2 RETURNING *;`, [depArray, taskId])
+    .then((response) => {
+      console.log(response.rows)
+      return response.rows;
+    })
+    .catch((error) => {
+      console.log("unable to query db got error:", error);
+    });
+};
+
+const deleteTask = (taskId) => {
+
+    return db.query(`DELETE FROM tasks WHERE id= $1 RETURNING *;`, [taskId])
+    .then((response) => {
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })
+}
 
 module.exports = {
   getProjectTasks,
@@ -248,5 +285,9 @@ module.exports = {
   getAvgProgress,
   getTaskTypes,
   getTaskNames,
+  updateParentOnDelete,
+  getTaskDependenciesContaining,
+  updateDependencyArray,
+  deleteTask,
   addTask,
 };

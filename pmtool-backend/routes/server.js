@@ -42,6 +42,9 @@ const {
   getAvgProg,
   getTskTypes,
   getTskNames,
+  delParent,
+  cleanUpDependencies,
+  delTask,
   addProjTask,
 } = require("./taskRoutes");
 
@@ -100,3 +103,6 @@ app.use(getProjTaskProj);
 app.use(getAvgProg);
 app.use(getTskTypes);
 app.use(getTskNames);
+app.use(delParent);
+app.use(cleanUpDependencies);
+app.use(delTask);

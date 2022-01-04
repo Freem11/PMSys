@@ -87,7 +87,7 @@ const updateTaskRest = router.post("/task/edit/:id", (req, res) => {
   let project = req.body.project;
   let itemId = req.body.id;
 
-  console.log("route", req.body)
+  console.log("pout", req.body)
   db.updateTask(
     seq,
     name,
@@ -209,7 +209,6 @@ const getAvgProg = router.post("/tasks/avgprogress", (req, res) => {
 
 const getTskTypes = router.get("/task/types", (req, res) => {
 
-  console.log("got to route")
   db.getTaskTypes()
   .then(zones => {
       res.json(zones);
@@ -234,18 +233,66 @@ const getTskNames = router.get("/task/names", (req, res) => {
   });
 });
 
-// const delQuote = router.delete("/quote/delete/:id", (req, res) => {
+const delParent = router.post("/tasks/delProject", (req, res) => {
 
-//     db.deleteQuoteItem(req.params.id)
-//     .then(projects => {
-//         res.json(projects);
-//     })
-//     .catch(err => {
-//         res
-//         .status(500)
-//         .json({ error: err.message});
-//     });
-// });
+  console.log("route", req.body)
+  db.updateParentOnDelete(req.body.projId, req.body.project)
+    .then((zones) => {
+      console.log("route", zones)
+      res.json(zones);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
+const cleanUpDependencies = router.post("/tasks/depenencies", (req, res) => {
+
+
+  db.getTaskDependenciesContaining(req.body.projId, req.body.text)
+  .then(tasks => {
+    tasks.forEach(task => {
+      let arr = []
+
+      task.dependencies.forEach(el => {
+          if (el !== req.body.text){
+              arr.push(el)
+          }
+      });
+      
+      db.updateDependencyArray( task.id, arr)
+      .then(donze => {
+        console.log(donze);
+      })
+      .catch(err => {
+          res
+          .status(500)
+          .json({ error: err.message});
+      });
+
+    });
+    // console.log(tasks);
+  })
+  .catch(err => {
+      res
+      .status(500)
+      .json({ error: err.message});
+  });
+});
+
+const delTask = router.delete("/task/delete/:id", (req, res) => {
+
+  console.log("route", req.params.id)
+    db.deleteTask(req.params.id)
+    .then(projects => {
+        res.json(projects);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message});
+    });
+});
 
 module.exports = {
   getProjTasks,
@@ -260,5 +307,8 @@ module.exports = {
   getAvgProg,
   getTskTypes,
   getTskNames,
+  delParent,
+  cleanUpDependencies,
+  delTask,
   addProjTask,
 };
