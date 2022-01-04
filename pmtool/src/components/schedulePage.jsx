@@ -5,7 +5,7 @@ import { ProjectContext } from './projectContext'
 import { TasksContext, GanttContext } from './ganttComponents/taskContext'
 import { allTasks } from './AxiosFuncs/taskAxiosFuncs'
 import Split from 'react-split'
-import {formatForGannt, sortDataTable, sortDataGantt } from './ganttComponents/gantthelper'
+import {formatForGannt, sortDataGantt } from './ganttComponents/gantthelper'
 import "./schedulePage.scss"; 
 
 import {
@@ -47,7 +47,7 @@ function SchedulePage() {
           let newData = sortDataGantt(formatForGannt(response[0]))
           setTasks(newData) 
 
-          let sortedData = sortDataTable(response[0])
+          let sortedData = sortDataGantt(response[0])
           setGanttTasks(sortedData)
           
       })

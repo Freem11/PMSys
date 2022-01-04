@@ -45,25 +45,6 @@ const sortDataGantt = (data) => {
   return sorted;
 };
 
-const sortDataTable = (data) => {
-
-  let sorted = data.sort(function (a, b) {
-    var nameA = a.seq;
-    var nameB = b.seq;
-    if (nameA < nameB) {
-      return -1;
-    }
-    if (nameA > nameB) {
-      return 1;
-    }
-
-    // names must be equal
-    return 0;
-  });
-
-  return sorted;
-};
-
 const updateParentStartDate = (
   parentData,
   maxStart,
@@ -172,7 +153,6 @@ const handleAvgProgress = (parent, progressList, taskName, newVal) => {
 module.exports = {
   formatForGannt,
   sortDataGantt,
-  sortDataTable,
   updateParentStartDate,
   updateParentEndDate,
   updateParentChildArray,

@@ -6,7 +6,7 @@ import { allTasks, updateHiddenTasks, updateRestTasks, getTaskByName, getTaskSta
 import PositionedMenuTeam from "./taskPopUp";
 import Switch from "@mui/material/Switch";
 import "./taskList.scss";
-import {formatForGannt, sortDataGantt, sortDataTable, updateParentStartDate, updateParentEndDate, updateParentChildArray, manageDependencyArray, handleAvgProgress } from './gantthelper'
+import {formatForGannt, sortDataGantt, updateParentStartDate, updateParentEndDate, updateParentChildArray, manageDependencyArray, handleAvgProgress } from './gantthelper'
 const TeamListItem = (props) => {
   const {
     id,
@@ -99,7 +99,7 @@ const TeamListItem = (props) => {
         Promise.all([updated])
           .then((response2) => {
 
-            let sortedData = sortDataTable(response2[0])
+            let sortedData = sortDataGantt(response2[0])
 
             setGanttTasks(sortedData);
 
@@ -141,16 +141,6 @@ const TeamListItem = (props) => {
       .then((responsex) => {
         let passVal = responsex[0];
 
-        if (e.target.name === 'seq') {
-          console.log("seq change", formVals)
-        }
-        if (e.target.name === 'name') {
-          console.log("name change", formVals)
-        }
-        if (e.target.name === 'type') {
-          console.log("type change", formVals)
-        }
-
         if (e.target.name === 'start') {
             passVal = updateParentStartDate(responsex[0], responsex[1].starter, responsex[2].starter, e.target.value, oldTasks.start)
         }
@@ -171,24 +161,19 @@ const TeamListItem = (props) => {
           passVal = handleAvgProgress(responsex[0], responsex[7], formVals.name, e.target.value)
         }
 
+          let updatie = updateRestTasks(passVal)
 
-        // console.log("didi i work1?", passVal)
-          let updated = updateRestTasks(passVal)
-
-          Promise.all([updated])
+          Promise.all([updatie])
           .then((response) => {
-            // console.log("didi i work2?", response)
             let updated2 = allTasks(projId);
       
             Promise.all([updated2])
               .then((response4) => {
      
                 let newData = sortDataGantt(formatForGannt(response4[0]))
-                console.log("didi i work3?", newData)
                 setTasks(newData);
 
-                let sortedData = sortDataTable(response4[0])
-                console.log("didi i work4?", sortedData)
+                let sortedData = sortDataGantt(response4[0])
                 setGanttTasks(sortedData);
                 
               })
@@ -216,7 +201,7 @@ const TeamListItem = (props) => {
       Promise.all([updated])
         .then((response2) => {
 
-          let sortedData = sortDataTable(response2[0])
+          let sortedData = sortDataGantt(response2[0])
           console.log(sortedData)
           setGanttTasks(sortedData);
 
