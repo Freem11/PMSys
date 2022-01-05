@@ -1,0 +1,114 @@
+
+.inputbox{
+    display: flex;
+    flex-direction: column;;
+    margin-left: 25.5%;
+    margin-top: 20px;
+}
+
+.modalInputs{
+    margin-top: 10px;
+    border-radius: 10px;
+    width: 80%;
+    margin-left: -15%;
+}
+
+#newt{
+    margin-left: 35%;
+}
+.namebox{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    margin-left: 22%;
+}
+
+#taskname{
+    width: 60px;
+    height: 30px;
+    padding-top: 12px;
+}
+
+.tasknamedd{
+    margin-top: 10px;
+    width: 150px;
+    margin-left: 0%;
+    border-radius: 10px;
+    height: 30px;
+    text-align: center;
+    body {
+        overflow-y: hidden;
+    }   
+} 
+
+.typebox{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    margin-left: 22%;
+}
+
+#tasktype{
+    width: 60px;
+    height: 30px;
+    padding-top: 12px;
+}
+
+.tasktypedd{
+    margin-top: 10px;
+    width: 150px;
+    margin-left: 0%;
+    border-radius: 10px;
+    height: 30px;
+    text-align: center;
+    body {
+        overflow-y: hidden;
+    }   
+} 
+
+.parentbox{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    margin-left: 22%;
+}
+
+#taskparent{
+    width: 60px;
+    height: 30px;
+    padding-top: 12px;
+}
+
+.taskparentdd{
+    margin-top: 10px;
+    width: 150px;
+    margin-left: 0%;
+    border-radius: 10px;
+    height: 30px;
+    text-align: center;
+    body {
+        overflow-y: hidden;
+    }   
+} 
+
+#modalButto {
+    width: 140px;
+    height: 30px;
+    margin-left: 26%;
+    margin-bottom: 20px;
+}
+
+#projname {
+    margin-left: -20px;
+}
+
+#selectList{
+    margin-left: -1%;
+}
+
+#selectLab{
+    margin-left: -2%;  
+}

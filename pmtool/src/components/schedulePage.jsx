@@ -4,7 +4,10 @@ import GanttTable from './ganttComponents/ganttTable'
 import { ProjectContext } from './projectContext'
 import { TasksContext, GanttContext } from './ganttComponents/taskContext'
 import { allTasks } from './AxiosFuncs/taskAxiosFuncs'
+import { Button } from "reactstrap";
+import FormModal from './ganttComponents/formModal'
 import Split from 'react-split'
+import CreateNewTask from "./ganttComponents/createTask"
 import {formatForGannt, sortDataGantt } from './ganttComponents/gantthelper'
 import "./schedulePage.scss"; 
 
@@ -38,6 +41,12 @@ function SchedulePage() {
     };
   }
 
+  const [modal, setModal] = useState(false)
+
+      const toggleModal = () => {
+          setModal(!modal);
+      }
+
   useEffect(() => {
 
       let quote = allTasks(jProject.id)
@@ -57,10 +66,23 @@ function SchedulePage() {
     
       }, [])
 
+      
+
   return (
     <TasksContext.Provider value={{ganttTasks, setGanttTasks}}>
        <GanttContext.Provider value={{tasks, setTasks}}>
       <h2>Schedule:</h2>
+      <div className='addtask'>
+          <Button onClick={toggleModal} className="creatTaskButton">+ Task</Button>
+          </div>
+         
+
+            <FormModal openup={modal} closeup={toggleModal} >
+              <CreateNewTask
+                closeup={toggleModal}
+              />
+            </FormModal>
+            
     <div className="master">
       <Split  sizes={[55.5,44.5]}
               maxSize={[985]}
