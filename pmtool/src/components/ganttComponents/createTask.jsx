@@ -2,12 +2,14 @@ import { useState, useContext, useEffect } from "react";
 import { Button, Container, Form, FormGroup, Label, Input } from "reactstrap";
 import { ProjectContext } from "../projectContext";
 import { TasksContext, GanttContext } from "./taskContext";
-import { allTasks, addTask, getprTskPr, getTaskTypes, getTaskNames } from "../AxiosFuncs/taskAxiosFuncs";
-import {formatForGannt, sortDataGantt } from './gantthelper'
+import { allTasks, addTask, getprTskPr, getTaskTypes, getTaskNames, getTaskStartMin, getTaskEndMax, getAvgProgress, getTaskByName, updateRestTasks } from "../AxiosFuncs/taskAxiosFuncs";
+import {formatForGannt, sortDataGantt, handleAvgProgress, updateParentStartDate, updateParentEndDate  } from './gantthelper'
 import "./createTask.scss"
 
 
 const CreateNewTask = (props) => {
+
+  const { closeup } = props
 
   const [parents, setParents] = useState("");
   const [TTypes, setTTypes] = useState("");
@@ -90,23 +92,63 @@ const CreateNewTask = (props) => {
   console.log("values", formVals)
 
   const handleSubmit = (e) => {
+    e.preventDefault();
+    let parentz = getTaskByName({name: formVals.project, id: jProject.id})
 
-    let opt = e.target.value;
+    let minStart = getTaskStartMin({project: formVals.project})
+    let maxEnd = getTaskEndMax({project: formVals.project})
+    let avgprg = getAvgProgress({project: formVals.project, id: jProject.id})
 
+    Promise.all([parentz, avgprg, maxEnd, minStart])
+    .then((response) => {
+      let progressVal = handleAvgProgress(response[0], response[1], formVals.name, formVals.progress)
+      let startVal = updateParentStartDate(progressVal, response[3].starter, 0, formVals.start, 0)
+      let endVal = updateParentEndDate(startVal,response[2].ender, 0, formVals.end, 0)
+
+      let updatie = updateRestTasks(endVal)
+
+      Promise.all([updatie])
+      .then((response) => {
+        console.log(response)
+        let updated2 = allTasks(jProject.id);
+  
+        Promise.all([updated2])
+          .then((response4) => {
+ 
+            let newData = sortDataGantt(formatForGannt(response4[0]))
+            setTasks(newData);
+
+            let sortedData = sortDataGantt(response4[0])
+            setGanttTasks(sortedData);
+            
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+  
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+   
         let task = addTask(formVals)
         Promise.all([task])
         .then((response) => {
-      
+          
           let list = allTasks(jProject.id)
      
            Promise.all([list])
            .then((response) => {
 
-            let sortedData = sortDataGantt(response[0])
-            setGanttTasks(sortedData);
+            // let sortedData = sortDataGantt(response[0])
+            // setGanttTasks(sortedData);
 
-            let newData = sortDataGantt(formatForGannt(response[0]))
-            setTasks(newData);
+            // let newData = sortDataGantt(formatForGannt(response[0]))
+            // setTasks(newData);
 
            })
            .catch((error) => {
@@ -116,6 +158,7 @@ const CreateNewTask = (props) => {
         .catch((error) => {
           console.log(error);
         });
+        closeup()
     return;
   };
 

@@ -54,7 +54,7 @@ const updateParentStartDate = (
 ) => {
   let finalVal = parentData;
 
-  if (maxStart === oldStart) {
+  if (maxStart === oldStart || maxStart2 === 0 && oldStart === 0) {
     if (maxStart > newValue) {
       finalVal = { ...parentData, start: newValue };
     } else if (maxStart < newValue && newValue < maxStart2) {
@@ -74,7 +74,7 @@ const updateParentStartDate = (
 const updateParentEndDate = (parentData, maxEnd, maxEnd2, newValue, oldEnd) => {
   let finalVal = parentData;
 
-  if (maxEnd === oldEnd) {
+  if (maxEnd === oldEnd || maxEnd2 === 0 && oldEnd === 0 ) {
     if (maxEnd < newValue) {
       finalVal = { ...parentData, end: newValue };
     } else if (maxEnd > newValue && newValue > maxEnd2) {

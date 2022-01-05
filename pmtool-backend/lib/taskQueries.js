@@ -88,6 +88,16 @@ const updateTask = (
   project,
   itemId
 ) => {
+  console.log("update?",  seq,
+  name,
+  type,
+  start,
+  end,
+  progress,
+  dependencies,
+  barChildren,
+  project,
+  itemId)
   return db
     .query(
       `UPDATE tasks SET name = $1, type = $2, start = $3, "end" = $4, progress = $5, dependencies = $6, barChildren = $7, project = $8, seq = $9 WHERE id= $10 RETURNING *;`,
