@@ -1,7 +1,9 @@
 import { useState, useContext, useEffect } from "react";
-import { Container, Form, FormGroup, Label, Input } from "reactstrap";
+import { Button, Container, Form, FormGroup, Label, Input } from "reactstrap";
 import { ProjectContext } from "../projectContext";
-import { allTasks, getprTskPr, getTaskTypes, getTaskNames } from "../AxiosFuncs/taskAxiosFuncs";
+import { TasksContext, GanttContext } from "./taskContext";
+import { allTasks, addTask, getprTskPr, getTaskTypes, getTaskNames } from "../AxiosFuncs/taskAxiosFuncs";
+import {formatForGannt, sortDataGantt } from './gantthelper'
 import "./createTask.scss"
 
 
@@ -13,6 +15,8 @@ const CreateNewTask = (props) => {
   const [list, setList] = useState("");
 
   const { project } = useContext(ProjectContext);
+  const { setGanttTasks } = useContext(TasksContext);
+  const { setTasks } = useContext(GanttContext);
 
   const projectFromSession = window.sessionStorage.getItem("project")
 
@@ -47,43 +51,78 @@ const CreateNewTask = (props) => {
   }, []);
 
 
-  // const [ formVals, setFormVals ] = useState({
-  //   project_id: '',
-  //   user_id: ','
-  // });
+  const [ formVals, setFormVals ] = useState({ 
+    seq: 0,
+    name: '',
+    start: '',
+    end: '',
+    type: '',
+    progress: 0,
+    dependencies: '',
+    hideChildren: false,
+    barChildren: [],
+    project: '',
+    project_id: jProject.id,
+  });
 
+  const handleChange = (e) => {
+    let opts = [],
+      opt;
+      
+    if (e.target.type === "select" || e.target.type === "select-multiple") {
+      for (let i = 0; i < e.target.options.length; i++) {
+        opt = e.target.options[i];
+
+        if (opt.selected) {
+          opts.push(opt.value);
+        }
+      }
+      setFormVals({ ...formVals, [e.target.name]: opts });
+    } else if (e.target.value === "project" && e.target.name === "type") {
+      opt = e.target.value;
+      setFormVals({ ...formVals, [e.target.name]: opt, project: '' });
+    } else {
+      opt = e.target.value;
+      setFormVals({ ...formVals, [e.target.name]: opt });
+    }
+    
+  };
+  console.log("values", formVals)
 
   const handleSubmit = (e) => {
 
     let opt = e.target.value;
 
-    //     let user = userByName(opt)
-    //     Promise.all([user])
-    //     .then((response) => {
-    //       let uId = response[0][0].id
-    //       let pId =  jProject.id
+        let task = addTask(formVals)
+        Promise.all([task])
+        .then((response) => {
       
-    //       registerUserProject(uId, pId)
-    //       let list = getTeamByProjectId(jProject.id)
+          let list = allTasks(jProject.id)
      
-    //        Promise.all([list])
-    //        .then((response) => {
-    //         //  setTeam(response[0].data);
-    //        })
-    //        .catch((error) => {
-    //          console.log(error);
-    //        });
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // return;
+           Promise.all([list])
+           .then((response) => {
+
+            let sortedData = sortDataGantt(response[0])
+            setGanttTasks(sortedData);
+
+            let newData = sortDataGantt(formatForGannt(response[0]))
+            setTasks(newData);
+
+           })
+           .catch((error) => {
+             console.log(error);
+           });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    return;
   };
 
 
   return (
     <Container fluid>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <h3 id="newt">Create New Task</h3>
 
         <div className='majorbox'>
@@ -92,10 +131,11 @@ const CreateNewTask = (props) => {
           <div className="namebox">
           <Label for="team"  id="taskname"><strong>Name</strong></Label>
           <Input
+            onChange={handleChange}
             className="tasknamedd"
             type="select" 
             id="select"
-            name="team"
+            name="name"
             bsSize="lg"
           >
             <option
@@ -113,7 +153,6 @@ const CreateNewTask = (props) => {
                   key={name.id}
                   values={name.id}
                   className="modalSelect"
-                  onClick={handleSubmit}
                 >
                   {name.name}
                 </option>
@@ -126,10 +165,11 @@ const CreateNewTask = (props) => {
           <div className="typebox">
           <Label for="team"  id="tasktype"><strong>Type</strong></Label>
           <Input
+            onChange={handleChange}
             className="tasktypedd"
             type="select" 
             id="select"
-            name="ttype"
+            name="type"
             bsSize="lg"
           >
             <option
@@ -147,7 +187,6 @@ const CreateNewTask = (props) => {
                   key={type.id}
                   values={type.id}
                   className="modalSelect"
-                  onClick={handleSubmit}
                 >
                   {type.name}
                 </option>
@@ -160,11 +199,13 @@ const CreateNewTask = (props) => {
           <div className="parentbox">
           <Label for="team"  id="taskparent"><strong>Parent</strong></Label>
           <Input
+            onChange={handleChange}
             className="taskparentdd"
             type="select" 
-            disabled={TTypes.value === "project" ? true : false}
+            value={formVals.project}
+            disabled={formVals.type === "project" ? true : false}
             id="select"
-            name="team"
+            name="project"
             bsSize="lg"
           >
             <option
@@ -182,7 +223,6 @@ const CreateNewTask = (props) => {
                   key={prnt.id}
                   values={prnt.id}
                   className="modalSelect"
-                  onClick={handleSubmit}
                 >
                   {prnt.name}
                 </option>
@@ -195,10 +235,11 @@ const CreateNewTask = (props) => {
           <div className="startbox">
           <Label for="team"  id="taskstart"><strong>Start Date</strong></Label>
           <Input
+            onChange={handleChange}
             className="taskstartdt"
             type="date" 
             id="text"
-            name="team"
+            name="start"
             bsSize="lg"
             defaultValue = {0}
           >
@@ -210,10 +251,11 @@ const CreateNewTask = (props) => {
           <div className="endbox">
           <Label for="team" id="taskend"><strong>End Date</strong></Label>
           <Input
+            onChange={handleChange}
             className="taskenddt"
             type="date" 
             id="text"
-            name="team"
+            name="end"
             bsSize="lg"
             defaultValue = {0}
           >
@@ -221,16 +263,17 @@ const CreateNewTask = (props) => {
           </div>
         </FormGroup>
         </div>
-        
+
         <div className="rightbox">
         <FormGroup >
           <div className="seqbox">
           <Label for="team"  id="taskseq"><strong>Sequence</strong></Label>
           <Input
+            onChange={handleChange}
             className="taskseqtxt"
             type="text" 
             id="text"
-            name="team"
+            name="seq"
             bsSize="lg"
             defaultValue = {0}
           >
@@ -242,10 +285,10 @@ const CreateNewTask = (props) => {
           <div className="dependencybox">
           <Label for="team" id="taskdependency"><strong>Dependencies</strong></Label>
           <Input
-            // onChange={handleChange}
+            onChange={handleChange}
             className="taskdependencyms"
             type="select" 
-            name="team"
+            name="dependencies"
             multiple
             bsSize="lg"
           >
@@ -265,6 +308,9 @@ const CreateNewTask = (props) => {
         </FormGroup>
         </div>
         </div>
+        <FormGroup>
+          <Button id="modalTask">Create Task</Button>
+        </FormGroup>
       </Form>
     </Container>
   );

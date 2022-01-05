@@ -33,6 +33,7 @@ const getProjTasks = router.get("/tasks/:id", (req, res) => {
 });
 
 const addProjTask = router.post("/task", (req, res) => {
+  let seq = req.body.seq
   let name = req.body.name;
   let start = req.body.start;
   let end = req.body.end;
@@ -41,9 +42,11 @@ const addProjTask = router.post("/task", (req, res) => {
   let dependencies = req.body.dependencies;
   let barChildren = req.body.barChildren;
   let hideChildren = req.body.hideChildren;
-  let projectId = req.body.projectId;
+  let project = req.body.project;
+  let projectId = req.body.projId;
 
-  db.addQuoteItem(
+  db.addTask(
+    seq,
     name,
     start,
     end,
@@ -52,6 +55,7 @@ const addProjTask = router.post("/task", (req, res) => {
     dependencies,
     barChildren,
     hideChildren,
+    project,
     projectId
   )
     .then((zones) => {

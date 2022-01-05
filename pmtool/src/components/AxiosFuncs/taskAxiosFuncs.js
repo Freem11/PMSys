@@ -17,15 +17,17 @@ export const addTask = (info) => {
 
   return axios
     .post(`http://localhost:5000/task`, {
+      seq: info.seq,
       name: info.name,
       start: info.start,
       end: info.end,
       type: info.type,
       progress: info.progress,
       dependencies: info.dependencies,
-      barChildren: info.barchildren,
-      hideChildren: info.hidechildren,
-      projId: info.id,
+      barChildren: info.barChildren,
+      hideChildren: info.hideChildren,
+      project: info.project,
+      projId: info.project_id,
     })
     .then((response) => {
       return response.data[0];

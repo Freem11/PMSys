@@ -13,6 +13,7 @@ const getProjectTasks = (projectId) => {
 };
 
 const addTask = (
+  seq,
   name,
   start,
   end,
@@ -21,13 +22,26 @@ const addTask = (
   dependencies,
   barChildren,
   hideChildren,
+  project,
   projectId
 ) => {
+  console.log("db gets",  seq,
+  name,
+  start,
+  end,
+  type,
+  progress,
+  dependencies,
+  barChildren,
+  hideChildren,
+  project,
+  projectId )
   return db
     .query(
-      `INSERT INTO tasks (name, type, progress, dependencies, barChildren, hideChildren, project_id)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *;`,
+      `INSERT INTO tasks (seq, name, start, "end", type, progress, dependencies, barChildren, hideChildren, project, project_id)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *;`,
       [
+        seq,
         name,
         start,
         end,
@@ -36,6 +50,7 @@ const addTask = (
         dependencies,
         barChildren,
         hideChildren,
+        project,
         projectId,
       ]
     )
@@ -73,7 +88,6 @@ const updateTask = (
   project,
   itemId
 ) => {
-  console.log("db seq", seq)
   return db
     .query(
       `UPDATE tasks SET name = $1, type = $2, start = $3, "end" = $4, progress = $5, dependencies = $6, barChildren = $7, project = $8, seq = $9 WHERE id= $10 RETURNING *;`,
