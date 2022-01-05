@@ -1,4 +1,18 @@
 
+.majorbox{
+    display: flex;
+    flex-direction: row;
+}
+
+.leftbox{
+    margin-left: -15px;
+    width: 455;
+}
+
+.rightbox{
+    margin-left: 25px;
+    width: 45%;
+}
 .inputbox{
     display: flex;
     flex-direction: column;;
@@ -14,11 +28,11 @@
 }
 
 #newt{
-    margin-left: 35%;
+    margin-left: 37%;
 }
 .namebox{
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px;
     display: flex;
     flex-direction: row;
     margin-left: 22%;
@@ -28,6 +42,7 @@
     width: 60px;
     height: 30px;
     padding-top: 12px;
+    margin-right: 25px;
 }
 
 .tasknamedd{
@@ -43,8 +58,8 @@
 } 
 
 .typebox{
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     display: flex;
     flex-direction: row;
     margin-left: 22%;
@@ -54,6 +69,7 @@
     width: 60px;
     height: 30px;
     padding-top: 12px;
+    margin-right: 25px;
 }
 
 .tasktypedd{
@@ -69,8 +85,8 @@
 } 
 
 .parentbox{
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: row;
     margin-left: 22%;
@@ -80,6 +96,7 @@
     width: 60px;
     height: 30px;
     padding-top: 12px;
+    margin-right: 25px;
 }
 
 .taskparentdd{
@@ -88,6 +105,112 @@
     margin-left: 0%;
     border-radius: 10px;
     height: 30px;
+    text-align: center;
+    body {
+        overflow-y: hidden;
+    }   
+} 
+
+.seqbox{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    margin-left: 22%;
+}
+
+#taskseq{
+    width: 90px;
+    height: 30px;
+    padding-top: 12px;
+    margin-right: -5px;
+}
+
+.taskseqtxt{
+    margin-top: 10px;
+    width: 60px;
+    margin-left: 0%;
+    border-radius: 10px;
+    height: 30px;
+    text-align: center;
+    body {
+        overflow-y: hidden;
+    }   
+} 
+
+.startbox{
+    margin-top: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    margin-left: 22%;
+}
+
+#taskstart{
+    width: 120px;
+    height: 30px;
+    padding-top: 12px;
+}
+
+.taskstartdt{
+    margin-top: 10px;
+    width: 180px;
+    margin-left: 0%;
+    border-radius: 10px;
+    height: 30px;
+    text-align: center;
+    body {
+        overflow-y: hidden;
+    }   
+} 
+
+.endbox{
+    margin-top: 5px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: row;
+    margin-left: 22%;
+}
+
+#taskend{
+    width: 120px;
+    height: 30px;
+    padding-top: 12px;
+}
+
+.taskenddt{
+    margin-top: 10px;
+    width: 180px;
+    margin-left: 0%;
+    border-radius: 10px;
+    height: 30px;
+    text-align: center;
+    body {
+        overflow-y: hidden;
+    }   
+} 
+
+.dependencybox{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 22%;
+}
+
+#taskdependency{
+    width: 90px;
+    height: 30px;
+    padding-top: 12px;
+    margin-left: 10px;
+}
+
+.taskdependencyms{
+    margin-top: 10px;
+    width: 150px;
+    margin-left: 0%;
+    border-radius: 10px;
+    height: 145px;
     text-align: center;
     body {
         overflow-y: hidden;

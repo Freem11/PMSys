@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { Container, Form, FormGroup, Label, Input } from "reactstrap";
 import { ProjectContext } from "../projectContext";
-import { getprTskPr, getTaskTypes, getTaskNames } from "../AxiosFuncs/taskAxiosFuncs";
+import { allTasks, getprTskPr, getTaskTypes, getTaskNames } from "../AxiosFuncs/taskAxiosFuncs";
 import "./createTask.scss"
 
 
@@ -10,6 +10,7 @@ const CreateNewTask = (props) => {
   const [parents, setParents] = useState("");
   const [TTypes, setTTypes] = useState("");
   const [TNames, setTNames] = useState("");
+  const [list, setList] = useState("");
 
   const { project } = useContext(ProjectContext);
 
@@ -29,11 +30,13 @@ const CreateNewTask = (props) => {
 
   useEffect(() => {
     let parentTasks = getprTskPr(jProject.id);
-    let tasktypes = getTaskTypes();
+    let taskTypes = getTaskTypes();
     let taskNames = getTaskNames();
+    let taskList = allTasks(jProject.id)
 
-    Promise.all([parentTasks, tasktypes, taskNames])
+    Promise.all([parentTasks, taskTypes, taskNames, taskList])
       .then((response) => {
+        setList(response[3])
         setTNames(response[2]);
         setTTypes(response[1]);
         setParents(response[0]);
@@ -82,6 +85,9 @@ const CreateNewTask = (props) => {
     <Container fluid>
       <Form>
         <h3 id="newt">Create New Task</h3>
+
+        <div className='majorbox'>
+          <div className="leftbox">  
         <FormGroup >
           <div className="namebox">
           <Label for="team"  id="taskname"><strong>Name</strong></Label>
@@ -115,6 +121,7 @@ const CreateNewTask = (props) => {
           </Input>
           </div>
         </FormGroup>
+
         <FormGroup >
           <div className="typebox">
           <Label for="team"  id="tasktype"><strong>Type</strong></Label>
@@ -122,7 +129,7 @@ const CreateNewTask = (props) => {
             className="tasktypedd"
             type="select" 
             id="select"
-            name="team"
+            name="ttype"
             bsSize="lg"
           >
             <option
@@ -148,12 +155,14 @@ const CreateNewTask = (props) => {
           </Input>
           </div>
         </FormGroup>
+
         <FormGroup >
           <div className="parentbox">
           <Label for="team"  id="taskparent"><strong>Parent</strong></Label>
           <Input
             className="taskparentdd"
             type="select" 
+            disabled={TTypes.value === "project" ? true : false}
             id="select"
             name="team"
             bsSize="lg"
@@ -181,6 +190,81 @@ const CreateNewTask = (props) => {
           </Input>
           </div>
         </FormGroup>
+
+        <FormGroup >
+          <div className="startbox">
+          <Label for="team"  id="taskstart"><strong>Start Date</strong></Label>
+          <Input
+            className="taskstartdt"
+            type="date" 
+            id="text"
+            name="team"
+            bsSize="lg"
+            defaultValue = {0}
+          >
+          </Input>
+          </div>
+        </FormGroup>
+
+        <FormGroup >
+          <div className="endbox">
+          <Label for="team" id="taskend"><strong>End Date</strong></Label>
+          <Input
+            className="taskenddt"
+            type="date" 
+            id="text"
+            name="team"
+            bsSize="lg"
+            defaultValue = {0}
+          >
+          </Input>
+          </div>
+        </FormGroup>
+        </div>
+        
+        <div className="rightbox">
+        <FormGroup >
+          <div className="seqbox">
+          <Label for="team"  id="taskseq"><strong>Sequence</strong></Label>
+          <Input
+            className="taskseqtxt"
+            type="text" 
+            id="text"
+            name="team"
+            bsSize="lg"
+            defaultValue = {0}
+          >
+          </Input>
+          </div>
+        </FormGroup>
+
+        <FormGroup >
+          <div className="dependencybox">
+          <Label for="team" id="taskdependency"><strong>Dependencies</strong></Label>
+          <Input
+            // onChange={handleChange}
+            className="taskdependencyms"
+            type="select" 
+            name="team"
+            multiple
+            bsSize="lg"
+          >
+            {list && list.map((task, index) => (
+                <option
+                  id={index}
+                  name="team"
+                  key={task.id}
+                  values={task.id}
+                  className="modalSelect"
+                >
+                  {task.name}
+                </option>
+              ))}
+          </Input>
+          </div>
+        </FormGroup>
+        </div>
+        </div>
       </Form>
     </Container>
   );
