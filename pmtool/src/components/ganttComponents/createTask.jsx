@@ -80,7 +80,7 @@ const CreateNewTask = (props) => {
       setFormVals({ ...formVals, [e.target.name]: opts });
     } else if (e.target.value === "project" && e.target.name === "type") {
       opt = e.target.value;
-      setFormVals({ ...formVals, [e.target.name]: opt, project: '' });
+      setFormVals({ ...formVals, [e.target.name]: opt, project: '', start: '', end: '' });
     } else {
       opt = e.target.value;
       setFormVals({ ...formVals, [e.target.name]: opt });
@@ -237,6 +237,7 @@ const CreateNewTask = (props) => {
           <Input
             onChange={handleChange}
             className="taskstartdt"
+            readOnly={formVals.type === "project" ? true : false}
             type="date" 
             id="text"
             name="start"
@@ -253,6 +254,7 @@ const CreateNewTask = (props) => {
           <Input
             onChange={handleChange}
             className="taskenddt"
+            readOnly={formVals.type === "project" ? true : false}
             type="date" 
             id="text"
             name="end"
