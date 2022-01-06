@@ -3,7 +3,7 @@ import { Button, Container, Form, FormGroup, Label, Input } from "reactstrap";
 import { ProjectContext } from "../projectContext";
 import { TasksContext, GanttContext } from "./taskContext";
 import { allTasks, addTask, getprTskPr, getTaskTypes, getTaskNames, getTaskStartMin, getTaskEndMax, getAvgProgress, getTaskByName, updateRestTasks } from "../AxiosFuncs/taskAxiosFuncs";
-import {formatForGannt, sortDataGantt, handleAvgProgress, updateParentStartDate, updateParentEndDate  } from './gantthelper'
+import {formatForGannt, sortDataGantt, handleAvgProgress, updateParentStartDate, updateParentEndDate, updateParentChildArray  } from './gantthelper'
 import "./createTask.scss"
 
 
@@ -92,31 +92,37 @@ const CreateNewTask = (props) => {
     }
     
   };
-  console.log("values", formVals)
-
-
-
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if(!formVals.project === ''){
-    let parentz = getTaskByName({name: formVals.project, id: jProject.id})
+      let tasko = addTask(formVals)
+        Promise.all([tasko])
+        .then((response) => {
 
-    let minStart = getTaskStartMin({project: formVals.project})
-    let maxEnd = getTaskEndMax({project: formVals.project})
-    let avgprg = getAvgProgress({project: formVals.project, id: jProject.id})
+    let parentTask = getTaskByName({name: response[0].project, id: jProject.id})
 
-    Promise.all([parentz, avgprg, maxEnd, minStart])
-    .then((response) => {
-      let progressVal = handleAvgProgress(response[0], response[1], formVals.name, formVals.progress)
-      let startVal = updateParentStartDate(progressVal, response[3].starter, 0, formVals.start, 0, false)
-      let endVal = updateParentEndDate(startVal,response[2].ender, 0, formVals.end, 0, false)
+    let parentTaskStart = getTaskStartMin({project: response[0].project})
+    let parentTaskEnd = getTaskEndMax({project: response[0].project})
+    let parentTaskProgress = getAvgProgress({project: response[0].project, id: jProject.id})
 
-      let updatie = updateRestTasks(endVal)
+    Promise.all([parentTask, parentTaskProgress, parentTaskEnd, parentTaskStart])
+    .then((response1) => {
+      console.log("me?", response1)
+      let newParentProgress = handleAvgProgress(response1[0], response1[1], formVals.name, formVals.progress)
+      let newParentStartDate = updateParentStartDate(response1[0], response1[3].starter, 0, formVals.start, 0, 0, 0, false)
+      let newParentEndDate = updateParentEndDate(response1[0], response1[2].ender, 0, formVals.end, 0, false)
+      let newParentChildrenArray;
+      if (formVals.project !== '') {
+      newParentChildrenArray = updateParentChildArray(response1[0], formVals.name)
+      } else {
+      newParentChildrenArray = response1[0].barChildren
+      }
+      let updatie = updateRestTasks( {...response1[0], progress: newParentProgress, start: newParentStartDate, end: newParentEndDate, barChildren: newParentChildrenArray } )
 
       Promise.all([updatie])
       .then((response) => {
-        console.log("me?", response)
+        console.log("me3?", response)
         let updated2 = allTasks(jProject.id);
   
         Promise.all([updated2])
@@ -141,30 +147,11 @@ const CreateNewTask = (props) => {
     .catch((error) => {
       console.log(error);
     });
-  }
-        let task = addTask(formVals)
-        Promise.all([task])
-        .then((response) => {
-          
-          let list = allTasks(jProject.id)
-     
-           Promise.all([list])
-           .then((response) => {
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
-            let sortedData = sortDataGantt(response[0])
-            setGanttTasks(sortedData);
-
-            let newData = sortDataGantt(formatForGannt(response[0]))
-            setTasks(newData);
-
-           })
-           .catch((error) => {
-             console.log(error);
-           });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
         closeup()
     return;
   };

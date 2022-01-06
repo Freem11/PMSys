@@ -144,10 +144,10 @@ const TeamListItem = (props) => {
         if (e.target.name === 'start') {
           let holdVal = updateParentStartDate(responsex[0], responsex[1].starter, responsex[2].starter, e.target.value, oldTasks.start, oldTasks.end, formVals)
         
-             passVal = holdVal[0]
-             console.log("huh", holdVal);
+           passVal = holdVal[0]
+   
           if(holdVal[1]){
-            console.log("huh1", holdVal[1]);
+  
           let updato = updateRestTasks(holdVal[1])
           
           Promise.all([updato])

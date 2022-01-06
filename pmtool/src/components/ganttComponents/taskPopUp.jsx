@@ -86,7 +86,6 @@ let jProject;
 });
 })
 
-   
 
 let delTask = deleteTask(taskId)
 
@@ -98,19 +97,19 @@ Promise.all([delTask])
     Promise.all([list])
     .then((response) => {
 
-      let parentz = getTaskByName({name: parent, id: project1})
+      let parentTask = getTaskByName({name: parent, id: project1})
 
-      let minStart = getTaskStartMin({project: parent})
-      let maxEnd = getTaskEndMax({project: parent})
-      let avgprg = getAvgProgress({project: parent, id: project1})
+      let parentTaskStart = getTaskStartMin({project: parent})
+      let parentTaskEnd = getTaskEndMax({project: parent})
+      let parentTaskProgress = getAvgProgress({project: parent, id: project1})
   
-      Promise.all([parentz, avgprg, maxEnd, minStart])
+      Promise.all([parentTask, parentTaskProgress, parentTaskEnd, parentTaskStart])
       .then((response) => {
-        let progressVal = handleAvgProgress(response[0], response[1], name, progress)
-        let startVal = updateParentStartDate(progressVal, response[3].starter, 0, start, 0, true)
-        let endVal = updateParentEndDate(startVal,response[2].ender, 0, end, 0, true)
+        let newParentProgress = handleAvgProgress(response[0], response[1], name, progress)
+        let newParentStartDate = updateParentStartDate(response[0], response[3].starter, 0, start, 0, 0, 0, true)
+        let newParentEndDate = updateParentEndDate(response[0], response[2].ender, 0, end, 0, true)
   
-        let updatie = updateRestTasks(endVal)
+        let updatie = updateRestTasks( {...response[0], progress: newParentProgress, start: newParentStartDate, end: newParentEndDate } )
 
         Promise.all([updatie])
         .then((response) => {

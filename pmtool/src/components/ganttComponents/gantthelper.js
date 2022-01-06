@@ -47,43 +47,54 @@ const sortDataGantt = (data) => {
 };
 
 const updateParentStartDate = (parentData, maxStart, maxStart2, newValue, oldStart, oldEnd, currentTask, del) => {
-  let finalVal = parentData;
-  let binalVal;
+      
+      let finalVal;
       let start = new Date(oldStart)
       let end = new Date(oldEnd)
       let taskLength = Math.floor(end - start) / (1000*60*60*24)
       let newEnd = new Date(newValue)
       newEnd.setDate(newEnd.getDate()+taskLength+1)
       console.log("misery with dates",taskLength)
-      console.log("fun with dates", newValue, newEnd, oldEnd)
+      console.log("fun with dates", del, maxStart)
 
-      if(newValue >= oldEnd){
-        finalVal = { ...parentData, start: newValue, end: newEnd };
-        binalVal = { ...currentTask, end: newEnd };
-        return [finalVal, binalVal];
+      if(del){
+        if(maxStart === null){
+          finalVal = new Date()
+        } else{
+          finalVal = maxStart
+        }
+        return [finalVal];
       }
 
-  if(del === true){
-    if(maxStart === null){
-      finalVal = { ...parentData, start: new Date() };
-    } else{
-      finalVal = { ...parentData, start: maxStart };
-      return [finalVal];
-    }
-  }
+      if (parentData.barchildren.length === 0) {
+        console.log("check 1", parentData.barchildren)
+        finalVal = newValue
+        return [finalVal];
+      }
+
+      if(newValue >= oldEnd){
+        console.log("check 2")
+        let startVal = newEnd
+        let  endVal = newEnd
+        return [startVal, endVal];
+      }
 
   if (maxStart === oldStart || maxStart2 === 0 && oldStart === 0) {
+    console.log("check 3", newValue, maxStart, maxStart2, oldStart)
     if (maxStart > newValue) {
-      finalVal = { ...parentData, start: newValue };
+      finalVal = newValue
     } else if (maxStart < newValue && newValue < maxStart2) {
-      finalVal = { ...parentData, start: newValue };
+      finalVal = newValue
     } else if (maxStart2 < newValue) {
-      finalVal = { ...parentData, start: maxStart2 };
+      finalVal = maxStart2
+    } else if (maxStart < newValue) {
+      finalVal = maxStart
     }
     return [finalVal];
   } else {
+    console.log("check 4", newValue, maxStart, maxStart2)
     if (maxStart >= newValue) {
-      finalVal = { ...parentData, start: newValue };
+      finalVal = newValue
     }
     return [finalVal];
   }
@@ -91,59 +102,57 @@ const updateParentStartDate = (parentData, maxStart, maxStart2, newValue, oldSta
 
 const updateParentEndDate = (parentData, maxEnd, maxEnd2, newValue, oldEnd, del) => {
   let finalVal = parentData;
-
-  if(del === true){
+  console.log("fun with dates", parentData)
+  if(del){
     if(maxEnd === null){
-      finalVal = { ...parentData, end:  new Date()+1 };
+      finalVal = new Date()+1
     } else{
-      finalVal = { ...parentData, end: maxEnd };
-      return finalVal;
+      finalVal = maxEnd
     }
+    return finalVal
+  }
+
+  if (parentData.barchildren.length === 0) {
+    finalVal = newValue
+    return finalVal;
   }
 
   if (maxEnd === oldEnd || maxEnd2 === 0 && oldEnd === 0 ) {
+    console.log("check 3a", newValue, maxEnd, maxEnd2, oldEnd)
     if (maxEnd < newValue) {
-      finalVal = { ...parentData, end: newValue };
+      finalVal = newValue
     } else if (maxEnd > newValue && newValue > maxEnd2) {
-      finalVal = { ...parentData, end: newValue };
+      finalVal = newValue
     } else if (maxEnd2 > newValue) {
-      finalVal = { ...parentData, end: maxEnd2 };
+      finalVal = maxEnd2
+    } else if (maxEnd > newValue) {
+      finalVal = maxEnd
     }
-    return finalVal;
   } else {
     if (maxEnd <= newValue) {
-      finalVal = { ...parentData, end: newValue };
-    }
-    return finalVal;
+      finalVal = newValue
+    } 
   }
+  return finalVal;
 };
 
 const updateParentChildArray = (parentData, newChild, exParent) => {
-  console.log("values", parentData, newChild, exParent);
   let finalVal;
 
   if (parentData === undefined) {
-    console.log("yeah?", exParent, newChild);
-    finalVal = exParent.barchildren;
-    let dataMinus = finalVal.filter((item) => item !== newChild);
+    let dataMinus = exParent.barchildren;
+    finalVal = dataMinus.filter((item) => item !== newChild);
 
-    exParent.barchildren = dataMinus;
- 
-    return exParent;
   } else {
-    finalVal = parentData;
-    let arrayVal = parentData.barchildren;
+    finalVal = parentData.barchildren;
 
-    if (arrayVal == null) {
-      finalVal.barchildren = [newChild];
+    if (finalVal == null) {
+      finalVal = [newChild];
     } else {
-      arrayVal = [...arrayVal, newChild];
-
-      finalVal = { ...parentData, barchildren: arrayVal };
+      finalVal = [...finalVal, newChild];
     }
-    console.log("yeah2?", finalVal, newChild);
-    return finalVal;
   }
+  return finalVal
 };
 
 const manageDependencyArray = (data, newVal) => {
@@ -156,8 +165,7 @@ const manageDependencyArray = (data, newVal) => {
       finalArr.push(dep)  
   });
 
-  data.dependencies = finalArr
-  return data
+  return finalArr
 };
 
 const handleAvgProgress = (parent, progressList, taskName, newVal) => {
@@ -171,9 +179,7 @@ const handleAvgProgress = (parent, progressList, taskName, newVal) => {
   });
 
   const average = Math.round(progressArray.reduce((a,b) => a+b, 0) / progressArray.length)
-
-  parent.progress = average
-  return parent
+  return average
 
 };
 
