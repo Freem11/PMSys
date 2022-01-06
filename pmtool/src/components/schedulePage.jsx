@@ -110,7 +110,6 @@ function SchedulePage() {
         barProgressSelectedColor={'pink'}
         barBackgroundColor={'lightgrey'}
         barBackgroundSelectedColor={'lightgrey'}
-        // onExpanderClick
         TaskListTable={'hidden'}
         TaskListHeader={'hiden'}
       />}

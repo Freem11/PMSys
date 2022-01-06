@@ -2,6 +2,7 @@ const formatForGannt = (data) => {
   let arr = [];
 
   data.forEach((tsk) => {
+
     let Sd = tsk.start.substring(0, 10);
     let Ed = tsk.end.substring(0, 10);
     let nm = tsk.name;
@@ -45,14 +46,31 @@ const sortDataGantt = (data) => {
   return sorted;
 };
 
-const updateParentStartDate = (
-  parentData,
-  maxStart,
-  maxStart2,
-  newValue,
-  oldStart
-) => {
+const updateParentStartDate = (parentData, maxStart, maxStart2, newValue, oldStart, oldEnd, currentTask, del) => {
   let finalVal = parentData;
+  let binalVal;
+      let start = new Date(oldStart)
+      let end = new Date(oldEnd)
+      let taskLength = Math.floor(end - start) / (1000*60*60*24)
+      let newEnd = new Date(newValue)
+      newEnd.setDate(newEnd.getDate()+taskLength+1)
+      console.log("misery with dates",taskLength)
+      console.log("fun with dates", newValue, newEnd, oldEnd)
+
+      if(newValue >= oldEnd){
+        finalVal = { ...parentData, start: newValue, end: newEnd };
+        binalVal = { ...currentTask, end: newEnd };
+        return [finalVal, binalVal];
+      }
+
+  if(del === true){
+    if(maxStart === null){
+      finalVal = { ...parentData, start: new Date() };
+    } else{
+      finalVal = { ...parentData, start: maxStart };
+      return [finalVal];
+    }
+  }
 
   if (maxStart === oldStart || maxStart2 === 0 && oldStart === 0) {
     if (maxStart > newValue) {
@@ -62,17 +80,26 @@ const updateParentStartDate = (
     } else if (maxStart2 < newValue) {
       finalVal = { ...parentData, start: maxStart2 };
     }
-    return finalVal;
+    return [finalVal];
   } else {
-    if (maxStart > newValue) {
+    if (maxStart >= newValue) {
       finalVal = { ...parentData, start: newValue };
     }
-    return finalVal;
+    return [finalVal];
   }
 };
 
-const updateParentEndDate = (parentData, maxEnd, maxEnd2, newValue, oldEnd) => {
+const updateParentEndDate = (parentData, maxEnd, maxEnd2, newValue, oldEnd, del) => {
   let finalVal = parentData;
+
+  if(del === true){
+    if(maxEnd === null){
+      finalVal = { ...parentData, end:  new Date()+1 };
+    } else{
+      finalVal = { ...parentData, end: maxEnd };
+      return finalVal;
+    }
+  }
 
   if (maxEnd === oldEnd || maxEnd2 === 0 && oldEnd === 0 ) {
     if (maxEnd < newValue) {
@@ -84,7 +111,7 @@ const updateParentEndDate = (parentData, maxEnd, maxEnd2, newValue, oldEnd) => {
     }
     return finalVal;
   } else {
-    if (maxEnd < newValue) {
+    if (maxEnd <= newValue) {
       finalVal = { ...parentData, end: newValue };
     }
     return finalVal;

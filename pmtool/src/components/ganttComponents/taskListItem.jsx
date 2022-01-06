@@ -142,8 +142,34 @@ const TeamListItem = (props) => {
         let passVal = responsex[0];
 
         if (e.target.name === 'start') {
-            passVal = updateParentStartDate(responsex[0], responsex[1].starter, responsex[2].starter, e.target.value, oldTasks.start)
-        }
+          let holdVal = updateParentStartDate(responsex[0], responsex[1].starter, responsex[2].starter, e.target.value, oldTasks.start, oldTasks.end, formVals)
+        
+             passVal = holdVal[0]
+             console.log("huh", holdVal);
+          if(holdVal[1]){
+            console.log("huh1", holdVal[1]);
+          let updato = updateRestTasks(holdVal[1])
+          
+          Promise.all([updato])
+          .then((response) => {
+            let updated2 = allTasks(projId);
+
+            Promise.all([updated2])
+              .then((response4) => {
+     
+                let newData = sortDataGantt(formatForGannt(response4[0]))
+                setTasks(newData);
+
+                let sortedData = sortDataGantt(response4[0])
+                setGanttTasks(sortedData);
+                
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+        })
+        } 
+       }
 
         if (e.target.name === 'end') {
             passVal = updateParentEndDate(responsex[0],responsex[3].ender, responsex[4].ender, e.target.value, oldTasks.end)
@@ -160,13 +186,14 @@ const TeamListItem = (props) => {
         if (e.target.name === 'progress') {
           passVal = handleAvgProgress(responsex[0], responsex[7], formVals.name, e.target.value)
         }
-
+        console.log("yo update me",passVal)
           let updatie = updateRestTasks(passVal)
 
           Promise.all([updatie])
           .then((response) => {
+            console.log("yo update me",response)
             let updated2 = allTasks(projId);
-      
+
             Promise.all([updated2])
               .then((response4) => {
      
@@ -374,6 +401,10 @@ const TeamListItem = (props) => {
             taskId={id} 
             name={name}
             type={type}
+            parent={project}
+            start={start}
+            end={end}
+            progress={progress}
             />
           </div>
         </Form>

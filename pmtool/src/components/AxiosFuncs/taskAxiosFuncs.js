@@ -167,7 +167,7 @@ export const getprTskPr = (projId) => {
 
 export const getAvgProgress = (info) => {
 
-//  console.log("axios", info)
+ console.log("axios", info)
 
 return axios
 .post(`http://localhost:5000/tasks/avgprogress`, {

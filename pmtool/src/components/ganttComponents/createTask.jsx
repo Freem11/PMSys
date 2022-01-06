@@ -60,7 +60,7 @@ const CreateNewTask = (props) => {
     end: '',
     type: '',
     progress: 0,
-    dependencies: '',
+    dependencies: [],
     hideChildren: false,
     barChildren: [],
     project: '',
@@ -82,7 +82,10 @@ const CreateNewTask = (props) => {
       setFormVals({ ...formVals, [e.target.name]: opts });
     } else if (e.target.value === "project" && e.target.name === "type") {
       opt = e.target.value;
-      setFormVals({ ...formVals, [e.target.name]: opt, project: '', start: '', end: '' });
+      let today = new Date()
+      let tommorow = new Date(today)
+      tommorow.setDate(tommorow.getDate()+1)
+      setFormVals({ ...formVals, [e.target.name]: opt, project: '', start: today, end: tommorow });
     } else {
       opt = e.target.value;
       setFormVals({ ...formVals, [e.target.name]: opt });
@@ -91,8 +94,12 @@ const CreateNewTask = (props) => {
   };
   console.log("values", formVals)
 
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if(!formVals.project === ''){
     let parentz = getTaskByName({name: formVals.project, id: jProject.id})
 
     let minStart = getTaskStartMin({project: formVals.project})
@@ -102,14 +109,14 @@ const CreateNewTask = (props) => {
     Promise.all([parentz, avgprg, maxEnd, minStart])
     .then((response) => {
       let progressVal = handleAvgProgress(response[0], response[1], formVals.name, formVals.progress)
-      let startVal = updateParentStartDate(progressVal, response[3].starter, 0, formVals.start, 0)
-      let endVal = updateParentEndDate(startVal,response[2].ender, 0, formVals.end, 0)
+      let startVal = updateParentStartDate(progressVal, response[3].starter, 0, formVals.start, 0, false)
+      let endVal = updateParentEndDate(startVal,response[2].ender, 0, formVals.end, 0, false)
 
       let updatie = updateRestTasks(endVal)
 
       Promise.all([updatie])
       .then((response) => {
-        console.log(response)
+        console.log("me?", response)
         let updated2 = allTasks(jProject.id);
   
         Promise.all([updated2])
@@ -134,7 +141,7 @@ const CreateNewTask = (props) => {
     .catch((error) => {
       console.log(error);
     });
-   
+  }
         let task = addTask(formVals)
         Promise.all([task])
         .then((response) => {
@@ -144,11 +151,11 @@ const CreateNewTask = (props) => {
            Promise.all([list])
            .then((response) => {
 
-            // let sortedData = sortDataGantt(response[0])
-            // setGanttTasks(sortedData);
+            let sortedData = sortDataGantt(response[0])
+            setGanttTasks(sortedData);
 
-            // let newData = sortDataGantt(formatForGannt(response[0]))
-            // setTasks(newData);
+            let newData = sortDataGantt(formatForGannt(response[0]))
+            setTasks(newData);
 
            })
            .catch((error) => {

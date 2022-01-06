@@ -6,11 +6,11 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreRounded'
 import DeleteIcon from '@mui/icons-material/Delete';
-import { allTasks, deleteParent, cleanUpDeps, deleteTask } from '../AxiosFuncs/taskAxiosFuncs'
-import {formatForGannt, sortDataGantt } from './gantthelper'
+import { allTasks, deleteParent, cleanUpDeps, deleteTask, getTaskStartMin, getTaskEndMax, getAvgProgress, getTaskByName, updateRestTasks } from '../AxiosFuncs/taskAxiosFuncs'
+import {formatForGannt, sortDataGantt, handleAvgProgress, updateParentStartDate, updateParentEndDate } from './gantthelper'
 const PositionedMenuTeam = (props) => {
 
-  const { taskId ,name, type } = props
+  const { taskId ,name, type, parent, start, end, progress } = props
   const { project } = useContext(ProjectContext);
   const { setGanttTasks } = useContext(TasksContext);
   const { setTasks } = useContext(GanttContext);
@@ -86,6 +86,8 @@ let jProject;
 });
 })
 
+   
+
 let delTask = deleteTask(taskId)
 
 Promise.all([delTask])
@@ -96,11 +98,47 @@ Promise.all([delTask])
     Promise.all([list])
     .then((response) => {
 
-    let newData = sortDataGantt(formatForGannt(response[0]))
-    setTasks(newData);
+      let parentz = getTaskByName({name: parent, id: project1})
 
-    let sortedData = sortDataGantt(response[0])
-    setGanttTasks(sortedData);
+      let minStart = getTaskStartMin({project: parent})
+      let maxEnd = getTaskEndMax({project: parent})
+      let avgprg = getAvgProgress({project: parent, id: project1})
+  
+      Promise.all([parentz, avgprg, maxEnd, minStart])
+      .then((response) => {
+        let progressVal = handleAvgProgress(response[0], response[1], name, progress)
+        let startVal = updateParentStartDate(progressVal, response[3].starter, 0, start, 0, true)
+        let endVal = updateParentEndDate(startVal,response[2].ender, 0, end, 0, true)
+  
+        let updatie = updateRestTasks(endVal)
+
+        Promise.all([updatie])
+        .then((response) => {
+          console.log(response)
+          let updated2 = allTasks(project1);
+    
+          Promise.all([updated2])
+            .then((response4) => {
+   
+              let newData = sortDataGantt(formatForGannt(response4[0]))
+              setTasks(newData);
+  
+              let sortedData = sortDataGantt(response4[0])
+              setGanttTasks(sortedData);
+              
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+    
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 })
 .catch((error) => {
 console.log(error);
