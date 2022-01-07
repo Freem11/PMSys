@@ -152,13 +152,13 @@ const updateParentChildArray = (parentData, newChild, exParent) => {
   } else {
     let tempVal = parentData.barchildren;
 
-    if (finalVal == null) {
+    if (tempVal == null) {
       finalVal = [newChild];
     } else {
       finalVal = [...tempVal, newChild];
     }
   }
-
+  console.log("thff", finalVal)
   return finalVal
 };
 

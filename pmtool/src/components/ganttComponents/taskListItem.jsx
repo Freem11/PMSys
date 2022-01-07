@@ -179,7 +179,7 @@ const TeamListItem = (props) => {
         parentDependencies = manageDependencyArray(responsex[0], newDependencyVal)
         parentProgress = handleAvgProgress(responsex[0], responsex[7], formVals.name, progressVal)
 
-        let updatie = updateRestTasks({...responsex[0], start: parentStartDate, end: parentEndDate, progress: parentProgress, dependencies: parentDependencies, barChildren: parentChildArray})
+        let updatie = updateRestTasks({...responsex[0], start: parentStartDate, end: parentEndDate, progress: parentProgress, dependencies: parentDependencies, barchildren: parentChildArray})
 
           Promise.all([updatie])
           .then((response) => {
