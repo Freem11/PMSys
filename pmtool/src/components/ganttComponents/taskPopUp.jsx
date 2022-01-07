@@ -7,7 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreRounded'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { allTasks, deleteParent, cleanUpDeps, deleteTask, getTaskStartMin, getTaskEndMax, getAvgProgress, getTaskByName, updateRestTasks } from '../AxiosFuncs/taskAxiosFuncs'
-import {formatForGannt, sortDataGantt, handleAvgProgress, updateParentStartDate, updateParentEndDate } from './gantthelper'
+import {formatForGannt, sortDataGantt, handleAvgProgress, updateParentStartDate, updateParentEndDate, updateParentChildArray } from './gantthelper'
 const PositionedMenuTeam = (props) => {
 
   const { taskId ,name, type, parent, start, end, progress } = props
@@ -108,8 +108,9 @@ Promise.all([delTask])
         let newParentProgress = handleAvgProgress(response[0], response[1], name, progress, true)
         let newParentStartDate = updateParentStartDate(response[0], response[3].starter, 0, start, 0, 0, 0, true)
         let newParentEndDate = updateParentEndDate(response[0], response[2].ender, 0, end, 0, true)
-  
-        let updatie = updateRestTasks( {...response[0], progress: newParentProgress, start: newParentStartDate, end: newParentEndDate } )
+        let newParentChildrenArray = updateParentChildArray(response[0], name, 0, true)
+
+        let updatie = updateRestTasks( {...response[0], progress: newParentProgress, start: newParentStartDate, end: newParentEndDate, barchildren: newParentChildrenArray } )
 
         Promise.all([updatie])
         .then((response) => {

@@ -141,9 +141,19 @@ const updateParentEndDate = (parentData, maxEnd, maxEnd2, newValue, oldEnd, del)
   return finalVal;
 };
 
-const updateParentChildArray = (parentData, newChild, exParent) => {
-  let finalVal; 
-  console.log("thisstuff", parentData, newChild, exParent)
+const updateParentChildArray = (parentData, newChild, exParent, del) => {
+  let finalVal =[]; 
+  console.log("hmmm", parentData)
+
+  if(del){
+    parentData.barchildren.forEach(task => {
+      console.log(task, newChild)
+      if (task !== newChild){
+        finalVal.push(task)
+      }
+  })
+  return finalVal
+  }
 
   if (parentData === undefined) {
     let dataMinus = exParent.barchildren;
