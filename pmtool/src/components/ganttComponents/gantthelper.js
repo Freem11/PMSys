@@ -173,9 +173,22 @@ const manageDependencyArray = (data, newVal) => {
   return finalArr
 };
 
-const handleAvgProgress = (parent, progressList, taskName, newVal) => {
+const handleAvgProgress = (parent, progressList, taskName, newVal, del) => {
 
-  let progressArray = [Number(newVal)]
+  let progressArray =[];
+
+  if(del){
+    progressList.forEach(task => {
+      if (task.name !== newVal){
+        progressArray.push(task.progress)
+      }
+  })
+  const averagez = Math.round(progressArray.reduce((a,b) => a+b, 0) / progressArray.length)
+  console.log("progresso", averagez)
+  return averagez
+  }
+
+  progressArray = [Number(newVal)]
 
   progressList.forEach(task => {
     if (task.name !== taskName){

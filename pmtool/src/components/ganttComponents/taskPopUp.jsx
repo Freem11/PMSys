@@ -105,7 +105,7 @@ Promise.all([delTask])
   
       Promise.all([parentTask, parentTaskProgress, parentTaskEnd, parentTaskStart])
       .then((response) => {
-        let newParentProgress = handleAvgProgress(response[0], response[1], name, progress)
+        let newParentProgress = handleAvgProgress(response[0], response[1], name, progress, true)
         let newParentStartDate = updateParentStartDate(response[0], response[3].starter, 0, start, 0, 0, 0, true)
         let newParentEndDate = updateParentEndDate(response[0], response[2].ender, 0, end, 0, true)
   

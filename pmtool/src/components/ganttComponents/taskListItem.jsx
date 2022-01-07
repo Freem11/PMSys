@@ -177,7 +177,7 @@ const TeamListItem = (props) => {
         parentEndDate = updateParentEndDate(responsex[0],responsex[3].ender, responsex[4].ender, endVal, oldTasks.end, false)
         parentChildArray = updateParentChildArray(responsex[0], newChildrenVal, responsex[6])
         parentDependencies = manageDependencyArray(responsex[0], newDependencyVal)
-        parentProgress = handleAvgProgress(responsex[0], responsex[7], formVals.name, progressVal)
+        parentProgress = handleAvgProgress(responsex[0], responsex[7], formVals.name, progressVal, false)
 
         let updatie = updateRestTasks({...responsex[0], start: parentStartDate, end: parentEndDate, progress: parentProgress, dependencies: parentDependencies, barchildren: parentChildArray})
 

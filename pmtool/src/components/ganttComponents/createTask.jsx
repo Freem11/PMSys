@@ -108,7 +108,7 @@ const CreateNewTask = (props) => {
 
     Promise.all([parentTask, parentTaskProgress, parentTaskEnd, parentTaskStart])
     .then((response1) => {
-      let newParentProgress = handleAvgProgress(response1[0], response1[1], formVals.name, formVals.progress)
+      let newParentProgress = handleAvgProgress(response1[0], response1[1], formVals.name, formVals.progress, false)
       let newParentStartDate = updateParentStartDate(response1[0], response1[3].starter, 0, formVals.start, 0, 0, 0, false)
       let newParentEndDate = updateParentEndDate(response1[0], response1[2].ender, 0, formVals.end, 0, false)
       let newParentChildrenArray;
