@@ -123,6 +123,11 @@ const TeamListItem = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    let updated = updateRestTasks(formVals)
+
+    Promise.all([updated])
+    .then((response) => {
    
       let parentz = getTaskByName({name: formVals.project, id: projId})
 
@@ -139,59 +144,46 @@ const TeamListItem = (props) => {
 
       Promise.all([parentz, minStart, min2Start, maxEnd, max2End, parento, exParent, avgprg, currentTask])
       .then((responsex) => {
-        let passVal = responsex[0];
+        let parentStartDate;
+        let parentEndDate;
+        let parentProgress;
+        let parentDependencies;
+        let parentChildArray;
 
-        if (e.target.name === 'start') {
-          let holdVal = updateParentStartDate(responsex[0], responsex[1].starter, responsex[2].starter, e.target.value, oldTasks.start, oldTasks.end, formVals)
-        
-           passVal = holdVal[0]
-   
-          if(holdVal[1]){
   
-          let updato = updateRestTasks(holdVal[1])
-          
-          Promise.all([updato])
-          .then((response) => {
-            let updated2 = allTasks(projId);
+        let startVal = responsex[0].start
+        let endVal = responsex[0].end
+        let progressVal = responsex[0].progress
+        let newDependencyVal = responsex[0].dependencies
+        let newChildrenVal = responsex[0].barChildren
 
-            Promise.all([updated2])
-              .then((response4) => {
-     
-                let newData = sortDataGantt(formatForGannt(response4[0]))
-                setTasks(newData);
+          if (e.target.name === "start"){
+            startVal = e.target.value
+          }
+          if (e.target.name === "end"){
+            endVal = e.target.value
+          }
+          if (e.target.name === "progress"){
+            progressVal = e.target.value
+          }
+          if (e.target.name === "dependencies"){
+            newDependencyVal = e.target.value
+          }
+          if (e.target.name === "project"){
+            newChildrenVal = formVals.name
+          }
 
-                let sortedData = sortDataGantt(response4[0])
-                setGanttTasks(sortedData);
-                
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-        })
-        } 
-       }
+        parentStartDate = updateParentStartDate(responsex[0], responsex[1].starter, responsex[2].starter, startVal, oldTasks.start, oldTasks.end, formVals, false)
+        parentEndDate = updateParentEndDate(responsex[0],responsex[3].ender, responsex[4].ender, endVal, oldTasks.end, false)
+        parentChildArray = updateParentChildArray(responsex[0], newChildrenVal, responsex[6])
+        parentDependencies = manageDependencyArray(responsex[0], newDependencyVal)
+        parentProgress = handleAvgProgress(responsex[0], responsex[7], formVals.name, progressVal)
 
-        if (e.target.name === 'end') {
-            passVal = updateParentEndDate(responsex[0],responsex[3].ender, responsex[4].ender, e.target.value, oldTasks.end)
-        }
-
-        if (e.target.name === 'project') {
-            passVal = updateParentChildArray(responsex[5], formVals.name, responsex[6])
-        }
-
-        if (e.target.name === 'dependencies') {
-          passVal = manageDependencyArray(responsex[8], e.target.value)
-        }
-         
-        if (e.target.name === 'progress') {
-          passVal = handleAvgProgress(responsex[0], responsex[7], formVals.name, e.target.value)
-        }
-        console.log("yo update me",passVal)
-          let updatie = updateRestTasks(passVal)
+        let updatie = updateRestTasks({...responsex[0], start: parentStartDate, end: parentEndDate, progress: parentProgress, dependencies: parentDependencies, barChildren: parentChildArray})
 
           Promise.all([updatie])
           .then((response) => {
-            console.log("yo update me",response)
+
             let updated2 = allTasks(projId);
 
             Promise.all([updated2])
@@ -218,29 +210,6 @@ const TeamListItem = (props) => {
         console.log(error);
       });
     
-    
-    let updated = updateRestTasks(formVals)
-
-    Promise.all([updated])
-    .then((response) => {
-      let updated = allTasks(projId);
-
-      Promise.all([updated])
-        .then((response2) => {
-
-          let sortedData = sortDataGantt(response2[0])
-          console.log(sortedData)
-          setGanttTasks(sortedData);
-
-          let newData = sortDataGantt(formatForGannt(response2[0]))
-          console.log(newData)
-          setTasks(newData);
-
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-
       })
       .catch((error) => {
         console.log(error);

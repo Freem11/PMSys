@@ -108,7 +108,6 @@ const CreateNewTask = (props) => {
 
     Promise.all([parentTask, parentTaskProgress, parentTaskEnd, parentTaskStart])
     .then((response1) => {
-      console.log("me?", response1)
       let newParentProgress = handleAvgProgress(response1[0], response1[1], formVals.name, formVals.progress)
       let newParentStartDate = updateParentStartDate(response1[0], response1[3].starter, 0, formVals.start, 0, 0, 0, false)
       let newParentEndDate = updateParentEndDate(response1[0], response1[2].ender, 0, formVals.end, 0, false)
@@ -118,11 +117,10 @@ const CreateNewTask = (props) => {
       } else {
       newParentChildrenArray = response1[0].barChildren
       }
-      let updatie = updateRestTasks( {...response1[0], progress: newParentProgress, start: newParentStartDate, end: newParentEndDate, barChildren: newParentChildrenArray } )
+      let updatie = updateRestTasks( {...response1[0], progress: newParentProgress, start: newParentStartDate, end: newParentEndDate, barchildren: newParentChildrenArray } )
 
       Promise.all([updatie])
       .then((response) => {
-        console.log("me3?", response)
         let updated2 = allTasks(jProject.id);
   
         Promise.all([updated2])

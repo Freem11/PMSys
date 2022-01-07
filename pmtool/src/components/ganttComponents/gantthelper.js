@@ -54,8 +54,6 @@ const updateParentStartDate = (parentData, maxStart, maxStart2, newValue, oldSta
       let taskLength = Math.floor(end - start) / (1000*60*60*24)
       let newEnd = new Date(newValue)
       newEnd.setDate(newEnd.getDate()+taskLength+1)
-      console.log("misery with dates",taskLength)
-      console.log("fun with dates", del, maxStart)
 
       if(del){
         if(maxStart === null){
@@ -63,46 +61,48 @@ const updateParentStartDate = (parentData, maxStart, maxStart2, newValue, oldSta
         } else{
           finalVal = maxStart
         }
-        return [finalVal];
+        return finalVal;
       }
 
       if (parentData.barchildren.length === 0) {
-        console.log("check 1", parentData.barchildren)
         finalVal = newValue
-        return [finalVal];
+        return finalVal;
       }
 
-      if(newValue >= oldEnd){
-        console.log("check 2")
-        let startVal = newEnd
-        let  endVal = newEnd
-        return [startVal, endVal];
-      }
+      // if(newValue >= oldEnd){
+      //   console.log("check 2", newValue, oldEnd)
+      //   let startVal = newValue
+      //   let  endVal = newEnd
+      //   return [startVal, endVal];
+      // }
 
   if (maxStart === oldStart || maxStart2 === 0 && oldStart === 0) {
     console.log("check 3", newValue, maxStart, maxStart2, oldStart)
-    if (maxStart > newValue) {
+    if (maxStart >= newValue) {
       finalVal = newValue
     } else if (maxStart < newValue && newValue < maxStart2) {
       finalVal = newValue
-    } else if (maxStart2 < newValue) {
-      finalVal = maxStart2
     } else if (maxStart < newValue) {
       finalVal = maxStart
+    } else if (maxStart2 < newValue) {
+      finalVal = maxStart2
     }
-    return [finalVal];
+ 
+    return finalVal;
   } else {
-    console.log("check 4", newValue, maxStart, maxStart2)
+    console.log("check 4", newValue, maxStart, maxStart2, oldStart)
     if (maxStart >= newValue) {
       finalVal = newValue
+    } else {
+      finalVal = maxStart
     }
-    return [finalVal];
+    return finalVal;
   }
 };
 
 const updateParentEndDate = (parentData, maxEnd, maxEnd2, newValue, oldEnd, del) => {
-  let finalVal = parentData;
-  console.log("fun with dates", parentData)
+  let finalVal;
+
   if(del){
     if(maxEnd === null){
       finalVal = new Date()+1
@@ -118,8 +118,10 @@ const updateParentEndDate = (parentData, maxEnd, maxEnd2, newValue, oldEnd, del)
   }
 
   if (maxEnd === oldEnd || maxEnd2 === 0 && oldEnd === 0 ) {
-    console.log("check 3a", newValue, maxEnd, maxEnd2, oldEnd)
-    if (maxEnd < newValue) {
+ 
+    if(newValue === maxEnd){
+      finalVal = newValue
+    } else if (maxEnd < newValue) {
       finalVal = newValue
     } else if (maxEnd > newValue && newValue > maxEnd2) {
       finalVal = newValue
@@ -128,40 +130,43 @@ const updateParentEndDate = (parentData, maxEnd, maxEnd2, newValue, oldEnd, del)
     } else if (maxEnd > newValue) {
       finalVal = maxEnd
     }
+
   } else {
-    if (maxEnd <= newValue) {
+    if (maxEnd < newValue) {
       finalVal = newValue
-    } 
+    } else {
+      finalVal = maxEnd
+    }
   }
   return finalVal;
 };
 
 const updateParentChildArray = (parentData, newChild, exParent) => {
-  let finalVal;
+  let finalVal; 
+  console.log("thisstuff", parentData, newChild, exParent)
 
   if (parentData === undefined) {
     let dataMinus = exParent.barchildren;
     finalVal = dataMinus.filter((item) => item !== newChild);
 
   } else {
-    finalVal = parentData.barchildren;
+    let tempVal = parentData.barchildren;
 
     if (finalVal == null) {
       finalVal = [newChild];
     } else {
-      finalVal = [...finalVal, newChild];
+      finalVal = [...tempVal, newChild];
     }
   }
+
   return finalVal
 };
 
 const manageDependencyArray = (data, newVal) => {
 
- 
-  let stringManage = newVal.split(",");
   let finalArr = []
 
-  stringManage.forEach(dep => {
+  newVal.forEach(dep => {
       finalArr.push(dep)  
   });
 
@@ -179,6 +184,7 @@ const handleAvgProgress = (parent, progressList, taskName, newVal) => {
   });
 
   const average = Math.round(progressArray.reduce((a,b) => a+b, 0) / progressArray.length)
+  console.log("progress", average)
   return average
 
 };
