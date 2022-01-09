@@ -99,8 +99,8 @@ Promise.all([delTask])
 
       let parentTask = getTaskByName({name: parent, id: project1})
 
-      let parentTaskStart = getTaskStartMin({project: parent})
-      let parentTaskEnd = getTaskEndMax({project: parent})
+      let parentTaskStart = getTaskStartMin({project: parent, id: project1})
+      let parentTaskEnd = getTaskEndMax({project: parent, id: project1})
       let parentTaskProgress = getAvgProgress({project: parent, id: project1})
   
       Promise.all([parentTask, parentTaskProgress, parentTaskEnd, parentTaskStart])

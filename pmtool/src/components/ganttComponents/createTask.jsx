@@ -102,8 +102,8 @@ const CreateNewTask = (props) => {
 
     let parentTask = getTaskByName({name: response[0].project, id: jProject.id})
 
-    let parentTaskStart = getTaskStartMin({project: response[0].project})
-    let parentTaskEnd = getTaskEndMax({project: response[0].project})
+    let parentTaskStart = getTaskStartMin({project: response[0].project, id: jProject.id})
+    let parentTaskEnd = getTaskEndMax({project: response[0].project, id: jProject.id})
     let parentTaskProgress = getAvgProgress({project: response[0].project, id: jProject.id})
 
     Promise.all([parentTask, parentTaskProgress, parentTaskEnd, parentTaskStart])

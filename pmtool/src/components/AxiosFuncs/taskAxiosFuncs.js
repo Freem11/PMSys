@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const allTasks = (projId) => {
 
-  //  console.log("axios", projId)
+   console.log("axios", projId)
   return axios
     .get(`http://localhost:5000/tasks/${projId}`)
     .then((response) => {
@@ -101,6 +101,7 @@ export const getTaskStartMin = (info) => {
 return axios
 .post(`http://localhost:5000/tasks/min`, {
   project: info.project,
+  projId: info.id,
 })
 .then((response) => {
   return response.data[0];
@@ -115,6 +116,7 @@ export const getTaskStart2Min = (info) => {
   return axios
   .post(`http://localhost:5000/tasks/min2`, {
     project: info.project,
+    projId: info.id,
   })
   .then((response) => {
     return response.data[0];
@@ -130,6 +132,7 @@ export const getTaskEndMax = (info) => {
 return axios
 .post(`http://localhost:5000/tasks/max`, {
   project: info.project,
+  projId: info.id,
 })
 .then((response) => {
   return response.data[0];
@@ -144,6 +147,7 @@ export const getTaskEnd2Max = (info) => {
 return axios
 .post(`http://localhost:5000/tasks/max2`, {
   project: info.project,
+  projId: info.id,
 })
 .then((response) => {
   return response.data[0];

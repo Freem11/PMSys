@@ -136,12 +136,12 @@ const getTaskByName = (name, projectId) => {
     });
 };
 
-const getMaxTaskEnd = (projectName) => {
+const getMaxTaskEnd = (projectName, id) => {
   // console.log("db gets", projectName)
 
   return db
-    .query(`SELECT MAX("end") as "ender" FROM tasks WHERE project = $1 `, [
-      projectName,
+    .query(`SELECT MAX("end") as "ender" FROM tasks WHERE project = $1 AND project_id = $2 `, [
+      projectName, id
     ])
     .then((response) => {
       return response.rows;
@@ -151,13 +151,13 @@ const getMaxTaskEnd = (projectName) => {
     });
 };
 
-const get2MaxTaskEnd = (projectName) => {
+const get2MaxTaskEnd = (projectName, id) => {
   // console.log("db gets", projectName)
 
   return db
     .query(
-      `SELECT MAX("end") as "ender" FROM tasks WHERE project = $1 AND "end" < (SELECT MAX("end") as "ender" FROM tasks WHERE project = $1)`,
-      [projectName]
+      `SELECT MAX("end") as "ender" FROM tasks WHERE project = $1 AND project_id = $2 AND "end" < (SELECT MAX("end") as "ender" FROM tasks WHERE project = $1 AND project_id = $2)`,
+      [projectName, id]
     )
     .then((response) => {
       return response.rows;
@@ -167,11 +167,11 @@ const get2MaxTaskEnd = (projectName) => {
     });
 };
 
-const getMinTaskStart = (projectName) => {
+const getMinTaskStart = (projectName, id) => {
 
   return db
-    .query(`SELECT MIN(start) as "starter" FROM tasks WHERE project = $1 `, [
-      projectName,
+    .query(`SELECT MIN(start) as "starter" FROM tasks WHERE project = $1 AND project_id = $2`, [
+      projectName, id
     ])
     .then((response) => {
       return response.rows;
@@ -181,12 +181,12 @@ const getMinTaskStart = (projectName) => {
     });
 };
 
-const get2MinTaskStart = (projectName) => {
+const get2MinTaskStart = (projectName, id) => {
 
   return db
     .query(
-      `SELECT MIN(start) as "starter" FROM tasks WHERE project = $1 AND start > (SELECT MIN(start) as "starter" FROM tasks WHERE project = $1)`,
-      [projectName]
+      `SELECT MIN(start) as "starter" FROM tasks WHERE project = $1 AND project_id = $2 AND start > (SELECT MIN(start) as "starter" FROM tasks WHERE project = $1 AND project_id = $2)`,
+      [projectName, id]
     )
     .then((response) => {
       return response.rows;

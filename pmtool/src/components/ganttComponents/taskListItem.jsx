@@ -85,9 +85,11 @@ const TeamListItem = (props) => {
     projId: projId,
   });
 
+ 
   const [swtch, setSwtch] = useState(hidechildren);
 
   const handleSwitch = useCallback(async () => {
+    console.log("baby", formVals)
     setSwtch((swtch) => !swtch);
     let holder = !swtch;
     const response = await updateHiddenTasks({ id, holder });
@@ -118,11 +120,43 @@ const TeamListItem = (props) => {
   }, [swtch]);
 
   const handleChange = (e) => {
+    console.log("im here", formVals)
     setFormVals({ ...formVals, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("how about here", formVals)
+    if (type === 'project'){
+        console.log("dont be here", formVals)
+     formVals.dependencies = (typeof formVals.dependencies !== undefined && formVals.dependencies instanceof Array) ? formVals.dependencies : [formVals.dependencies]
+     formVals.barChildren = (typeof formVals.barChildren !== undefined && formVals.barChildren instanceof Array) ? formVals.barChildren : [formVals.barChildren]
+      let updatedo = updateRestTasks(formVals)
+
+      Promise.all([updatedo])
+      .then((response) => {
+
+        let updated3 = allTasks(projId);
+
+        Promise.all([updated3])
+          .then((response9) => {
+ 
+            let newData = sortDataGantt(formatForGannt(response9[0]))
+            setTasks(newData);
+
+            let sortedData = sortDataGantt(response9[0])
+            setGanttTasks(sortedData);
+            
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+        return
+    }
 
     let updated = updateRestTasks(formVals)
 
@@ -131,15 +165,17 @@ const TeamListItem = (props) => {
    
       let parentz = getTaskByName({name: formVals.project, id: projId})
 
-      let minStart = getTaskStartMin({project: formVals.project})
-      let min2Start = getTaskStart2Min({project: formVals.project})
-      let maxEnd = getTaskEndMax({project: formVals.project})
-      let max2End = getTaskEnd2Max({project: formVals.project})
+      let minStart = getTaskStartMin({project: formVals.project, id: projId})
+      let min2Start = getTaskStart2Min({project: formVals.project, id: projId})
+      let maxEnd = getTaskEndMax({project: formVals.project, id: projId})
+      let max2End = getTaskEnd2Max({project: formVals.project, id: projId})
 
+      console.log("vals", e.target.value, projId)
       let parento = getTaskByName({name: e.target.value, id: projId})
       let exParent = getTaskByName({name: oldTasks.project, id: projId})
 
       let avgprg = getAvgProgress({project: formVals.project, id: projId})
+      
       let currentTask = getTaskByName({name: formVals.name, id: projId})
 
       Promise.all([parentz, minStart, min2Start, maxEnd, max2End, parento, exParent, avgprg, currentTask])
@@ -149,7 +185,7 @@ const TeamListItem = (props) => {
         let parentProgress;
         let parentDependencies;
         let parentChildArray;
-
+        console.log("here", responsex)
   
         let startVal = responsex[0].start
         let endVal = responsex[0].end
@@ -168,6 +204,7 @@ const TeamListItem = (props) => {
           }
           if (e.target.name === "dependencies"){
             newDependencyVal = e.target.value
+            console.log("poo", newDependencyVal)
           }
           if (e.target.name === "project"){
             newChildrenVal = formVals.name
@@ -177,13 +214,14 @@ const TeamListItem = (props) => {
         parentEndDate = updateParentEndDate(responsex[0],responsex[3].ender, responsex[4].ender, endVal, oldTasks.end, false)
         parentChildArray = updateParentChildArray(responsex[0], newChildrenVal, responsex[6])
         parentDependencies = manageDependencyArray(responsex[0], newDependencyVal)
+        console.log("poo", parentChildArray)
         parentProgress = handleAvgProgress(responsex[0], responsex[7], formVals.name, progressVal, false)
 
         let updatie = updateRestTasks({...responsex[0], start: parentStartDate, end: parentEndDate, progress: parentProgress, dependencies: parentDependencies, barchildren: parentChildArray})
 
           Promise.all([updatie])
           .then((response) => {
-
+              console.log("geeze", response)
             let updated2 = allTasks(projId);
 
             Promise.all([updated2])

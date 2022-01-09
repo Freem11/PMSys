@@ -127,10 +127,10 @@ const getSingleTask = router.post("/task/:id", (req, res) => {
 
 const getMinStart = router.post("/tasks/min", (req, res) => {
   let project = req.body.project;
+  let id = req.body.projId
+  console.log("route", req.body)
 
-  // console.log("route", req.body)
-
-  db.getMinTaskStart(project)
+  db.getMinTaskStart(project, id)
     .then((zones) => {
       res.json(zones);
     })
@@ -141,10 +141,10 @@ const getMinStart = router.post("/tasks/min", (req, res) => {
 
 const get2MinStart = router.post("/tasks/min2", (req, res) => {
   let project = req.body.project;
-
+  let id = req.body.projId
   // console.log("route", req.body)
 
-  db.get2MinTaskStart(project)
+  db.get2MinTaskStart(project, id)
     .then((zones) => {
       res.json(zones);
     })
@@ -155,10 +155,10 @@ const get2MinStart = router.post("/tasks/min2", (req, res) => {
 
 const getMaxEnd = router.post("/tasks/max", (req, res) => {
   let project = req.body.project;
-
+  let id = req.body.projId
   // console.log("route", req.body)
 
-  db.getMaxTaskEnd(project)
+  db.getMaxTaskEnd(project, id)
     .then((zones) => {
       res.json(zones);
     })
@@ -169,10 +169,10 @@ const getMaxEnd = router.post("/tasks/max", (req, res) => {
 
 const get2MaxEnd = router.post("/tasks/max2", (req, res) => {
   let project = req.body.project;
-
+  let id = req.body.projId
   // console.log("route", req.body)
 
-  db.get2MaxTaskEnd(project)
+  db.get2MaxTaskEnd(project, id)
     .then((zones) => {
       res.json(zones);
     })

@@ -63,8 +63,8 @@ const updateParentStartDate = (parentData, maxStart, maxStart2, newValue, oldSta
         }
         return finalVal;
       }
-
-      if (parentData.barchildren.length === 0) {
+   
+      if (parentData.barchildren === null || parentData.barchildren.length === 0 ) {
         finalVal = newValue
         return finalVal;
       }
@@ -112,7 +112,7 @@ const updateParentEndDate = (parentData, maxEnd, maxEnd2, newValue, oldEnd, del)
     return finalVal
   }
 
-  if (parentData.barchildren.length === 0) {
+  if (parentData.barchildren === null || parentData.barchildren.length === 0) {
     finalVal = newValue
     return finalVal;
   }
@@ -142,8 +142,8 @@ const updateParentEndDate = (parentData, maxEnd, maxEnd2, newValue, oldEnd, del)
 };
 
 const updateParentChildArray = (parentData, newChild, exParent, del) => {
-  let finalVal =[]; 
-  console.log("hmmm", parentData)
+  let finalVal = []; 
+  console.log("hmmm", parentData, newChild)
 
   if(del){
     parentData.barchildren.forEach(task => {
@@ -156,16 +156,25 @@ const updateParentChildArray = (parentData, newChild, exParent, del) => {
   }
 
   if (parentData === undefined) {
+    console.log("check")
     let dataMinus = exParent.barchildren;
     finalVal = dataMinus.filter((item) => item !== newChild);
 
   } else {
     let tempVal = parentData.barchildren;
-
-    if (tempVal == null) {
+    console.log("check1", tempVal)
+    if (!tempVal && newChild !== undefined) {
       finalVal = [newChild];
+      console.log("check1a", finalVal)
     } else {
-      finalVal = [...tempVal, newChild];
+      console.log("check1d")
+      if (!tempVal.includes(newChild) && newChild !== undefined){
+        finalVal = [...tempVal, newChild];
+        console.log("check1b", finalVal)
+      } else {
+        finalVal = tempVal
+        console.log("check1c", finalVal)
+      }
     }
   }
   console.log("thff", finalVal)
@@ -174,10 +183,13 @@ const updateParentChildArray = (parentData, newChild, exParent, del) => {
 
 const manageDependencyArray = (data, newVal) => {
 
-  let finalArr = []
-
-  newVal.forEach(dep => {
-      finalArr.push(dep)  
+  let finalArr = newVal
+console.log("woo..", data, newVal)
+      data.dependencies.forEach(dep => {
+        if(!data.dependencies.includes(dep)){
+          finalArr.push(dep) 
+        }
+       
   });
 
   return finalArr
