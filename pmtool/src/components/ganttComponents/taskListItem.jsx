@@ -158,7 +158,10 @@ const TeamListItem = (props) => {
       });
         return
     }
-
+   
+    formVals.dependencies = (typeof formVals.dependencies !== undefined && formVals.dependencies instanceof Array) ? formVals.dependencies : [formVals.dependencies]
+    // formVals.barchildren = (typeof barchildren !== undefined && barchildren instanceof Array) ? barchildren : [barchildren]
+    console.log("how about", formVals)
     let updated = updateRestTasks(formVals)
 
     Promise.all([updated])
