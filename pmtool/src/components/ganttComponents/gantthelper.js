@@ -158,8 +158,8 @@ const updateParentChildArray = (parentData, newChild, exParent, del) => {
   if (parentData === undefined) {
     console.log("check")
     let dataMinus = exParent.barchildren;
-    finalVal = dataMinus.filter((item) => item !== newChild);
-
+    finalVal = dataMinus
+    
   } else {
     let tempVal = parentData.barchildren;
     console.log("check1", tempVal)

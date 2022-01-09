@@ -120,18 +120,19 @@ const TeamListItem = (props) => {
   }, [swtch]);
 
   const handleChange = (e) => {
-    console.log("im here", formVals)
+    console.log("im here", prevTasks)
     setFormVals({ ...formVals, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("how about here", formVals)
+    console.log("how about here", formVals.barChildren)
     if (type === 'project'){
-        console.log("dont be here", formVals)
+        
      formVals.dependencies = (typeof formVals.dependencies !== undefined && formVals.dependencies instanceof Array) ? formVals.dependencies : [formVals.dependencies]
-     formVals.barChildren = (typeof formVals.barChildren !== undefined && formVals.barChildren instanceof Array) ? formVals.barChildren : [formVals.barChildren]
-      let updatedo = updateRestTasks(formVals)
+     formVals.barchildren = (typeof barchildren !== undefined && barchildren instanceof Array) ? barchildren : [barchildren]
+     console.log("dont be here", formVals.barChildren)
+     let updatedo = updateRestTasks(formVals)
 
       Promise.all([updatedo])
       .then((response) => {

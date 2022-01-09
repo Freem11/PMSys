@@ -57,7 +57,13 @@ export const updateHiddenTasks = (info) => {
 export const updateRestTasks = (info) => {
 console.log("axios", info)
   let id = info.id
-
+  // let test;
+  // if (!info.barchildren) {
+  //   test = info.barChildren
+  // } else {
+  //   test = info.barchildren
+  // }
+  // console.log("axios2", test)
   return axios
     .post(`http://localhost:5000/task/edit/${id}`, {
       seq: info.seq,
