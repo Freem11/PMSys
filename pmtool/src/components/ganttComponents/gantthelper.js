@@ -143,7 +143,6 @@ const updateParentEndDate = (parentData, maxEnd, maxEnd2, newValue, oldEnd, del)
 
 const updateParentChildArray = (parentData, newChild, exParent, del) => {
   let finalVal = []; 
-  console.log("hmmm", parentData, newChild)
 
   if(del){
     parentData.barchildren.forEach(task => {
@@ -156,35 +155,29 @@ const updateParentChildArray = (parentData, newChild, exParent, del) => {
   }
 
   if (parentData === undefined) {
-    console.log("check")
     let dataMinus = exParent.barchildren;
     finalVal = dataMinus
     
   } else {
     let tempVal = parentData.barchildren;
-    console.log("check1", tempVal)
     if (!tempVal && newChild !== undefined) {
       finalVal = [newChild];
-      console.log("check1a", finalVal)
     } else {
-      console.log("check1d")
       if (!tempVal.includes(newChild) && newChild !== undefined){
         finalVal = [...tempVal, newChild];
-        console.log("check1b", finalVal)
       } else {
         finalVal = tempVal
-        console.log("check1c", finalVal)
       }
     }
   }
-  console.log("thff", finalVal)
+
   return finalVal
 };
 
 const manageDependencyArray = (data, newVal) => {
 
   let finalArr = newVal
-console.log("woo..", data, newVal)
+
       data.dependencies.forEach(dep => {
         if(!data.dependencies.includes(dep)){
           finalArr.push(dep) 
@@ -196,7 +189,6 @@ console.log("woo..", data, newVal)
 };
 
 const handleAvgProgress = (parent, progressList, taskName, newVal, del) => {
-
   let progressArray =[];
 
   if(del){
@@ -206,7 +198,6 @@ const handleAvgProgress = (parent, progressList, taskName, newVal, del) => {
       }
   })
   const averagez = Math.round(progressArray.reduce((a,b) => a+b, 0) / progressArray.length)
-  console.log("progresso", averagez)
   return averagez
   }
 
@@ -219,7 +210,6 @@ const handleAvgProgress = (parent, progressList, taskName, newVal, del) => {
   });
 
   const average = Math.round(progressArray.reduce((a,b) => a+b, 0) / progressArray.length)
-  console.log("progress", average)
   return average
 
 };
