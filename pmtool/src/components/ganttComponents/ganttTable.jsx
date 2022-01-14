@@ -1,17 +1,15 @@
 import React from 'react'
 import { useContext, useEffect } from "react";
 import { ProjectContext } from '../projectContext'
-import { TasksContext } from './taskContext'
-import { allTasks } from '../AxiosFuncs/taskAxiosFuncs'
 import TaskListItem from './taskListItem'
 import "./taskList.scss";
 
 
-function GanttTable() {
+function GanttTable(props) {
 
     const { project } = useContext(ProjectContext);
     const projectFromSession = window.sessionStorage.getItem("project")
-    const { ganttTasks, setGanttTasks } = useContext(TasksContext);
+    const { ganttTasks, setTable } = props;
 
     let jProject
     if (project[0]) {
@@ -25,19 +23,6 @@ function GanttTable() {
       };
     }
 
-    useEffect(() => {
-
-        let quote = allTasks(jProject.id)
-        Promise.all([quote])
-        .then((response) => {
-            setGanttTasks(response[0]) 
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      
-        }, [])
-        
         let list;
         if(ganttTasks && ganttTasks.length > 0 ) {
         list = ganttTasks.map((item) => {
@@ -56,6 +41,7 @@ function GanttTable() {
                 hidechildren={item.hidechildren}
                 project={item.project}
                 projId={jProject.id}
+                setTable={setTable}
                 />
             );
         });

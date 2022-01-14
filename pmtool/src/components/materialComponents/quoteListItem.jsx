@@ -67,7 +67,7 @@ const TeamListItem = (props) => {
     return (
         <li id={id} className='teamL'>
             <div id='teamBox'>
-                <Form id='teamBox' onSubmit={handleSubmit}>
+                <Form id='teamBox' onBlur={handleSubmit}>
                 <FormGroup>
                     <div
                     value={formVals.name}

@@ -1,5 +1,5 @@
-import { createContext } from 'react';
+import { createContext, useReducer } from 'react';
 
-export const TasksContext = createContext('');
+export const TasksContext = createContext([]);
 
-export const GanttContext = createContext('');
+export const GanttContext = createContext([]);

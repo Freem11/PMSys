@@ -6,9 +6,10 @@ import { allTasks, updateHiddenTasks, updateRestTasks, getTaskByName, getTaskSta
 import PositionedMenuTeam from "./taskPopUp";
 import Switch from "@mui/material/Switch";
 import "./taskList.scss";
-import {formatForGannt, sortDataGantt, updateParentStartDate, updateParentEndDate, updateParentChildArray, manageDependencyArray, handleAvgProgress } from './gantthelper'
+import { formatForTable, formatForGannt, sortDataGantt, updateParentStartDate, updateParentEndDate, updateParentChildArray, manageDependencyArray, handleAvgProgress } from './gantthelper'
 const TeamListItem = (props) => {
   const {
+    key,
     id,
     seq,
     name,
@@ -21,9 +22,10 @@ const TeamListItem = (props) => {
     hidechildren,
     project,
     projId,
+    setTable,
   } = props;
-
-  const { setGanttTasks } = useContext(TasksContext);
+  
+  const { ganttTasks, setGanttTasks } = useContext(TasksContext);
   const { setTasks } = useContext(GanttContext);
 
   const prevTasks = useRef()
@@ -39,34 +41,18 @@ const TeamListItem = (props) => {
   useEffect(() => {
 
     let data = getprTskPr(projId);
+    let types = getTaskTypes();
+    let names = getTaskNames();
 
-    Promise.all([data])
+    Promise.all([data, types, names])
       .then((response) => {
         setprojVals(response[0]);
+        setTaskTypes(response[1]);
+        setTaskNames(response[2]);
       })
       .catch((error) => {
         console.log(error);
       });
-
-    let types = getTaskTypes();
-
-    Promise.all([types])
-      .then((response1) => {
-        setTaskTypes(response1[0]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-      let names = getTaskNames();
-
-      Promise.all([names])
-        .then((response2) => {
-          setTaskNames(response2[0]);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
 
   }, []);
 
@@ -85,7 +71,6 @@ const TeamListItem = (props) => {
     projId: projId,
   });
 
- 
   const [swtch, setSwtch] = useState(hidechildren);
 
   const handleSwitch = useCallback(async () => {
@@ -101,12 +86,12 @@ const TeamListItem = (props) => {
           .then((response2) => {
 
             let sortedData = sortDataGantt(response2[0])
-
-            setGanttTasks(sortedData);
+            console.log("what am i", sortedData)
+            setGanttTasks([...sortedData]);
 
             let newData = sortDataGantt(formatForGannt(response2[0]))
 
-            setTasks(newData);
+            setTasks([...newData]);
 
           })
           .catch((error) => {
@@ -124,7 +109,7 @@ const TeamListItem = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+   
     if (type === 'project'){
         
      formVals.dependencies = (typeof formVals.dependencies !== undefined && formVals.dependencies instanceof Array) ? formVals.dependencies : [formVals.dependencies]
@@ -140,10 +125,10 @@ const TeamListItem = (props) => {
           .then((response9) => {
  
             let newData = sortDataGantt(formatForGannt(response9[0]))
-            setTasks(newData);
+            setTasks([...newData]);
 
             let sortedData = sortDataGantt(response9[0])
-            setGanttTasks(sortedData);
+            setGanttTasks([...sortedData]);
             
           })
           .catch((error) => {
@@ -153,8 +138,8 @@ const TeamListItem = (props) => {
       .catch((error) => {
         console.log(error);
       });
-        return
-    }
+
+    } else {
    
     formVals.dependencies = (typeof formVals.dependencies !== undefined && formVals.dependencies instanceof Array) ? formVals.dependencies : [formVals.dependencies]
     // formVals.barchildren = (typeof barchildren !== undefined && barchildren instanceof Array) ? barchildren : [barchildren]
@@ -187,7 +172,7 @@ const TeamListItem = (props) => {
   
         let startVal = responsex[0].start
         let endVal = responsex[0].end
-        let progressVal = responsex[0].progress
+        let progressVal = {val: responsex[0].progress, yes: false}
         let newDependencyVal = responsex[0].dependencies
         let newChildrenVal = responsex[0].barChildren
 
@@ -198,11 +183,10 @@ const TeamListItem = (props) => {
             endVal = e.target.value
           }
           if (e.target.name === "progress"){
-            progressVal = e.target.value
+            progressVal = {val: e.target.value, yes: true}
           }
           if (e.target.name === "dependencies"){
             newDependencyVal = e.target.value
-            console.log("poo", newDependencyVal)
           }
           if (e.target.name === "project"){
             newChildrenVal = formVals.name
@@ -223,12 +207,17 @@ const TeamListItem = (props) => {
             Promise.all([updated2])
               .then((response4) => {
      
+                let sortedData = sortDataGantt(formatForTable(response4[0]))
+                let thing = [...ganttTasks]
+                thing = sortedData
+                console.log('stuff', thing)
+                setGanttTasks(thing)
+               
                 let newData = sortDataGantt(formatForGannt(response4[0]))
-                setTasks(newData);
-
-                let sortedData = sortDataGantt(response4[0])
-                setGanttTasks(sortedData);
-                
+                let work2 = newData
+                console.log('stuffier', work2)
+                setTasks([...work2]);
+              
               })
               .catch((error) => {
                 console.log(error);
@@ -248,12 +237,13 @@ const TeamListItem = (props) => {
       .catch((error) => {
         console.log(error);
       });
+    }
   };
 
   return (
-    <li id={id} className="teamL2">
+      <li id={id} key={key} className="teamL2">
       <div id="teamBox3">
-        <Form id="teamBox2" onSubmit={handleSubmit}>
+        <Form id="teamBox2">
         <Input
             id="inpt"
             onChange={handleChange}
@@ -314,7 +304,7 @@ const TeamListItem = (props) => {
             name="start"
             type="date"
             style={{ minWidth: "160px", maxWidth: "160px" }}
-            defaultValue={formVals.start.substring(0, 10)}
+            value={formVals.start.substring(0, 10) }
           >
           </Input>
           <Input
@@ -325,7 +315,7 @@ const TeamListItem = (props) => {
             name="end"
             type="date"
             style={{ minWidth: "160px", maxWidth: "160px" }}
-            defaultValue={formVals.end.substring(0, 10)}
+            value={formVals.end.substring(0, 10)}
           >
           </Input>
           <Input

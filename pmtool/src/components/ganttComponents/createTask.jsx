@@ -96,6 +96,33 @@ const CreateNewTask = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if ( formVals.type === 'project'){
+      let tasko = addTask(formVals)
+      Promise.all([tasko])
+      .then((response) => {
+
+        let updated2 = allTasks(jProject.id);
+  
+        Promise.all([updated2])
+          .then((response4) => {
+ 
+            let newData = sortDataGantt(formatForGannt(response4[0]))
+            setTasks(newData);
+
+            let sortedData = sortDataGantt(response4[0])
+            setGanttTasks(sortedData);
+            
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+  
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+
       let tasko = addTask(formVals)
         Promise.all([tasko])
         .then((response) => {
@@ -149,7 +176,7 @@ const CreateNewTask = (props) => {
   .catch((error) => {
     console.log(error);
   });
-
+}
         closeup()
     return;
   };

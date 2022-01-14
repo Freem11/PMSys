@@ -217,7 +217,7 @@ export const getTaskNames = () => {
 };
 
 export const deleteParent = (info) => {
-  console.log("axios", info)
+ 
   
     return axios
       .post(`http://localhost:5000/tasks/delProject`, {
@@ -233,7 +233,7 @@ export const deleteParent = (info) => {
   };
 
   export const cleanUpDeps = (info) => {
-   
+    console.log("axios", info)
     
       return axios
         .post(`http://localhost:5000/tasks/depenencies`, {

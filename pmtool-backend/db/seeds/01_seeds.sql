@@ -44,6 +44,10 @@ VALUES ('S-4000 Node', 'Fibre', 'Vancouver', 1000.00),
 ('2inch Conduit', 'Civil', 'Vancouver', 32.65),
 ('4inch Conduit', 'Civil', 'Vancouver', 64.24),
 ('QR 860 Coaxial', 'Coax', 'Vancouver', 22.45),
+('288 Fibre', 'Fibre', 'Vancouver', 125.23),
+('144 Fibre', 'Fibre', 'Vancouver', 101.19),
+('Drop Cable', 'Prewire', 'Vancouver', 56.46),
+('Splitter', 'Prewire', 'Vancouver', 80.82),
 ('S-4000 Node', 'Fibre', 'Calgary', 1000.00);
 
 
@@ -51,12 +55,27 @@ INSERT INTO tasks(seq, name, start, "end", type, progress, dependencies, barChil
 VALUES (1, 'Civil', '2022-1-3', '2022-1-16', 'project', 75, '{}', '{City Permit, Civil Build}', false, '', 1),
 (2, 'City Permit', '2022-1-3', '2022-1-10', 'task', 100, '{}', '{}', false, 'Civil', 1),
 (3, 'Civil Build', '2022-1-11', '2022-1-16', 'task', 50, '{City Permit}', '{}', false, 'Civil', 1),
-(4, 'Fibre', '2022-2-3', '2022-2-17', 'project', 0, '{Civil}', '{Place Cable, Splice}', true, '', 1),
-(5, 'Place Cable', '2022-2-3', '2022-2-10', 'task', 0, '{}', '{}', false, 'Fibre', 1),
-(6, 'Splice', '2022-2-11', '2022-2-17', 'task', 0, '{Place Cable}', '{}', false, 'Fibre', 1);
+(4, 'Fibre', '2022-2-3', '2022-2-17', 'project', 0, '{Civil}', '{Place Fibre, Splice}', true, '', 1),
+(5, 'Place Fibre', '2022-2-3', '2022-2-10', 'task', 0, '{}', '{}', false, 'Fibre', 1),
+(6, 'Splice', '2022-2-11', '2022-2-17', 'task', 0, '{Place Fibre}', '{}', false, 'Fibre', 1);
 
 INSERT INTO taskTypes(name)
 VALUES ('project'), ('task'), ('milestone');
 
-INSERT INTO taskNames(name)
-VALUES ('Civil'), ('Fibre'), ('Riser'), ('City Permit'), ('Civil Build'), ('Place Cable'), ('Splice'), ('TELUS P408'), ('TELUS P408A'), ('Design');
+INSERT INTO taskNames(name, type)
+VALUES ('Civil', 'None'),
+('Fibre', 'None'),
+('Riser', 'None'),
+('Prewire', 'None'),
+('City Permit', 'Civil'), 
+('Civil Build', 'Civil'), 
+('Place Fibre', 'Fibre'), 
+('Splice', 'Fibre'), 
+('TELUS P408', 'None'), 
+('TELUS P408A', 'None'), 
+('Design', 'Fibre'),
+('Design', 'Coax'),
+('Place Coax', 'Coax'),
+('Home Runs', 'Prewire'),
+('ISW', 'Prewire'),
+('Node Install', 'Fibre');

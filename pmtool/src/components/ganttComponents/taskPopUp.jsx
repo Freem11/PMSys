@@ -42,8 +42,6 @@ let jProject;
 
   const doTwo = (taskId) => {
 
-    console.log("two", taskId, name, project1)
-
     if (type === 'project') {
       let clearParents = deleteParent({ name: name, projId: project1 })
 
@@ -53,12 +51,12 @@ let jProject;
 
           Promise.all([list])
           .then((response) => {
-
+           
           let newData = sortDataGantt(formatForGannt(response[0]))
-          setTasks(newData);
+          setTasks([...newData]);
 
           let sortedData = sortDataGantt(response[0])
-          setGanttTasks(sortedData);
+          setGanttTasks([...sortedData]);
     })
     .catch((error) => {
       console.log(error);
@@ -74,12 +72,12 @@ let jProject;
 
       Promise.all([list])
       .then((response) => {
-
+  
       let newData = sortDataGantt(formatForGannt(response[0]))
-      setTasks(newData);
+      setTasks([...newData]);
 
       let sortedData = sortDataGantt(response[0])
-      setGanttTasks(sortedData);
+      setGanttTasks([...sortedData]);
 })
 .catch((error) => {
   console.log(error);
@@ -121,10 +119,10 @@ Promise.all([delTask])
             .then((response4) => {
    
               let newData = sortDataGantt(formatForGannt(response4[0]))
-              setTasks(newData);
+              setTasks([...newData]);
   
               let sortedData = sortDataGantt(response4[0])
-              setGanttTasks(sortedData);
+              setGanttTasks([...sortedData]);
               
             })
             .catch((error) => {

@@ -27,6 +27,25 @@ const formatForGannt = (data) => {
   return arr;
 };
 
+const formatForTable = (data) => {
+  let arr = [];
+
+  data.forEach((tsk) => {
+
+    let rId = tsk.id;
+    let hide = tsk.hidechildren;
+
+    arr.push({
+      ...tsk,
+      id: rId,
+      trueId: rId,
+      hideChildren: hide,
+    });
+  });
+
+  return arr;
+};
+
 const sortDataGantt = (data) => {
 
   let sorted = data.sort(function (a, b) {
@@ -193,7 +212,7 @@ const handleAvgProgress = (parent, progressList, taskName, newVal, del) => {
 
   if(del){
     progressList.forEach(task => {
-      if (task.name !== newVal){
+      if (task.name !== newVal.val){
         progressArray.push(task.progress)
       }
   })
@@ -201,14 +220,25 @@ const handleAvgProgress = (parent, progressList, taskName, newVal, del) => {
   return averagez
   }
 
-  progressArray = [Number(newVal)]
+  if (newVal.yes === false) {
+ 
+  progressList.forEach(task => {
+      progressArray.push(task.progress)
+    
+  });
+  console.log("grr", progressArray, progressArray.length)
+  const averagei = Math.round(progressArray.reduce((a,b) => a+b, 0) / progressArray.length)
+  return averagei
+  } 
+
+  progressArray = [Number(newVal.val)]
 
   progressList.forEach(task => {
     if (task.name !== taskName){
       progressArray.push(task.progress)
     }
   });
-
+  
   const average = Math.round(progressArray.reduce((a,b) => a+b, 0) / progressArray.length)
   return average
 
@@ -222,4 +252,5 @@ module.exports = {
   updateParentChildArray,
   manageDependencyArray,
   handleAvgProgress,
+  formatForTable,
 };

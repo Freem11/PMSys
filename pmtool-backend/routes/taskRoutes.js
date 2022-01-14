@@ -252,7 +252,6 @@ const delParent = router.post("/tasks/delProject", (req, res) => {
 
 const cleanUpDependencies = router.post("/tasks/depenencies", (req, res) => {
 
-
   db.getTaskDependenciesContaining(req.body.projId, req.body.text)
   .then(tasks => {
     tasks.forEach(task => {
@@ -275,7 +274,7 @@ const cleanUpDependencies = router.post("/tasks/depenencies", (req, res) => {
       });
 
     });
-    // console.log(tasks);
+
   })
   .catch(err => {
       res
