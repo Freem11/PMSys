@@ -96,7 +96,7 @@ const updateParentStartDate = (parentData, maxStart, maxStart2, newValue, oldSta
       // }
 
   if (maxStart === oldStart || maxStart2 === 0 && oldStart === 0) {
-    console.log("check 3", newValue, maxStart, maxStart2, oldStart)
+
     if (maxStart >= newValue) {
       finalVal = newValue
     } else if (maxStart < newValue && newValue < maxStart2) {
@@ -109,7 +109,6 @@ const updateParentStartDate = (parentData, maxStart, maxStart2, newValue, oldSta
  
     return finalVal;
   } else {
-    console.log("check 4", newValue, maxStart, maxStart2, oldStart)
     if (maxStart >= newValue) {
       finalVal = newValue
     } else {
@@ -226,7 +225,6 @@ const handleAvgProgress = (parent, progressList, taskName, newVal, del) => {
       progressArray.push(task.progress)
     
   });
-  console.log("grr", progressArray, progressArray.length)
   const averagei = Math.round(progressArray.reduce((a,b) => a+b, 0) / progressArray.length)
   return averagei
   } 

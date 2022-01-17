@@ -9,7 +9,7 @@ function GanttTable(props) {
 
     const { project } = useContext(ProjectContext);
     const projectFromSession = window.sessionStorage.getItem("project")
-    const { ganttTasks, setTable } = props;
+    const { ganttRows} = props;
 
     let jProject
     if (project[0]) {
@@ -24,8 +24,8 @@ function GanttTable(props) {
     }
 
         let list;
-        if(ganttTasks && ganttTasks.length > 0 ) {
-        list = ganttTasks.map((item) => {
+        if(ganttRows && ganttRows.length > 0 ) {
+        list = ganttRows.map((item) => {
             return (
                 <TaskListItem
                 key={item.id}
@@ -41,7 +41,6 @@ function GanttTable(props) {
                 hidechildren={item.hidechildren}
                 project={item.project}
                 projId={jProject.id}
-                setTable={setTable}
                 />
             );
         });

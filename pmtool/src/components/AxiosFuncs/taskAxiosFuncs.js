@@ -2,7 +2,6 @@ import axios from "axios";
 
 export const allTasks = (projId) => {
 
-   console.log("axios", projId)
   return axios
     .get(`http://localhost:5000/tasks/${projId}`)
     .then((response) => {
@@ -55,15 +54,9 @@ export const updateHiddenTasks = (info) => {
 };
 
 export const updateRestTasks = (info) => {
-console.log("axios", info)
+
   let id = info.id
-  // let test;
-  // if (!info.barchildren) {
-  //   test = info.barChildren
-  // } else {
-  //   test = info.barchildren
-  // }
-  // console.log("axios2", test)
+
   return axios
     .post(`http://localhost:5000/task/edit/${id}`, {
       seq: info.seq,
@@ -176,8 +169,6 @@ export const getprTskPr = (projId) => {
 };
 
 export const getAvgProgress = (info) => {
-
- console.log("axios", info)
 
 return axios
 .post(`http://localhost:5000/tasks/avgprogress`, {

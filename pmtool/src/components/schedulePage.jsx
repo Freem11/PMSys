@@ -2,7 +2,7 @@ import React from "react";
 import { useContext, useState, useEffect } from 'react'
 import GanttTable from './ganttComponents/ganttTable'
 import { ProjectContext } from './projectContext'
-import { TasksContext, GanttContext } from './ganttComponents/taskContext'
+import { TasksContext, GanttContext, OverLordContext } from './ganttComponents/taskContext'
 import { allTasks } from './AxiosFuncs/taskAxiosFuncs'
 import { Button } from "reactstrap";
 import FormModal from './ganttComponents/formModal'
@@ -24,7 +24,9 @@ import "gantt-task-react/dist/index.css";
 
 function SchedulePage() {
 
-  const [ ganttTasks, setGanttTasks ] = useState([]);
+  const [ binary, setBinary ] = useState(false);
+
+  const [ ganttRows, setGanttRows ] = useState('');
   const [ tasks, setTasks ] = useState([]);
 
   const { project } = useContext(ProjectContext);
@@ -57,7 +59,7 @@ function SchedulePage() {
           setTasks([...newData]) 
 
           let sortedData = sortDataGantt(response[0])
-          setGanttTasks([...sortedData])
+          setGanttRows([...sortedData])
           
       })
       .catch((error) => {
@@ -66,11 +68,29 @@ function SchedulePage() {
     
       }, [])
 
+      useEffect(() => {
+    
+        let quote = allTasks(jProject.id)
+        Promise.all([quote])
+        .then((response) => {
+          console.log("here")
+          let newestData = sortDataGantt(formatForGannt(response[0]))
+          setTasks([...newestData]) 
+
+          let sortData = sortDataGantt(response[0])
+          setGanttRows([...sortData])
+         
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      
+        }, [binary])
       
 
   return (
     <GanttContext.Provider value={{tasks, setTasks}}>
-    <TasksContext.Provider value={{ganttTasks, setGanttTasks}}>
+    <TasksContext.Provider value={{ganttRows, setGanttRows}}>
       <h2>Schedule:</h2>
       <div className='addtask'>
           <Button onClick={toggleModal} className="creatTaskButton">+ Task</Button>
@@ -97,7 +117,9 @@ function SchedulePage() {
               style={{display: 'flex', flexDirection: 'row', height: 'auto'}}
               >
      <div> 
-       <GanttTable ganttTasks={ganttTasks} setTable={setGanttTasks}/>
+     <OverLordContext.Provider value={{binary, setBinary}}>
+       <GanttTable ganttRows={ganttRows} setTable={setGanttRows}/>
+      </OverLordContext.Provider>
      </div>
      <div style={{ zIndex:1, maxWidth: '800px', minWidth: '0px', marginTop: '0px', height: 'auto', backgroundColor: '#2B2D42', borderRadius: '0 15px 15px 0' }}>
     <div style={{ marginTop: '21px', marginRight: '20px'}}>

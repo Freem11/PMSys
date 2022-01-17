@@ -1,7 +1,7 @@
 // import PositionedMenuTeam from './teamPopUp'
 import { useState, useContext, useCallback, useRef, useEffect} from "react";
 import { Form, Input } from "reactstrap";
-import { TasksContext, GanttContext } from "./taskContext";
+import { TasksContext, GanttContext, OverLordContext } from "./taskContext";
 import { allTasks, updateHiddenTasks, updateRestTasks, getTaskByName, getTaskStartMin, getTaskStart2Min, getTaskEndMax, getTaskEnd2Max, getprTskPr, getAvgProgress, getTaskTypes, getTaskNames } from "../AxiosFuncs/taskAxiosFuncs";
 import PositionedMenuTeam from "./taskPopUp";
 import Switch from "@mui/material/Switch";
@@ -22,11 +22,11 @@ const TeamListItem = (props) => {
     hidechildren,
     project,
     projId,
-    setTable,
   } = props;
   
+  const { binary, setBinary } = useContext(OverLordContext);
   const { ganttTasks, setGanttTasks } = useContext(TasksContext);
-  const { setTasks } = useContext(GanttContext);
+  const { tasks, setTasks } = useContext(GanttContext);
 
   const prevTasks = useRef()
   useEffect(() => {
@@ -71,6 +71,8 @@ const TeamListItem = (props) => {
     projId: projId,
   });
 
+  let sortedData;
+
   const [swtch, setSwtch] = useState(hidechildren);
 
   const handleSwitch = useCallback(async () => {
@@ -85,10 +87,9 @@ const TeamListItem = (props) => {
         Promise.all([updated])
           .then((response2) => {
 
-            let sortedData = sortDataGantt(response2[0])
-            console.log("what am i", sortedData)
+            sortedData = sortDataGantt(response2[0])
             setGanttTasks([...sortedData]);
-
+           
             let newData = sortDataGantt(formatForGannt(response2[0]))
 
             setTasks([...newData]);
@@ -127,7 +128,7 @@ const TeamListItem = (props) => {
             let newData = sortDataGantt(formatForGannt(response9[0]))
             setTasks([...newData]);
 
-            let sortedData = sortDataGantt(response9[0])
+            sortedData = sortDataGantt(response9[0])
             setGanttTasks([...sortedData]);
             
           })
@@ -207,16 +208,16 @@ const TeamListItem = (props) => {
             Promise.all([updated2])
               .then((response4) => {
      
-                let sortedData = sortDataGantt(formatForTable(response4[0]))
-                let thing = [...ganttTasks]
-                thing = sortedData
-                console.log('stuff', thing)
-                setGanttTasks(thing)
-               
-                let newData = sortDataGantt(formatForGannt(response4[0]))
-                let work2 = newData
-                console.log('stuffier', work2)
-                setTasks([...work2]);
+                // sortedData = sortDataGantt(response4[0])
+                // let work = [...sortedData]
+                // setGanttTasks([...work])
+
+                console.log("i will do it", binary)
+                setBinary(!binary)
+
+                // let newData = sortDataGantt(formatForGannt(response4[0]))
+                // let work2 = newData
+                // setTasks([...work2]);
               
               })
               .catch((error) => {
@@ -239,6 +240,24 @@ const TeamListItem = (props) => {
       });
     }
   };
+
+//  useEffect(() => {
+// console.log("?????")
+//   let updatedt = allTasks(projId);
+
+//     Promise.all([updatedt])
+//       .then((response3) => { 
+
+//         sortedData = sortDataGantt(formatForTable(response3[0]))
+               
+//         { sortedData && setGanttTasks([...sortedData])}
+//         console.log("!!!!",sortedData, ganttTasks)
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//       });
+
+//   }, [tasks])
 
   return (
       <li id={id} key={key} className="teamL2">
@@ -304,7 +323,7 @@ const TeamListItem = (props) => {
             name="start"
             type="date"
             style={{ minWidth: "160px", maxWidth: "160px" }}
-            value={formVals.start.substring(0, 10) }
+            value={formVals.start && formVals.start.substring(0, 10)}
           >
           </Input>
           <Input
@@ -315,7 +334,7 @@ const TeamListItem = (props) => {
             name="end"
             type="date"
             style={{ minWidth: "160px", maxWidth: "160px" }}
-            value={formVals.end.substring(0, 10)}
+            value={formVals.end && formVals.end.substring(0, 10)}
           >
           </Input>
           <Input
