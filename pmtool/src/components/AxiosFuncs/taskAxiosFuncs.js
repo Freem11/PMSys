@@ -54,7 +54,7 @@ export const updateHiddenTasks = (info) => {
 };
 
 export const updateRestTasks = (info) => {
-
+  console.log("axios hmm", info)
   let id = info.id
 
   return axios
