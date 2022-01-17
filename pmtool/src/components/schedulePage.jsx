@@ -69,19 +69,18 @@ function SchedulePage() {
       }, [])
 
       useEffect(() => {
+        console.log("triggered?")
     
         let quote = allTasks(jProject.id)
         Promise.all([quote])
         .then((response) => {
-          console.log("here")
+
           let newestData = sortDataGantt(formatForGannt(response[0]))
           setTasks([...newestData]) 
      
           let sortData = sortDataGantt(response[0])
           setGanttRows( [...sortData] )
-          
-        
-          
+      
         })
         .catch((error) => {
           console.log(error);
@@ -120,7 +119,7 @@ function SchedulePage() {
               >
      <div> 
      <OverLordContext.Provider value={{binary, setBinary}}>
-       <GanttTable ganttRows={ganttRows} setTable={setGanttRows}/>
+       <GanttTable ganttRows={ganttRows} setTable={setGanttRows} binary={binary} setBinary={setBinary}/>
       </OverLordContext.Provider>
      </div>
      <div style={{ zIndex:1, maxWidth: '800px', minWidth: '0px', marginTop: '0px', height: 'auto', backgroundColor: '#2B2D42', borderRadius: '0 15px 15px 0' }}>

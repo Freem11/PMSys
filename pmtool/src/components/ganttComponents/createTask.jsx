@@ -17,7 +17,7 @@ const CreateNewTask = (props) => {
   const [list, setList] = useState("");
 
   const { project } = useContext(ProjectContext);
-  const { setGanttTasks } = useContext(TasksContext);
+  const { setGanttRows } = useContext(TasksContext);
   const { setTasks } = useContext(GanttContext);
 
   const projectFromSession = window.sessionStorage.getItem("project")
@@ -107,10 +107,10 @@ const CreateNewTask = (props) => {
           .then((response4) => {
  
             let newData = sortDataGantt(formatForGannt(response4[0]))
-            setTasks(newData);
+            setTasks([...newData]);
 
             let sortedData = sortDataGantt(response4[0])
-            setGanttTasks(sortedData);
+            setGanttRows([...sortedData]);
             
           })
           .catch((error) => {
@@ -154,10 +154,10 @@ const CreateNewTask = (props) => {
           .then((response4) => {
  
             let newData = sortDataGantt(formatForGannt(response4[0]))
-            setTasks(newData);
+            setTasks([...newData]);
 
             let sortedData = sortDataGantt(response4[0])
-            setGanttTasks(sortedData);
+            setGanttRows([...sortedData]);
             
           })
           .catch((error) => {

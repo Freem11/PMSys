@@ -25,10 +25,9 @@ const TeamListItem = (props) => {
     projId,
   } = props;
 
-  console.log("hmmm",props)
   const { binary, setBinary } = useContext(OverLordContext);
-  const { setGanttRows } = useContext(TasksContext);
-  const { setTasks } = useContext(GanttContext);
+  const { ganttRows, setGanttRows } = useContext(TasksContext);
+  const { tasks, setTasks } = useContext(GanttContext);
 
   const prevTasks = useRef()
   useEffect(() => {
@@ -88,9 +87,7 @@ const TeamListItem = (props) => {
     project: project,
     projId: projId,
    })
-  }, [props])
-
-  console.log("vals",formVals)
+  }, [props, tasks])
 
   let sortedData;
 
@@ -407,6 +404,8 @@ const TeamListItem = (props) => {
             start={start}
             end={end}
             progress={progress}
+            binary={binary}
+            setBinary={setBinary}
             />
           </div>
         </Form>

@@ -9,7 +9,7 @@ function GanttTable(props) {
 
     const { project } = useContext(ProjectContext);
     const projectFromSession = window.sessionStorage.getItem("project")
-    const { ganttRows} = props;
+    const { ganttRows, binary, setBinary } = props;
 
     let jProject
     if (project[0]) {
@@ -23,8 +23,6 @@ function GanttTable(props) {
       };
     }
 
-    console.log("whats this", ganttRows)
-    
         let list;
         if(ganttRows && ganttRows.length > 0 ) {
         list = ganttRows.map((item) => {
@@ -43,6 +41,8 @@ function GanttTable(props) {
                 hidechildren={item.hidechildren}
                 project={item.project}
                 projId={jProject.id}
+                binary={binary}
+                setBinary={setBinary}
                 />
             );
         });

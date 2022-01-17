@@ -10,9 +10,9 @@ import { allTasks, deleteParent, cleanUpDeps, deleteTask, getTaskStartMin, getTa
 import {formatForGannt, sortDataGantt, handleAvgProgress, updateParentStartDate, updateParentEndDate, updateParentChildArray } from './gantthelper'
 const PositionedMenuTeam = (props) => {
 
-  const { taskId ,name, type, parent, start, end, progress } = props
+  const { taskId ,name, type, parent, start, end, progress, binary, setBinary } = props
   const { project } = useContext(ProjectContext);
-  const { setGanttTasks } = useContext(TasksContext);
+  const { setGanttRows } = useContext(TasksContext);
   const { setTasks } = useContext(GanttContext);
   const projectFromSession = window.sessionStorage.getItem("project")
 
@@ -56,7 +56,9 @@ let jProject;
           setTasks([...newData]);
 
           let sortedData = sortDataGantt(response[0])
-          setGanttTasks([...sortedData]);
+          setGanttRows([...sortedData]);
+
+          setBinary(!binary)
     })
     .catch((error) => {
       console.log(error);
@@ -77,7 +79,9 @@ let jProject;
       setTasks([...newData]);
 
       let sortedData = sortDataGantt(response[0])
-      setGanttTasks([...sortedData]);
+      setGanttRows([...sortedData]);
+
+      setBinary(!binary)
 })
 .catch((error) => {
   console.log(error);
@@ -122,7 +126,9 @@ Promise.all([delTask])
               setTasks([...newData]);
   
               let sortedData = sortDataGantt(response4[0])
-              setGanttTasks([...sortedData]);
+              setGanttRows([...sortedData]);
+
+              setBinary(!binary)
               
             })
             .catch((error) => {
