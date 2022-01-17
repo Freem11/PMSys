@@ -25,6 +25,7 @@ const TeamListItem = (props) => {
     projId,
   } = props;
 
+  console.log("hmmm",props)
   const { binary, setBinary } = useContext(OverLordContext);
   const { setGanttRows } = useContext(TasksContext);
   const { setTasks } = useContext(GanttContext);
@@ -88,6 +89,8 @@ const TeamListItem = (props) => {
     projId: projId,
    })
   }, [props])
+
+  console.log("vals",formVals)
 
   let sortedData;
 
@@ -330,7 +333,7 @@ const TeamListItem = (props) => {
             onChange={handleChange}
             onBlur={handleSubmit}
             name="progress"
-            defaultValue={formVals.progress}
+            value={formVals.progress && formVals.progress}
             style={{ minWidth: "60px", maxWidth: "60px", textAlign: "center" }}
           >
           </Input>
@@ -340,7 +343,7 @@ const TeamListItem = (props) => {
             onBlur={handleSubmit}
             name="dependencies"
             style={{ minWidth: "160px", maxWidth: "160px" }}
-            defaultValue={formVals.dependencies}
+            value={formVals.dependencies}
           >
           </Input>
     
