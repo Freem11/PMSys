@@ -76,10 +76,12 @@ function SchedulePage() {
           console.log("here")
           let newestData = sortDataGantt(formatForGannt(response[0]))
           setTasks([...newestData]) 
-
+     
           let sortData = sortDataGantt(response[0])
-          setGanttRows([...sortData])
-         
+          setGanttRows( [...sortData] )
+          
+        
+          
         })
         .catch((error) => {
           console.log(error);

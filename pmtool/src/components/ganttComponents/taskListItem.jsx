@@ -6,7 +6,8 @@ import { allTasks, updateHiddenTasks, updateRestTasks, getTaskByName, getTaskSta
 import PositionedMenuTeam from "./taskPopUp";
 import Switch from "@mui/material/Switch";
 import "./taskList.scss";
-import { formatForTable, formatForGannt, sortDataGantt, updateParentStartDate, updateParentEndDate, updateParentChildArray, manageDependencyArray, handleAvgProgress } from './gantthelper'
+import { formatForGannt, sortDataGantt, updateParentStartDate, updateParentEndDate, updateParentChildArray, manageDependencyArray, handleAvgProgress } from './gantthelper'
+
 const TeamListItem = (props) => {
   const {
     key,
@@ -23,10 +24,10 @@ const TeamListItem = (props) => {
     project,
     projId,
   } = props;
-  
+
   const { binary, setBinary } = useContext(OverLordContext);
-  const { ganttTasks, setGanttTasks } = useContext(TasksContext);
-  const { tasks, setTasks } = useContext(GanttContext);
+  const { setGanttRows } = useContext(TasksContext);
+  const { setTasks } = useContext(GanttContext);
 
   const prevTasks = useRef()
   useEffect(() => {
@@ -71,6 +72,23 @@ const TeamListItem = (props) => {
     projId: projId,
   });
 
+  useEffect(() => {
+   setFormVals({
+    id: id,
+    seq: seq,
+    name: name,
+    start: start,
+    end: end,
+    type: type,
+    progress: progress,
+    dependencies: dependencies,
+    barChildren: barchildren,
+    hideChildren: hidechildren,
+    project: project,
+    projId: projId,
+   })
+  }, [props])
+
   let sortedData;
 
   const [swtch, setSwtch] = useState(hidechildren);
@@ -88,7 +106,7 @@ const TeamListItem = (props) => {
           .then((response2) => {
 
             sortedData = sortDataGantt(response2[0])
-            setGanttTasks([...sortedData]);
+            setGanttRows([...sortedData]);
            
             let newData = sortDataGantt(formatForGannt(response2[0]))
 
@@ -125,12 +143,8 @@ const TeamListItem = (props) => {
         Promise.all([updated3])
           .then((response9) => {
  
-            let newData = sortDataGantt(formatForGannt(response9[0]))
-            setTasks([...newData]);
+         setBinary(!binary)
 
-            sortedData = sortDataGantt(response9[0])
-            setGanttTasks([...sortedData]);
-            
           })
           .catch((error) => {
             console.log(error);
@@ -207,18 +221,9 @@ const TeamListItem = (props) => {
 
             Promise.all([updated2])
               .then((response4) => {
-     
-                // sortedData = sortDataGantt(response4[0])
-                // let work = [...sortedData]
-                // setGanttTasks([...work])
-
-                console.log("i will do it", binary)
+    
                 setBinary(!binary)
 
-                // let newData = sortDataGantt(formatForGannt(response4[0]))
-                // let work2 = newData
-                // setTasks([...work2]);
-              
               })
               .catch((error) => {
                 console.log(error);
@@ -240,24 +245,6 @@ const TeamListItem = (props) => {
       });
     }
   };
-
-//  useEffect(() => {
-// console.log("?????")
-//   let updatedt = allTasks(projId);
-
-//     Promise.all([updatedt])
-//       .then((response3) => { 
-
-//         sortedData = sortDataGantt(formatForTable(response3[0]))
-               
-//         { sortedData && setGanttTasks([...sortedData])}
-//         console.log("!!!!",sortedData, ganttTasks)
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-
-//   }, [tasks])
 
   return (
       <li id={id} key={key} className="teamL2">

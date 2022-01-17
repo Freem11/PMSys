@@ -23,6 +23,8 @@ function GanttTable(props) {
       };
     }
 
+    console.log("whats this", ganttRows)
+    
         let list;
         if(ganttRows && ganttRows.length > 0 ) {
         list = ganttRows.map((item) => {
