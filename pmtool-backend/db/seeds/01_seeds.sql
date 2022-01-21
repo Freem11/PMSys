@@ -65,7 +65,7 @@ VALUES ('project'), ('task'), ('milestone');
 INSERT INTO taskNames(name, type)
 VALUES ('Civil', 'Civil'),
 ('Fibre', 'Fibre'),
-('Riser', 'Coax'),
+('Coax', 'Coax'),
 ('Prewire', 'Prewire'),
 ('City Permit', 'Civil'), 
 ('Civil Build', 'Civil'), 
