@@ -23,7 +23,8 @@ const addTask = (
   barChildren,
   hideChildren,
   project,
-  projectId
+  projectId,
+  cat,
 ) => {
   console.log("db gets",  seq,
   name,
@@ -35,11 +36,12 @@ const addTask = (
   barChildren,
   hideChildren,
   project,
-  projectId )
+  projectId,
+  cat, )
   return db
     .query(
-      `INSERT INTO tasks (seq, name, start, "end", type, progress, dependencies, barChildren, hideChildren, project, project_id)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *;`,
+      `INSERT INTO tasks (seq, name, start, "end", type, progress, dependencies, barChildren, hideChildren, project, project_id, category)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *;`,
       [
         seq,
         name,
@@ -52,6 +54,7 @@ const addTask = (
         hideChildren,
         project,
         projectId,
+        cat,
       ]
     )
     .then((response) => {
@@ -296,6 +299,30 @@ const deleteTask = (taskId) => {
     })
 }
 
+const getProjectTaskByCategory = (category, projectId) => {
+  return db
+    .query(`SELECT * FROM tasks WHERE category = $1 AND project_id = $2`, [category, projectId])
+    .then((response) => {
+      console.log("db resp", response.rows)
+      return response.rows;
+    })
+    .catch((error) => {
+      console.log("unable to query db got error:", error);
+    });
+};
+
+const getMaxSeq = (id) => {
+  // console.log("db gets", projectName)
+
+  return db
+    .query(`SELECT MAX(seq) as "maxSeq" FROM tasks WHERE project_id = $1 `, [ id ])
+    .then((response) => {
+      return response.rows;
+    })
+    .catch((error) => {
+      console.log("unable to query db got error:", error);
+    });
+};
 module.exports = {
   getProjectTasks,
   updateTaskHider,
@@ -314,4 +341,6 @@ module.exports = {
   updateDependencyArray,
   deleteTask,
   addTask,
+  getProjectTaskByCategory,
+  getMaxSeq,
 };

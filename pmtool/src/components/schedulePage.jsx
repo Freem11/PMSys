@@ -69,8 +69,7 @@ function SchedulePage() {
       }, [])
 
       useEffect(() => {
-        console.log("triggered?")
-    
+   
         let quote = allTasks(jProject.id)
         Promise.all([quote])
         .then((response) => {
@@ -105,8 +104,8 @@ function SchedulePage() {
             </FormModal>
             
     <div className="master">
-      <Split  sizes={[55.5,44.5]}
-              maxSize={[985]}
+      <Split  sizes={[55,45]}
+              maxSize={[975]}
               minSize={[200]}
               expandToMin={false}
               gutterSize={10}

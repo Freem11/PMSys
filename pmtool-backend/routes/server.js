@@ -46,7 +46,10 @@ const {
   cleanUpDependencies,
   delTask,
   addProjTask,
+  getProjTaskCat,
+  getMaxSequence,
 } = require("./taskRoutes");
+const { getAllTasksOfType } = require("./taskNameRoutes")
 
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -106,3 +109,8 @@ app.use(getTskNames);
 app.use(delParent);
 app.use(cleanUpDependencies);
 app.use(delTask);
+app.use(getProjTaskCat);
+app.use(getMaxSequence);
+
+//TaskNameRoutes
+app.use(getAllTasksOfType);

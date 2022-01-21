@@ -6,7 +6,7 @@ import { updateQuote, quoteTotal } from '../AxiosFuncs/quoteAxiosFuncs'
 import PositionedMenuTeam from './quotePopUp'
 import "./quoteList.scss";
 
-const TeamListItem = (props) => {
+const QuoteListItem = (props) => {
 
     const { id, name, price, quantity, cost, projId } = props
     const { setQuoteCosts } = useContext(QuoteCostContext);
@@ -112,4 +112,4 @@ const TeamListItem = (props) => {
     )
 } 
 
-export default TeamListItem;
+export default QuoteListItem;

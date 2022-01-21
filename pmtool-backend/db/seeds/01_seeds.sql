@@ -51,22 +51,22 @@ VALUES ('S-4000 Node', 'Fibre', 'Vancouver', 1000.00),
 ('S-4000 Node', 'Fibre', 'Calgary', 1000.00);
 
 
-INSERT INTO tasks(seq, name, start, "end", type, progress, dependencies, barChildren, hideChildren, project, project_id)
-VALUES (1, 'Civil', '2022-1-3', '2022-1-16', 'project', 75, '{}', '{City Permit, Civil Build}', false, '', 1),
-(2, 'City Permit', '2022-1-3', '2022-1-10', 'task', 100, '{}', '{}', false, 'Civil', 1),
-(3, 'Civil Build', '2022-1-11', '2022-1-16', 'task', 50, '{City Permit}', '{}', false, 'Civil', 1),
-(4, 'Fibre', '2022-2-3', '2022-2-17', 'project', 0, '{Civil}', '{Place Fibre, Splice}', true, '', 1),
-(5, 'Place Fibre', '2022-2-3', '2022-2-10', 'task', 0, '{}', '{}', false, 'Fibre', 1),
-(6, 'Splice', '2022-2-11', '2022-2-17', 'task', 0, '{Place Fibre}', '{}', false, 'Fibre', 1);
+INSERT INTO tasks(seq, name, start, "end", type, progress, dependencies, barChildren, hideChildren, project, project_id, category)
+VALUES (1, 'Civil', '2022-1-3', '2022-1-16', 'project', 75, '{}', '{City Permit, Civil Build}', false, '', 1, 'Civil'),
+(2, 'City Permit', '2022-1-3', '2022-1-10', 'task', 100, '{}', '{}', false, 'Civil', 1, 'Civil'),
+(3, 'Civil Build', '2022-1-11', '2022-1-16', 'task', 50, '{City Permit}', '{}', false, 'Civil', 1, 'Civil'),
+(4, 'Fibre', '2022-2-3', '2022-2-17', 'project', 0, '{Civil}', '{Place Fibre, Splice}', true, '', 1, 'Fibre'),
+(5, 'Place Fibre', '2022-2-3', '2022-2-10', 'task', 0, '{}', '{}', false, 'Fibre', 1, 'Fibre'),
+(6, 'Splice', '2022-2-11', '2022-2-17', 'task', 0, '{Place Fibre}', '{}', false, 'Fibre', 1, 'Fibre');
 
 INSERT INTO taskTypes(name)
 VALUES ('project'), ('task'), ('milestone');
 
 INSERT INTO taskNames(name, type)
-VALUES ('Civil', 'None'),
-('Fibre', 'None'),
-('Riser', 'None'),
-('Prewire', 'None'),
+VALUES ('Civil', 'Civil'),
+('Fibre', 'Fibre'),
+('Riser', 'Coax'),
+('Prewire', 'Prewire'),
 ('City Permit', 'Civil'), 
 ('Civil Build', 'Civil'), 
 ('Place Fibre', 'Fibre'), 

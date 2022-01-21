@@ -65,6 +65,7 @@ const CreateNewTask = (props) => {
     barChildren: [],
     project: '',
     project_id: jProject.id,
+    category: '',
   });
 
   const handleChange = (e) => {
@@ -85,7 +86,7 @@ const CreateNewTask = (props) => {
       let today = new Date()
       let tommorow = new Date(today)
       tommorow.setDate(tommorow.getDate()+1)
-      setFormVals({ ...formVals, [e.target.name]: opt, project: '', start: today, end: tommorow });
+      setFormVals({ ...formVals, [e.target.name]: opt, project: '', start: today, end: tommorow, category: e.target.type });
     } else {
       opt = e.target.value;
       setFormVals({ ...formVals, [e.target.name]: opt });
@@ -144,17 +145,16 @@ const CreateNewTask = (props) => {
       } else {
       newParentChildrenArray = response1[0].barChildren
       }
-      console.log("hey i was functioning", newParentProgress)
+
       let updatie = updateRestTasks( {...response1[0], progress: newParentProgress, start: newParentStartDate, end: newParentEndDate, barchildren: newParentChildrenArray } )
 
       Promise.all([updatie])
       .then((response) => {
-        console.log("hey i was functioning", response)
+
         let updated2 = allTasks(jProject.id);
   
         Promise.all([updated2])
           .then((response4) => {
-            console.log("hey i was working", response4)
  
             let newData = sortDataGantt(formatForGannt(response4[0]))
             setTasks([...newData]);
@@ -217,6 +217,7 @@ const CreateNewTask = (props) => {
                   name="team"
                   key={name.id}
                   values={name.id}
+                  type={name.type}
                   className="modalSelect"
                 >
                   {name.name}

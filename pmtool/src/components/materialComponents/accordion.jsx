@@ -11,6 +11,8 @@ import Typography from '@mui/material/Typography';
 import ListItem from "@mui/material/ListItem";
 import { allMaterials, materialtypes } from '../AxiosFuncs/materialAxiosFuncs';
 import { allQuote, addQuote, quoteTotal } from '../AxiosFuncs/quoteAxiosFuncs'
+import { getTaskByCat, getSeqMax } from '../AxiosFuncs/taskAxiosFuncs'
+import { allTasksByCategory } from '../AxiosFuncs/taskNameAxiosFuncs'
 import "./accordion.scss"
 
 const Accordion = styled((props) => (
@@ -99,15 +101,26 @@ useEffect(() => {
 
   }, [])
 
-  const twoX = (name, price) => {
+  const twoX = (name, price, type) => {
 
     let quantity = 1
     let cost = quantity * price
 
    let quoteItem = addQuote({name, price, quantity, cost, id: jProject.id})
+   let taskCategory = getTaskByCat({type: type, id: jProject.id})
+   let maxSeq = getSeqMax({ id: jProject.id })
+   let taskByCategory = allTasksByCategory(type)
 
-    Promise.all([quoteItem])
+    Promise.all([quoteItem, taskCategory, maxSeq, taskByCategory])
     .then((response) => {
+      
+      if (response[1].length === 0){
+        console.log("not tasks yet", response[2].maxSeq)
+        console.log("tasks to add", response[3])
+      } else {
+        console.log("already tasks", response[2].maxSeq)
+      }
+
       let data = allMaterials(jProject.location)
         
     Promise.all([data])
@@ -160,7 +173,7 @@ useEffect(() => {
             return (
                 <ListItem
                 className="lister"
-                onClick={()=>twoX(material.name, material.price)}
+                onClick={()=>twoX(material.name, material.price, material.type)}
                 key={material.id}
                 >
                     <div className = "materailListItem" >

@@ -44,6 +44,7 @@ const addProjTask = router.post("/task", (req, res) => {
   let hideChildren = req.body.hideChildren;
   let project = req.body.project;
   let projectId = req.body.projId;
+  let cat = req.body.category;
 
   db.addTask(
     seq,
@@ -56,7 +57,8 @@ const addProjTask = router.post("/task", (req, res) => {
     barChildren,
     hideChildren,
     project,
-    projectId
+    projectId,
+    cat,
   )
     .then((zones) => {
       res.json(zones);
@@ -297,6 +299,37 @@ const delTask = router.delete("/task/delete/:id", (req, res) => {
     });
 });
 
+
+const getProjTaskCat = router.post("/tasks/project/category", (req, res) => {
+
+  let projId = req.body.id
+  let cat = req.body.category
+
+  db.getProjectTaskByCategory(cat, projId)
+  .then(zones => {
+      res.json(zones);
+  })
+  .catch(err => {
+      res
+      .status(500)
+      .json({ error: err.message});
+  });
+});
+
+const getMaxSequence = router.post("/tasks/seqMax", (req, res) => {
+
+  let id = req.body.projId
+  // console.log("route", req.body)
+
+  db.getMaxSeq(id)
+    .then((zones) => {
+      res.json(zones);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
 module.exports = {
   getProjTasks,
   updateHiddenTasks,
@@ -314,4 +347,6 @@ module.exports = {
   cleanUpDependencies,
   delTask,
   addProjTask,
+  getProjTaskCat,
+  getMaxSequence,
 };

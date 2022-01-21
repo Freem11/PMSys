@@ -27,6 +27,7 @@ export const addTask = (info) => {
       hideChildren: info.hideChildren,
       project: info.project,
       projId: info.project_id,
+      category: info.category,
     })
     .then((response) => {
       return response.data[0];
@@ -54,7 +55,7 @@ export const updateHiddenTasks = (info) => {
 };
 
 export const updateRestTasks = (info) => {
-  console.log("axios hmm", info)
+
   let id = info.id
 
   return axios
@@ -249,3 +250,33 @@ export const deleteTask = (id) => {
       return err;
     });
 };
+
+export const getTaskByCat = (info) => {
+  
+    return axios
+      .post(`http://localhost:5000/tasks/project/category`, {
+        id: info.id,
+        category: info.type,
+      })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((err) => {
+        return err;
+      });
+  };
+
+  export const getSeqMax = (info) => {
+
+    // console.log("axios", info)
+  return axios
+  .post(`http://localhost:5000/tasks/seqMax`, {
+    projId: info.id,
+  })
+  .then((response) => {
+    return response.data[0];
+  })
+  .catch((err) => {
+    return err;
+  });
+  };
