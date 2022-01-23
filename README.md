@@ -22,11 +22,16 @@ Start a project plan based on labour and materials, materials list is keyed to l
 
 Build out a proposed labour and materials list that outlines proposed total cost for the project
 
+Build out a Gantt Chart allowing for parent "project" task to hold child tasks,
+Children can been hidden/show by toggling a switch
+Dependiencies can be created between tasks
+Set start and end dates for each task as well as progress of tasks, which feeds into parent task charactertisitcs 
+
+As Materials/Labour items are added to the project plan, Gantt chart is automatically updated with corresponding task
 
 In Progress Features:
 
-Gantt chart
-
+Admin section, for registering/removing or edtting Labour/ Materials, project locations and Gantt Task options
 
 Planned Features:
 

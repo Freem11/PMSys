@@ -11,10 +11,9 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
-import HomeIcon from '@mui/icons-material/Home';
-import WarehouseIcon from '@mui/icons-material/Warehouse';
-import WatchLaterIcon from '@mui/icons-material/WatchLater';
+import BuildIcon from '@mui/icons-material/Build';
+import TaskIcon from '@mui/icons-material/Task';
+import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import ListItem from "@mui/material/ListItem";
 // import QuotesPage from "./quotesPage";
 // import DetailsPage from "./detailsPage";
@@ -149,7 +148,7 @@ export default function MiniDrawer() {
            
           </IconButton>
           <Typography variant="h6" noWrap component="div"></Typography>
-          <div className="projectDiv">Administrative Access</div>
+          <div className="projectDiv">Administrative Tools</div>
           <div className="topdiv">
             <div className="secdiv">
               <Button onClick={logoutFunc}>Logout</Button>
@@ -170,7 +169,7 @@ export default function MiniDrawer() {
         </DrawerHeader>
 
         <List sx={{ backgroundColor: "#66758F", height: 10000 }}>
-          {["Projects", "Details", "Quotes", "Schedules", "Drafts"].map((text, index) => (
+          {["Materials", "Tasks", "Locations"].map((text, index) => (
             <ListItem button key={text} onClick={() => handleClicks(index)}>
               {index === 0 ? (
                 <>
@@ -183,7 +182,7 @@ export default function MiniDrawer() {
                       flexDirection: "row",
                     }}
                   >
-                    <KeyboardReturnIcon
+                    <BuildIcon
                       sx={{ color: "white", marginRight: 3.5, marginLeft: 0.5 }}
                     />
                     <p style={{ color: "lightgrey", textDecoration: "none", marginTop: 1 }}>
@@ -205,7 +204,7 @@ export default function MiniDrawer() {
                    flexDirection: "row",
                  }}
                >
-                 <HomeIcon
+                 <TaskIcon
                    sx={{ color: "white", marginRight: 3.5, marginLeft: 0.5 }}
                  />
                  <p style={{ color: "lightgrey", textDecoration: "none", marginTop: 1 }}>
@@ -227,7 +226,7 @@ export default function MiniDrawer() {
                     flexDirection: "row",
                   }}
                 >
-                  <WarehouseIcon
+                  <AddLocationAltIcon
                     sx={{ color: "white", marginRight: 3.5, marginLeft: 0.5 }}
                   />
                   <p style={{ color: "lightgrey", textDecoration: "none", marginTop: 1 }}>
@@ -249,7 +248,7 @@ export default function MiniDrawer() {
                     flexDirection: "row",
                   }}
                 >
-                  <WatchLaterIcon
+                  <AddLocationAltIcon
                     sx={{ color: "white", marginRight: 3.5, marginLeft: 0.5 }}
                   />
                   <p style={{ color: "lightgrey", textDecoration: "none", marginTop: 1 }}>
