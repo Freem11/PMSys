@@ -13,6 +13,22 @@ body {
     margin: auto;
 }
 
+.boxA {
+    // width: 100%;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    margin: auto;
+}
+
+.boxB {
+    // width: 100%;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    margin: auto;
+}
+
 .regButton {
     width: 180px;
     height: 40px;
@@ -59,7 +75,7 @@ body {
 
 .head {
     margin: auto;
-    margin-top: 250px;
+    margin-top: 200px;
     margin-bottom: 40px;
     color: #292929;
     font-size: 45px;
@@ -97,10 +113,29 @@ body {
 }
 
 .bottom-box {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
+    align-self: center;
+    height: 30px;
 
- 
+}
+
+.adminBtn{
+    width: 70px;
+    height: 25px;
+    border-radius: 10px;
+    background-color: maroon;
+    color: lightgray;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 90%;
+    margin-right: 20px;
+}
+
+.btn4 {
+    background-color: maroon;
+    border-color: maroon;
+    color: lightgray;
+    border-radius: 10px;
+    font-weight: bolder;
+    width: 80px;
+    margin-right: 10px;
 }

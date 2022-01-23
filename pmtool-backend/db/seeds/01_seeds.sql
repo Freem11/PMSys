@@ -21,9 +21,9 @@ ALTER SEQUENCE tasks_id_seq RESTART WITH 1;
 ALTER SEQUENCE taskTypes_id_seq RESTART WITH 1;
 ALTER SEQUENCE taskNames_id_seq RESTART WITH 1;
 
-INSERT INTO users(name, email, password)
-VALUES ('Jerry', 'jerry@gmail.com', '$2b$10$79yCm1nJdNV6S8iAycSTnOlEaRCAjKa8EfxblOIdMjIFyrFXw56a.'),
-('George', 'george@gmail.com', '$2b$10$wiDllG..ujvOY49IKDtLiOY.k8iTQTy2Hy.spK3Nay2aMs8XVtGtG');
+INSERT INTO users(name, email, password, admin)
+VALUES ('Jerry', 'jerry@gmail.com', '$2b$10$79yCm1nJdNV6S8iAycSTnOlEaRCAjKa8EfxblOIdMjIFyrFXw56a.', true),
+('George', 'george@gmail.com', '$2b$10$wiDllG..ujvOY49IKDtLiOY.k8iTQTy2Hy.spK3Nay2aMs8XVtGtG', true);
 
 INSERT INTO projects(name, location, status, user_id)
 VALUES ('manhatten', 'Vancouver', 'Active', 1),

@@ -2,9 +2,10 @@ import { useReducer, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, FormGroup, Input } from "reactstrap";
 import { UserContext } from "./userContext";
-import Collapse from '@mui/material/Collapse';
-import { login, checkEmail, register } from "./AxiosFuncs/userAxiosFuncs"
+import Collapse from "@mui/material/Collapse";
+import { login, checkEmail, register } from "./AxiosFuncs/userAxiosFuncs";
 import "./loginPage.scss";
+import zIndex from "@mui/material/styles/zIndex";
 
 function loginReducer(state, action) {
   switch (action.type) {
@@ -91,26 +92,48 @@ const initialState = {
   isLoggedIn: false,
 };
 
-
 const LoginPage = () => {
   let navigate = useNavigate();
   const [state, dispatch] = useReducer(loginReducer, initialState);
-  const { regName, regEmail, regPassword, email, password, error, error2 } = state;
+  const {
+    regName,
+    regEmail,
+    regPassword,
+    email,
+    password,
+    error,
+    error2,
+  } = state;
   const { setUser } = useContext(UserContext);
 
-  const [dispRegister, setDispRegister] = useState(false)
-  const [dispLogin, setDispLogin] = useState(false)
+  const [dispAdmins, setDispAdmins] = useState(false);
+  const [dispRegular, setDispRegular] = useState(true);
+
+  const [dispRegister, setDispRegister] = useState(false);
+  const [dispLogin, setDispLogin] = useState(false);
+
+  const handleAdminButtionsDisp = () => {
+    setDispAdmins((prev) => !prev);
+    setDispRegular((prev) => !prev);
+
+    if (dispAdmins === false) {
+      setDispRegister(false);
+      setDispLogin(false);
+    }
+
+  };
 
   const handleRegisterDisp = () => {
-    setDispRegister(prev => !prev)
-    setDispLogin(false)
+    setDispRegister((prev) => !prev);
+    setDispLogin(false);
     dispatch({ type: "login" });
-  }
+  };
+
   const handleLoginDisp = () => {
-    setDispLogin(prev => !prev)
-    setDispRegister(false)
+    setDispLogin((prev) => !prev);
+    setDispRegister(false);
     dispatch({ type: "login" });
-  }
+  };
 
   const onSubmitLogin = async (e) => {
     e.preventDefault();
@@ -128,7 +151,7 @@ const LoginPage = () => {
         } else {
           dispatch({ Type: "success" });
           setUser(JSON.stringify(log));
-          window.sessionStorage.setItem("user", JSON.stringify(log))
+          window.sessionStorage.setItem("user", JSON.stringify(log));
           navigate("/projects");
         }
       } catch (error) {
@@ -154,7 +177,7 @@ const LoginPage = () => {
           dispatch({ Type: "success" });
           let logoo = await register({ regName, regEmail, regPassword });
           setUser(JSON.stringify(logoo));
-          window.sessionStorage.setItem("user", JSON.stringify(logoo))
+          window.sessionStorage.setItem("user", JSON.stringify(logoo));
           navigate("/projects");
         }
       } catch (error) {
@@ -253,21 +276,60 @@ const LoginPage = () => {
     </Form>
   );
 
+  const userLoginButtons = (
+    <div>
+      <button type="button" className="btn2" onClick={handleLoginDisp}>
+        Login
+      </button>
+      <button type="button" className="btn2" onClick={handleRegisterDisp}>
+        Register
+      </button>
+    </div>
+  );
+
+  const adminLoginButtons = (
+    <div>
+      <button type="button" className="btn4" onClick={handleLoginDisp}>
+        Login
+      </button>
+      <button type="button" className="btn4" onClick={handleRegisterDisp}>
+        Register
+      </button>
+    </div>
+  );
+
   return (
     <div className="maindiv">
-      <h1 className="head">Welcome To PM World !</h1>
+      <button
+        type="button"
+        className="adminBtn"
+        onClick={handleAdminButtionsDisp}
+      >
+        Admin
+      </button>
+      <h1 className="head">Welcome To PMSys!</h1>
       <div className="bottom-box">
-        <button type="button" className="btn2" onClick={handleLoginDisp}>Login</button>
-        <button type="button" className="btn2" onClick={handleRegisterDisp}>Register</button>
+
+        <div className="boxA">
+          <Collapse in={dispAdmins}>{adminLoginButtons}</Collapse>
+        </div>
+
+        <div className="boxB">
+          <Collapse in={dispRegular}>{userLoginButtons}</Collapse>
+        </div>
+
       </div>
+
       <div className="box1">
         <Collapse in={dispRegister}>{registryForm}</Collapse>
-        </div>
-      <div className="box2">
-      <Collapse in={dispLogin}>{loginForm}</Collapse>
       </div>
+
+      <div className="box2">
+        <Collapse in={dispLogin}>{loginForm}</Collapse>
+      </div>
+
       {error && <p className="error">{error}</p>}
-      {error2 && <p className="error">{error2}</p>} 
+      {error2 && <p className="error">{error2}</p>}
     </div>
   );
 };
