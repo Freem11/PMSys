@@ -2,6 +2,7 @@ import { React, useState} from 'react';
 import LoginPage from './components/loginPage';
 import ProjectsPage from './components/projectsPage';
 import Drawer from './components/drawer'
+import AdminDrawer from './components/adminComponents/adminDrawer'
 import { Routes, Route } from 'react-router-dom';
 import { UserContext } from './components/userContext';
 import { ProjectContext } from './components/projectContext'
@@ -30,6 +31,10 @@ function App() {
         <Route 
           path ="/project" 
           element={<Drawer/>}
+          />
+        <Route 
+          path ="/admin" 
+          element={<AdminDrawer/>}
           />
       </Routes>
       </ProjectsContext.Provider>

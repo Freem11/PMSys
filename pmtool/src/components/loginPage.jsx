@@ -120,7 +120,6 @@ const LoginPage = () => {
       setDispRegister(false);
       setDispLogin(false);
     }
-
   };
 
   const handleRegisterDisp = () => {
@@ -138,6 +137,8 @@ const LoginPage = () => {
   const onSubmitLogin = async (e) => {
     e.preventDefault();
 
+    console.log("value is", dispAdmins);
+
     dispatch({ type: "login" });
 
     if (!email || !password) {
@@ -152,7 +153,12 @@ const LoginPage = () => {
           dispatch({ Type: "success" });
           setUser(JSON.stringify(log));
           window.sessionStorage.setItem("user", JSON.stringify(log));
-          navigate("/projects");
+
+          if (dispAdmins === true && log.admin === true) {
+            navigate("/admin");
+          } else {
+            navigate("/projects");
+          }
         }
       } catch (error) {
         dispatch({ Type: "error" });
@@ -162,6 +168,8 @@ const LoginPage = () => {
 
   const onSubmitRegister = async (e) => {
     e.preventDefault();
+    console.log("value is", adminVal);
+    let adminVal = false;
 
     dispatch({ type: "login" });
 
@@ -175,7 +183,26 @@ const LoginPage = () => {
           dispatch({ type: "error2" });
         } else {
           dispatch({ Type: "success" });
-          let logoo = await register({ regName, regEmail, regPassword });
+
+          if (dispAdmins === true) {
+            adminVal = true;
+            let logoo = await register({
+              regName,
+              regEmail,
+              regPassword,
+              admin: adminVal,
+            });
+            setUser(JSON.stringify(logoo));
+            window.sessionStorage.setItem("user", JSON.stringify(logoo));
+            navigate("/admin");
+          }
+
+          let logoo = await register({
+            regName,
+            regEmail,
+            regPassword,
+            admin: adminVal,
+          });
           setUser(JSON.stringify(logoo));
           window.sessionStorage.setItem("user", JSON.stringify(logoo));
           navigate("/projects");
@@ -309,7 +336,6 @@ const LoginPage = () => {
       </button>
       <h1 className="head">Welcome To PMSys!</h1>
       <div className="bottom-box">
-
         <div className="boxA">
           <Collapse in={dispAdmins}>{adminLoginButtons}</Collapse>
         </div>
@@ -317,7 +343,6 @@ const LoginPage = () => {
         <div className="boxB">
           <Collapse in={dispRegular}>{userLoginButtons}</Collapse>
         </div>
-
       </div>
 
       <div className="box1">
