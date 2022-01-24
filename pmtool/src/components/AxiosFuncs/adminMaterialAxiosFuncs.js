@@ -26,4 +26,22 @@ export const allAvailableMaterials = (values) => {
     });
 }
 
+export const addMaterial = (info) => {
+
+  // console.log("axios", info)
+  return axios
+    .post(`http://localhost:5000/admin/material`, {
+      name: info.name,
+      type: info.type,
+      location: info.location,
+      price: info.price,
+    })
+    .then((response) => {
+      return response.data[0];
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 

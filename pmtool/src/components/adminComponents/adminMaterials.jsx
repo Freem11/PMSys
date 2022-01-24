@@ -8,7 +8,7 @@ import Toolbar from "@mui/material/Toolbar";
 import { styled } from "@mui/material/styles";
 import { allAvailableMaterials } from '../AxiosFuncs/adminMaterialAxiosFuncs'
 import { Button, Form, Input } from "reactstrap";
-// import CreateNewProject from "./ModalForms/createProject"
+import CreateNewMaterial from "./adminCreateMaterial"
 import FormModal from '../ModalForms/formModal'
 import "../projectsPage.scss";
 
@@ -78,7 +78,7 @@ const AdminMaterialsPage = () => {
   
     const handleSubmit = (e) => {
       e.preventDefault();
-      
+
       let searchVal = allAvailableMaterials(formVals)
 
       Promise.all([searchVal])
@@ -92,7 +92,8 @@ const AdminMaterialsPage = () => {
 
     return(
         <div>
-      <div className="buttondiv">
+          <h2 style={{marginLeft: '5%'}}>Labour and Materials</h2>
+      <div className="buttondiv" style={{marginTop: '4%'}}>
       <Form onSubmit={handleSubmit} style={{width:'100%'}}>
         
         <div id="searchbox">
@@ -131,12 +132,13 @@ const AdminMaterialsPage = () => {
         </Form>
       </div>
 
-            {/* <FormModal openup={modal} closeup={toggleModal} >
-              <CreateNewProject
+            <FormModal openup={modal} closeup={toggleModal} >
+              <CreateNewMaterial
                 closeup={toggleModal}
-                project={project}
+                materials={materials}
+                setMaterials={setMaterials}
               />
-            </FormModal> */}
+            </FormModal>
             
             <MaterialsTable className="projTable" materials={materials}/>
     

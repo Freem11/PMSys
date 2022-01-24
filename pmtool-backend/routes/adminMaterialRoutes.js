@@ -4,7 +4,6 @@ const db = require('../lib/adminMaterialQueries')
 
 const getTotalMaterials = router.post("/admin/materials", (req, res) => {
 
-    console.log("route gets", req.body)
     let text = req.body.text
     let location = req.body.location
 
@@ -19,4 +18,21 @@ const getTotalMaterials = router.post("/admin/materials", (req, res) => {
     });
 });
 
-module.exports = { getTotalMaterials }
+const addNewMaterial = router.post("/admin/material", (req, res) => {
+    let name = req.body.name;
+    let type = req.body.type;
+    let location = req.body.location;
+    let price = req.body.price;
+
+    // console.log("route", req.body)
+    db.addMaterial(name,type,location,price)
+      .then((zones) => {
+        res.json(zones);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
+  
+module.exports = { getTotalMaterials, addNewMaterial }

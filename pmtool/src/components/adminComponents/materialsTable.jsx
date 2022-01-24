@@ -8,7 +8,7 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-// import PositionedMenu from './popUp'
+import PositionedMenu from '../popUp'
 import "../projectsPage.scss"; 
 
 
@@ -61,9 +61,9 @@ const MaterialsTable = (props) => {
             <TableHead>
                 <TableRow>
                     <TableCell style={{color: 'rgb(237, 237, 237)', width: 200, fontSize: 16, paddingLeft: 39}}><strong>Name</strong></TableCell>
-                    <TableCell align='center' style={{color: 'rgb(237, 237, 237)', width: 100, fontSize: 16}}><strong>Type</strong></TableCell>
-                    <TableCell align='center' style={{color: 'rgb(237, 237, 237)', width: 100, fontSize: 16}}><strong>Location</strong></TableCell>
-                    <TableCell align='center' style={{color: 'rgb(237, 237, 237)', width: 100, fontSize: 16}}><strong>Price</strong></TableCell>
+                    <TableCell align='left' style={{color: 'rgb(237, 237, 237)', width: 100, fontSize: 16}}><strong>Type</strong></TableCell>
+                    <TableCell align='left' style={{color: 'rgb(237, 237, 237)', width: 100, fontSize: 16}}><strong>Location</strong></TableCell>
+                    <TableCell align='right' style={{color: 'rgb(237, 237, 237)', width: 100, fontSize: 16}}><strong>Unit Price</strong></TableCell>
                     <TableCell align='center' style={{color: 'rgb(237, 237, 237)', width: 100, fontSize: 16}}><strong>Options</strong></TableCell>
                 </TableRow>
             </TableHead>

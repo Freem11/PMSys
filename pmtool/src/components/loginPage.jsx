@@ -168,9 +168,10 @@ const LoginPage = () => {
 
   const onSubmitRegister = async (e) => {
     e.preventDefault();
-    console.log("value is", adminVal);
+    
     let adminVal = false;
-
+    console.log("value is", adminVal);
+    
     dispatch({ type: "login" });
 
     if (!regName || !regEmail || !regPassword) {
