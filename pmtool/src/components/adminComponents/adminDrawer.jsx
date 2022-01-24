@@ -15,7 +15,7 @@ import BuildIcon from '@mui/icons-material/Build';
 import TaskIcon from '@mui/icons-material/Task';
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import ListItem from "@mui/material/ListItem";
-// import QuotesPage from "./quotesPage";
+import AdminMaterialsPage from "./adminMaterials"
 // import DetailsPage from "./detailsPage";
 // import SchedulePage from './schedulePage';
 import { Button } from "reactstrap";
@@ -268,8 +268,8 @@ export default function MiniDrawer() {
         sx={{ flexGrow: 1, p: 3, height: 10000, width: 20000 }}
       >
         <DrawerHeader />
-        {/* {Nav === 0 ? <DetailsPage /> : ""}
-        {Nav === 1 ? <DetailsPage /> : ""}
+        {Nav === 0 ? <AdminMaterialsPage /> : ""}
+        {/* {Nav === 1 ? <DetailsPage /> : ""}
         {Nav === 2 ? <QuotesPage /> : ""}
         {Nav === 3 ? <SchedulePage /> : ""} */}
       </Box>
