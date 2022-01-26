@@ -32,7 +32,32 @@ const addNewMaterial = router.post("/admin/material", (req, res) => {
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
-  });
+  }); 
 
+  const updateMaterial = router.post("/material/edit/:id", (req, res) => {
+
+    db.updateMaterial(req.body.id,req.body.name, req.body.type, req.body.location, req.body.price)
+    .then(projects => {
+        res.json(projects);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message});
+    });
+});
+
+const delMaterial = router.delete("/material/delete/:id", (req, res) => {
+
+    db.deleteProject(req.params.id)
+    .then(projects => {
+        res.json(projects);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message});
+    });
+});
   
-module.exports = { getTotalMaterials, addNewMaterial }
+module.exports = { getTotalMaterials, addNewMaterial, updateMaterial, delMaterial }

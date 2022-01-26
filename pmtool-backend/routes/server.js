@@ -50,7 +50,7 @@ const {
   getMaxSequence,
 } = require("./taskRoutes");
 const { getAllTasksOfType } = require("./taskNameRoutes")
-const { getTotalMaterials, addNewMaterial } = require("./adminMaterialRoutes")
+const { getTotalMaterials, addNewMaterial, updateMaterial, delMaterial } = require("./adminMaterialRoutes")
 
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -119,3 +119,5 @@ app.use(getAllTasksOfType);
 //AdminMaterialRoutes
 app.use(getTotalMaterials);
 app.use(addNewMaterial);
+app.use(updateMaterial);
+app.use(delMaterial);

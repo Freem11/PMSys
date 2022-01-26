@@ -30,4 +30,26 @@ const addMaterial = (name, type, location, price,) => {
         console.log("unable to query db got error:", error);
       });
   };
-module.exports = { getAllMaterials, addMaterial }
+
+  const updateMaterial = (id, name, type, location, price) => {
+
+    return db.query(`UPDATE materials SET name = $1, type = $2, location= $3, price= $4 WHERE id= $5 RETURNING *;`, [name, type, location, price, id])
+    .then((response) => {
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })
+}
+
+const deleteProject = (id) => {
+
+    return db.query(`DELETE FROM materials WHERE id= $1 RETURNING *;`, [id])
+    .then((response) => {
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })
+}
+module.exports = { getAllMaterials, addMaterial, updateMaterial, deleteProject }

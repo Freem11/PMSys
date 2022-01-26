@@ -44,4 +44,31 @@ export const addMaterial = (info) => {
     });
 };
 
+export const updateMaterialById = (info) => {
 
+  return axios
+    .post(`http://localhost:5000/material/edit/${info.id}`,{
+      id: info.id,
+      name: info.name,
+      type: info.type,
+      location: info.location,
+      price: info.price
+    })
+    .then((response) => {
+      return response.data[0]
+    })
+    .catch((err) => {
+      return err;
+    });
+  }
+
+  export const deleteMaterial = (id) => {
+
+    return axios
+      .delete(`http://localhost:5000/material/delete/${id}`, {id})
+      .then((response) => {
+      })
+      .catch((err) => {
+        return err;
+      });
+    }

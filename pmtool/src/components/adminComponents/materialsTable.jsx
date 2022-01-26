@@ -8,7 +8,7 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import PositionedMenu from '../popUp'
+import PositionedMenu from './materialsPopUp'
 import "../projectsPage.scss"; 
 
 
@@ -16,7 +16,7 @@ const MaterialsTable = (props) => {
 
     let navigate = useNavigate();
     const { user } = useContext(UserContext);
-    const { materials } = props
+    const { materials, setMaterials } = props
     const userFromSession = window.sessionStorage.getItem("user")
 
     let jUser
@@ -75,11 +75,13 @@ const MaterialsTable = (props) => {
                         <TableCell onClick={() => twoX(material.id)} align='left' sx={{ color: "#2B2D42" }}><strong>{material.location}</strong></TableCell>
                         <TableCell onClick={() => twoX(material.id)} align='right' sx={{ color: "#2B2D42" }}><strong>${material.price}</strong></TableCell>
                         <TableCell align='center' style={{ height: 10}}>
-                            {/* <PositionedMenu
+                            <PositionedMenu
                             material={material}
+                            id={material.id}
+                            setMaterials={setMaterials}
                             toggleModalOpen={modal} 
                             toggleModalClose={toggleModal}
-                            /> */}
+                            />
                         </TableCell>
                     </TableRow>
                 ))}  

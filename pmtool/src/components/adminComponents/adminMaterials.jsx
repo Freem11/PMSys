@@ -10,7 +10,7 @@ import { allAvailableMaterials } from '../AxiosFuncs/adminMaterialAxiosFuncs'
 import { Button, Form, Input } from "reactstrap";
 import CreateNewMaterial from "./adminCreateMaterial"
 import FormModal from '../ModalForms/formModal'
-import "../projectsPage.scss";
+import "./materialsPage.scss";
 
 const AdminMaterialsPage = () => {
 
@@ -115,7 +115,7 @@ const AdminMaterialsPage = () => {
               value={formVals.location}
               placeholder="Location"
               style={{textAlign: 'center'}}
-              className="searchInput"
+              className="searchInput1"
               type="text"
               name="location"
               bsSize="lg"
@@ -140,7 +140,7 @@ const AdminMaterialsPage = () => {
               />
             </FormModal>
             
-            <MaterialsTable className="projTable" materials={materials}/>
+            <MaterialsTable className="projTable" materials={materials} setMaterials={setMaterials}/>
     
         </div>
     )

@@ -1,0 +1,69 @@
+
+.inputboxer{
+    display: flex;
+    flex-direction: column;;
+    margin-left: 10%;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.modalInputs{
+    margin-top: 10px;
+    border-radius: 10px;
+    width: 60%;
+    height: 10px;
+
+}
+
+.modalInputs2{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 60%;
+    height: 15px;
+    margin-left: 4%;
+    text-align: center;
+    body {
+        overflow-y: hidden;
+    }
+    
+} 
+
+#modalButto {
+    width: 140px;
+    height: 30px;
+    margin-left: 26%;
+    margin-bottom: 20px;
+    margin-top: 5px;
+}
+
+#projname {
+    height: 20px;
+    margin-left: -20px;
+}
+
+#locate{
+    margin-top: 4%;
+    margin-left: 5%;
+}
+
+#prc{
+    margin-top: 3%;
+    margin-right: 22%;
+    margin-left: -5%;
+}
+
+#typ{
+    margin-top: 3%;
+    margin-right: 23%;
+    margin-left: -5%;
+}
+
+#nme{
+    margin-top: 3%;
+    margin-right: 20%;
+    margin-left: -5%;
+}
+
+.mb-3{
+    display: flex;
+}
