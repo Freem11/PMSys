@@ -84,7 +84,7 @@ const EditMaterial = (props) => {
     <Container fluid>
       <Form onSubmit={handleSubmit}>
         <div className="inputboxerx">
-        <Label style={{marginLeft: '90px', marginBottom: '10px'}}><strong>Edit Item</strong></Label>
+        <Label style={{marginLeft: '60px', marginBottom: '10px'}}><strong>Edit Item</strong></Label>
         <FormGroup>
         <Label for="user_id" id='nmex'><strong>Name</strong></Label>
           <Input
@@ -129,7 +129,7 @@ const EditMaterial = (props) => {
         </div>
         
         <FormGroup >
-    
+          <div className="selectboxx">
           <Label for="user_id" id='locatex'><strong>Location</strong></Label>
           <Input
             value={formVals.location}
@@ -160,7 +160,7 @@ const EditMaterial = (props) => {
                 </option>
               ))}
           </Input>
-       
+          </div>
         </FormGroup>
         
         <FormGroup style={{marginLeft: '-3%'}}>

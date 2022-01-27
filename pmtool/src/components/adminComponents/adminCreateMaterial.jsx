@@ -82,14 +82,14 @@ const CreateNewMaterial = (props) => {
   return (
     <Container fluid>
       <Form onSubmit={handleSubmit}>
-        <div className="inputboxer">
-        <Label style={{marginLeft: 5, marginBottom: 5}}><strong>Create New Item</strong></Label>
+        <div className="inputboxery">
+        <Label style={{marginLeft: -30, marginBottom: 5}}><strong>Create New Item</strong></Label>
         <FormGroup>
           <Input
             placeholder="Name"
-            className="modalInputs"
+            className="modalInputsy"
             style={{textAlign: 'center'}}
-            id='projname'
+            id='projnamey'
             type="text"
             name="name"
             bsSize="lg"
@@ -100,9 +100,9 @@ const CreateNewMaterial = (props) => {
         <FormGroup>
           <Input
             placeholder="Type"
-            className="modalInputs"
+            className="modalInputsy"
             style={{textAlign: 'center'}}
-            id='projname'
+            id='projnamey'
             type="text"
             name="type"
             bsSize="lg"
@@ -113,9 +113,9 @@ const CreateNewMaterial = (props) => {
         <FormGroup>
           <Input
             placeholder="Price"
-            className="modalInputs"
+            className="modalInputsy"
             style={{textAlign: 'center'}}
-            id='projname'
+            id='projnamey'
             type="text"
             name="price"
             bsSize="lg"
@@ -125,11 +125,11 @@ const CreateNewMaterial = (props) => {
         </div>
         
         <FormGroup >
-          <div className="selectbox">
-          <Label for="user_id" id='locate'><strong>Location</strong></Label>
+          <div className="selectboxy">
+          <Label for="user_id" id='locatey'><strong>Location</strong></Label>
           <Input
             onChange={handleChange}
-            className="modalInputs2"
+            className="modalInputs2y"
             type="select"
             name="location"
             id="listsize"
@@ -159,7 +159,7 @@ const CreateNewMaterial = (props) => {
         </FormGroup>
         
         <FormGroup>
-          <Button id="modalButto">Create Item</Button>
+          <Button id="modalButtoy">Create Item</Button>
         </FormGroup>
       </Form>
     </Container>

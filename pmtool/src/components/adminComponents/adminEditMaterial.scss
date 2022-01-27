@@ -2,9 +2,9 @@
 .inputboxerx{
     display: flex;
     flex-direction: column;;
-    margin-left: 0%;
+    margin-left: 13%;
     margin-top: 15px;
-    width: 100%;
+    width: 93%;
 }
 
 .modalInputsx{
@@ -15,12 +15,15 @@
 
 }
 
+.selectboxx{
+    margin-left: 12%;
+}
 .modalInputs2x{
     margin-top: 10px;
     margin-bottom: 20px;
     width: 60%;
     height: 15px;
-    margin-left: 0%;
+    margin-left: 5%;
     text-align: center;
     body {
         overflow-y: hidden;
@@ -66,7 +69,3 @@
     margin-left: -9%;
 }
 
-.mb-3{
-    display: flex;
-    margin-left: 20%;
-}
