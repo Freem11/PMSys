@@ -6,7 +6,7 @@ import "./adminEditMaterial.scss"
 
 const EditMaterial = (props) => {
 
-  const { closeup, setMaterials, material1 } = props
+  const { closeup, setMaterials, material1, formVals2 } = props
   const [locations, setLocations] = useState("");
   
   useEffect(() => {
@@ -61,7 +61,7 @@ const EditMaterial = (props) => {
       .then((response) => {
 
       let text = ""
-      let list = allAvailableMaterials('', '')
+      let list = allAvailableMaterials(formVals2)
 
             Promise.all([list])
             .then((response) => {
@@ -83,15 +83,15 @@ const EditMaterial = (props) => {
   return (
     <Container fluid>
       <Form onSubmit={handleSubmit}>
-        <div className="inputboxer">
-        <Label style={{marginLeft: '70px', marginBottom: '10px'}}><strong>Edit Item</strong></Label>
+        <div className="inputboxerx">
+        <Label style={{marginLeft: '90px', marginBottom: '10px'}}><strong>Edit Item</strong></Label>
         <FormGroup>
-        <Label for="user_id" id='nme'><strong>Name</strong></Label>
+        <Label for="user_id" id='nmex'><strong>Name</strong></Label>
           <Input
             value={formVals.name}
-            className="modalInputs"
+            className="modalInputsx"
             style={{textAlign: 'center'}}
-            id='projname'
+            id='projnamex'
             type="text"
             name="name"
             bsSize="lg"
@@ -100,12 +100,12 @@ const EditMaterial = (props) => {
         </FormGroup>
 
         <FormGroup>
-        <Label for="user_id" id='typ'><strong>Type</strong></Label>
+        <Label for="user_id" id='typx'><strong>Type</strong></Label>
           <Input
             value={formVals.type}
-            className="modalInputs"
+            className="modalInputsx"
             style={{textAlign: 'center'}}
-            id='projname'
+            id='projnamex'
             type="text"
             name="type"
             bsSize="lg"
@@ -114,12 +114,12 @@ const EditMaterial = (props) => {
         </FormGroup>
 
         <FormGroup>
-        <Label for="user_id" id='prc'><strong>Price</strong></Label>
+        <Label for="user_id" id='prcx'><strong>Price</strong></Label>
           <Input
             value={formVals.price}
-            className="modalInputs"
+            className="modalInputsx"
             style={{textAlign: 'center'}}
-            id='projname'
+            id='projnamex'
             type="text"
             name="price"
             bsSize="lg"
@@ -130,11 +130,11 @@ const EditMaterial = (props) => {
         
         <FormGroup >
     
-          <Label for="user_id" id='locate'><strong>Location</strong></Label>
+          <Label for="user_id" id='locatex'><strong>Location</strong></Label>
           <Input
             value={formVals.location}
             onChange={handleChange}
-            className="modalInputs2"
+            className="modalInputs2x"
             type="select"
             name="location"
             id="listsize"
@@ -163,8 +163,8 @@ const EditMaterial = (props) => {
        
         </FormGroup>
         
-        <FormGroup>
-          <Button id="modalButto">Update Item</Button>
+        <FormGroup style={{marginLeft: '-3%'}}>
+          <Button id="modalButtox">Update Item</Button>
         </FormGroup>
       </Form>
     </Container>

@@ -140,7 +140,7 @@ const AdminMaterialsPage = () => {
               />
             </FormModal>
             
-            <MaterialsTable className="projTable" materials={materials} setMaterials={setMaterials}/>
+            <MaterialsTable className="projTable" materials={materials} setMaterials={setMaterials} formVals={formVals}/>
     
         </div>
     )

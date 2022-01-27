@@ -11,7 +11,7 @@ import EditMaterial from './adminEditMaterial'
 
 const PositionedMenu = (props) => {
 
-  const { material, setMaterials} = props
+  const { material, setMaterials, formVals } = props
   
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -87,11 +87,13 @@ const PositionedMenu = (props) => {
       </Menu>
        <FormModal 
         material={material}
+        formVals2={formVals}
         setMaterials={setMaterials}
         openup={modal} 
         closeup={toggleModal}>
         <EditMaterial
         material1={material}
+        formVals2={formVals}
         setMaterials={setMaterials}
         closeup={toggleModal}/>
         </FormModal>

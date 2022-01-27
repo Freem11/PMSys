@@ -16,7 +16,7 @@ const MaterialsTable = (props) => {
 
     let navigate = useNavigate();
     const { user } = useContext(UserContext);
-    const { materials, setMaterials } = props
+    const { materials, setMaterials, formVals } = props
     const userFromSession = window.sessionStorage.getItem("user")
 
     let jUser
@@ -37,23 +37,6 @@ const MaterialsTable = (props) => {
           setModal(!modal);
       }
 
-      const twoX = (id) => {
-        //   let data = getProjectById(id)
-
-        //   Promise.all([data])
-        //   .then((response) => {
-        //     setProject(response);
-        //     window.sessionStorage.setItem("project", JSON.stringify(...response))
-        //     navigate("/project");
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
-
-     
-    }
-
-
     return(
      <TableContainer
     style={{ width: '90%', margin: 'auto', borderRadius: '5px', marginTop: 30}}>
@@ -70,14 +53,15 @@ const MaterialsTable = (props) => {
             <TableBody>
                 {materials && materials.sort((a,b) => a.id - b.id).map((material, index) => (
                     <TableRow key ={material.id} style={{ padding: 0}}>
-                        <TableCell onClick={() => twoX(material.id)} sx={{ color: "#2B2D42", paddingLeft: 5}}><strong>{material.name}</strong></TableCell>
-                        <TableCell onClick={() => twoX(material.id)} align='left' sx={{ color: "#2B2D42" }}><strong>{material.type}</strong></TableCell>
-                        <TableCell onClick={() => twoX(material.id)} align='left' sx={{ color: "#2B2D42" }}><strong>{material.location}</strong></TableCell>
-                        <TableCell onClick={() => twoX(material.id)} align='right' sx={{ color: "#2B2D42" }}><strong>${material.price}</strong></TableCell>
+                        <TableCell  sx={{ color: "#2B2D42", paddingLeft: 5}}><strong>{material.name}</strong></TableCell>
+                        <TableCell  align='left' sx={{ color: "#2B2D42" }}><strong>{material.type}</strong></TableCell>
+                        <TableCell  align='left' sx={{ color: "#2B2D42" }}><strong>{material.location}</strong></TableCell>
+                        <TableCell  align='right' sx={{ color: "#2B2D42" }}><strong>${material.price}</strong></TableCell>
                         <TableCell align='center' style={{ height: 10}}>
                             <PositionedMenu
                             material={material}
                             id={material.id}
+                            formVals={formVals}
                             setMaterials={setMaterials}
                             toggleModalOpen={modal} 
                             toggleModalClose={toggleModal}

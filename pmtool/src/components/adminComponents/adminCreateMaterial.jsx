@@ -83,7 +83,7 @@ const CreateNewMaterial = (props) => {
     <Container fluid>
       <Form onSubmit={handleSubmit}>
         <div className="inputboxer">
-        <Label><strong>Create New Item</strong></Label>
+        <Label style={{marginLeft: 5, marginBottom: 5}}><strong>Create New Item</strong></Label>
         <FormGroup>
           <Input
             placeholder="Name"
