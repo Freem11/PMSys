@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../lib/adminMaterialQueries')
+const db = require('../lib/adminTaskQueries')
 
-const getTotalMaterials = router.post("/admin/materials", (req, res) => {
+const getTotalAdminTasks = router.post("/admin/tasks", (req, res) => {
 
     let text = req.body.text
-    let location = req.body.location
+    let type = req.body.type
 
-    db.getAllMaterials(text,location)
+    //  console.log("route", req.body)
+
+    db.getAllAdminTasks(text,type)
     .then(zones => {
         res.json(zones);
     })
@@ -18,14 +20,12 @@ const getTotalMaterials = router.post("/admin/materials", (req, res) => {
     });
 });
 
-const addNewMaterial = router.post("/admin/material", (req, res) => {
+const addNewAdminTask = router.post("/admin/task", (req, res) => {
     let name = req.body.name;
     let type = req.body.type;
-    let location = req.body.location;
-    let price = req.body.price;
 
     // console.log("route", req.body)
-    db.addMaterial(name,type,location,price)
+    db.addAdminTask(name,type)
       .then((zones) => {
         res.json(zones);
       })
@@ -34,9 +34,9 @@ const addNewMaterial = router.post("/admin/material", (req, res) => {
       });
   }); 
 
-  const updateMaterial = router.post("/material/edit/:id", (req, res) => {
+  const updateAdminTask = router.post("/admin/task/edit/:id", (req, res) => {
 
-    db.updateMaterial(req.body.id,req.body.name, req.body.type, req.body.location, req.body.price)
+    db.updateAdminTask(req.body.id,req.body.name, req.body.type)
     .then(projects => {
         res.json(projects);
     })
@@ -47,9 +47,9 @@ const addNewMaterial = router.post("/admin/material", (req, res) => {
     });
 });
 
-const delMaterial = router.delete("/material/delete/:id", (req, res) => {
+const delAdminTask = router.delete("admin/task/delete/:id", (req, res) => {
 
-    db.deleteMaterial(req.params.id)
+    db.deleteAdminTask(req.params.id)
     .then(projects => {
         res.json(projects);
     })
@@ -60,4 +60,4 @@ const delMaterial = router.delete("/material/delete/:id", (req, res) => {
     });
 });
   
-module.exports = { getTotalMaterials, addNewMaterial, updateMaterial, delMaterial }
+module.exports = { getTotalAdminTasks, addNewAdminTask, updateAdminTask, delAdminTask }

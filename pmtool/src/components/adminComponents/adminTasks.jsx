@@ -1,22 +1,22 @@
 import { useContext, useState, useEffect } from 'react'
 import { UserContext } from '../userContext'
 import { useNavigate } from "react-router-dom";
-import MaterialsTable from'./materialsTable'
+import AdminTasksTable from'./adminTasksTable'
 import Typography from "@mui/material/Typography";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { styled } from "@mui/material/styles";
-import { allAvailableMaterials } from '../AxiosFuncs/adminMaterialAxiosFuncs'
+import { allAvailableTasks } from '../AxiosFuncs/adminTasksAxiosFuncs'
 import { Button, Form, Input } from "reactstrap";
 import CreateNewMaterial from "./adminCreateMaterial"
 import FormModal from '../ModalForms/formModal'
 import "./materialsPage.scss";
 
-const AdminMaterialsPage = () => {
+const AdminTasksPage = () => {
 
     let navigate = useNavigate();
     const { user, setUser } = useContext(UserContext);
-    const [materials, setMaterials] = useState([])
+    const [adminTasks, setAdminTasks] = useState([])
 
     const userFromSession = window.sessionStorage.getItem("user")
   
@@ -56,15 +56,16 @@ const AdminMaterialsPage = () => {
 
       const [ formVals, setFormVals ] = useState({
         text: '',
-        location: ''
+        type: ''
       });
 
         useEffect(() => {
-        let list = allAvailableMaterials('','')
+        let list = allAvailableTasks('','')
 
         Promise.all([list])
         .then((response) => {
-            setMaterials(response[0]);
+            setAdminTasks(response[0]);
+            console.log("me", adminTasks)
         })
         .catch((error) => {
           console.log(error);
@@ -79,11 +80,11 @@ const AdminMaterialsPage = () => {
     const handleSubmit = (e) => {
       e.preventDefault();
 
-      let searchVal = allAvailableMaterials(formVals)
+      let searchVal = allAvailableTasks(formVals)
 
       Promise.all([searchVal])
       .then((response) => {
-          setMaterials(response[0]);
+          setAdminTasks(response[0]);
         })
         .catch((error) => {
           console.log(error);
@@ -92,7 +93,7 @@ const AdminMaterialsPage = () => {
 
     return(
         <div>
-          <h2 style={{marginLeft: '5%'}}>Labour and Materials</h2>
+          <h2 style={{marginLeft: '5%'}}>Tasks</h2>
       <div className="buttondiv" style={{marginTop: '4%'}}>
       <Form onSubmit={handleSubmit} style={{width:'100%'}}>
         
@@ -102,7 +103,7 @@ const AdminMaterialsPage = () => {
             <Button className="searchButton">Search</Button>
             <Input
               value={formVals.text}
-              placeholder="Item Name"
+              placeholder="Task Name"
               style={{textAlign: 'center'}}
               className="searchInput"
               type="text"
@@ -112,19 +113,19 @@ const AdminMaterialsPage = () => {
             ></Input>
 
             <Input
-              value={formVals.location}
-              placeholder="Location"
+              value={formVals.type}
+              placeholder="Category"
               style={{textAlign: 'center'}}
               className="searchInput1"
               type="text"
-              name="location"
+              name="type"
               bsSize="lg"
               onChange={handleChange}
             ></Input>
           </div>
 
           <div className='addproj'>
-          <Button onClick={toggleModal} className="creatProjectButton">+ Item</Button>
+          <Button onClick={toggleModal} className="creatProjectButton">+ Task</Button>
           </div>
           </div>
      
@@ -135,16 +136,16 @@ const AdminMaterialsPage = () => {
             <FormModal openup={modal} closeup={toggleModal} >
               <CreateNewMaterial
                 closeup={toggleModal}
-                materials={materials}
-                setMaterials={setMaterials}
+                adminTasks={adminTasks}
+                setAdminTasks={setAdminTasks}
               />
             </FormModal>
             
-            <MaterialsTable className="projTable" materials={materials} setMaterials={setMaterials} formVals={formVals}/>
+            <AdminTasksTable className="projTable" adminTasks={adminTasks} setAdminTasks={setAdminTasks} formVals={formVals}/>
     
         </div>
     )
 
 }
 
-export default AdminMaterialsPage;
+export default AdminTasksPage;

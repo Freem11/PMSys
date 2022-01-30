@@ -42,7 +42,7 @@ const addMaterial = (name, type, location, price,) => {
     })
 }
 
-const deleteProject = (id) => {
+const deleteMaterial = (id) => {
 
     return db.query(`DELETE FROM materials WHERE id= $1 RETURNING *;`, [id])
     .then((response) => {
@@ -52,4 +52,4 @@ const deleteProject = (id) => {
         console.log("unable to query db got error:", error);
     })
 }
-module.exports = { getAllMaterials, addMaterial, updateMaterial, deleteProject }
+module.exports = { getAllMaterials, addMaterial, updateMaterial, deleteMaterial }

@@ -51,6 +51,7 @@ const {
 } = require("./taskRoutes");
 const { getAllTasksOfType } = require("./taskNameRoutes")
 const { getTotalMaterials, addNewMaterial, updateMaterial, delMaterial } = require("./adminMaterialRoutes")
+const { getTotalAdminTasks, addNewAdminTask, updateAdminTask, delAdminTask } = require("./adminTasksRoutes")
 
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -121,3 +122,9 @@ app.use(getTotalMaterials);
 app.use(addNewMaterial);
 app.use(updateMaterial);
 app.use(delMaterial);
+
+//AdminTaskRoutes
+app.use(getTotalAdminTasks);
+app.use(addNewAdminTask);
+app.use(updateAdminTask);
+app.use(delAdminTask);
