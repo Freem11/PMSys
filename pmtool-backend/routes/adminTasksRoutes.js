@@ -47,7 +47,7 @@ const addNewAdminTask = router.post("/admin/task", (req, res) => {
     });
 });
 
-const delAdminTask = router.delete("admin/task/delete/:id", (req, res) => {
+const delAdminTask = router.delete("/admin/task/delete/:id", (req, res) => {
 
     db.deleteAdminTask(req.params.id)
     .then(projects => {
