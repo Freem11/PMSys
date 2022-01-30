@@ -8,7 +8,7 @@ import Toolbar from "@mui/material/Toolbar";
 import { styled } from "@mui/material/styles";
 import { allAvailableTasks } from '../AxiosFuncs/adminTasksAxiosFuncs'
 import { Button, Form, Input } from "reactstrap";
-import CreateNewMaterial from "./adminCreateMaterial"
+import CreateNewTask from "./adminCreateTask"
 import FormModal from '../ModalForms/formModal'
 import "./materialsPage.scss";
 
@@ -65,7 +65,6 @@ const AdminTasksPage = () => {
         Promise.all([list])
         .then((response) => {
             setAdminTasks(response[0]);
-            console.log("me", adminTasks)
         })
         .catch((error) => {
           console.log(error);
@@ -134,7 +133,7 @@ const AdminTasksPage = () => {
       </div>
 
             <FormModal openup={modal} closeup={toggleModal} >
-              <CreateNewMaterial
+              <CreateNewTask
                 closeup={toggleModal}
                 adminTasks={adminTasks}
                 setAdminTasks={setAdminTasks}

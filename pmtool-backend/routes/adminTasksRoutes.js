@@ -60,4 +60,18 @@ const delAdminTask = router.delete("admin/task/delete/:id", (req, res) => {
     });
 });
   
-module.exports = { getTotalAdminTasks, addNewAdminTask, updateAdminTask, delAdminTask }
+const getAllTasksCategories = router.get("/admin/taskcats", (req, res) => {
+
+    console.log("route ping")
+    db.getTaskTypes()
+    .then(zones => {
+        res.json(zones);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message});
+    });
+});
+
+module.exports = { getTotalAdminTasks, addNewAdminTask, updateAdminTask, delAdminTask, getAllTasksCategories}

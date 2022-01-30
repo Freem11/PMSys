@@ -52,4 +52,17 @@ const deleteAdminTask = (id) => {
         console.log("unable to query db got error:", error);
     })
 }
-module.exports = { getAllAdminTasks, addAdminTask, updateAdminTask, deleteAdminTask }
+
+const getTaskTypes = () => {
+    console.log("ping db")
+
+    return db.query('SELECT DISTINCT type FROM taskNames')
+    .then((response) => {
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })
+  }
+
+module.exports = { getAllAdminTasks, addAdminTask, updateAdminTask, deleteAdminTask, getTaskTypes }

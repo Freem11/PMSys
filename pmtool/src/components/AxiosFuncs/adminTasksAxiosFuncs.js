@@ -15,7 +15,7 @@ export const allAvailableTasks = (values) => {
   }  else {
     type = values.type
   }
-  console.log("axios", text,type)
+  // console.log("axios", text,type)
   return axios
     .post(`http://localhost:5000/admin/tasks`,{ text, type })
     .then((response) => {
@@ -68,3 +68,16 @@ export const updateTaskById = (info) => {
         return err;
       });
     }
+
+
+    export const getTaskCats = () => {
+
+      return axios
+        .get(`http://localhost:5000/admin/taskcats`)
+        .then((response) => {
+          return response.data;
+        })
+        .catch((err) => {
+          return err;
+        });
+    };
