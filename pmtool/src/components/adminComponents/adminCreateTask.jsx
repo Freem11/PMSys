@@ -5,7 +5,7 @@ import "./adminCreateTask.scss"
 
 const CreateNewTask = (props) => {
 
-  const { closeup, setAdminTasks } = props
+  const { closeup, setAdminTasks, formVals1 } = props
   const [categories, setCategories] = useState("");
   
   useEffect(() => {
@@ -53,7 +53,7 @@ const CreateNewTask = (props) => {
      Promise.all([helper])
       .then((response) => {
 
-      let list = allAvailableTasks('', '')
+      let list = allAvailableTasks(formVals1)
 
             Promise.all([list])
             .then((response) => {

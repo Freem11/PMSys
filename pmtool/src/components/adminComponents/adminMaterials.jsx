@@ -124,7 +124,7 @@ const AdminMaterialsPage = () => {
           </div>
 
           <div className='addproj'>
-          <Button onClick={toggleModal} className="creatProjectButton">+ Item</Button>
+          <Button onClick={toggleModal} className="creatProjectButton" formVals={formVals}>+ Item</Button>
           </div>
           </div>
      
@@ -137,6 +137,7 @@ const AdminMaterialsPage = () => {
                 closeup={toggleModal}
                 materials={materials}
                 setMaterials={setMaterials}
+                formVals1={formVals}
               />
             </FormModal>
             

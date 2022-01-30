@@ -7,7 +7,7 @@ import "./adminCreateMaterial.scss"
 
 const CreateNewMaterial = (props) => {
 
-  const { closeup, setMaterials } = props
+  const { closeup, setMaterials, formVals1 } = props
   const [locations, setLocations] = useState("");
   
   useEffect(() => {
@@ -60,7 +60,7 @@ const CreateNewMaterial = (props) => {
       .then((response) => {
 
       let text = ""
-      let list = allAvailableMaterials('', '')
+      let list = allAvailableMaterials(formVals1)
 
             Promise.all([list])
             .then((response) => {

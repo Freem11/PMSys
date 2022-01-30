@@ -40,8 +40,7 @@ const PositionedMenu = (props) => {
       Promise.all([dels])
       .then((response) => {
 
-        let text = ""
-        let list = allAvailableTasks('', '')
+        let list = allAvailableTasks(formVals)
 
         Promise.all([list])
         .then((response) => {

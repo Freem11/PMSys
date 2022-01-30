@@ -41,7 +41,7 @@ const PositionedMenu = (props) => {
       .then((response) => {
 
         let text = ""
-        let list = allAvailableMaterials('', '')
+        let list = allAvailableMaterials(formVals)
 
         Promise.all([list])
         .then((response) => {

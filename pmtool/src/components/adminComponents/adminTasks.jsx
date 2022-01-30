@@ -124,7 +124,7 @@ const AdminTasksPage = () => {
           </div>
 
           <div className='addproj'>
-          <Button onClick={toggleModal} className="creatProjectButton">+ Task</Button>
+          <Button onClick={toggleModal} className="creatProjectButton" formVals={formVals}>+ Task</Button>
           </div>
           </div>
      
@@ -137,6 +137,7 @@ const AdminTasksPage = () => {
                 closeup={toggleModal}
                 adminTasks={adminTasks}
                 setAdminTasks={setAdminTasks}
+                formVals1={formVals}
               />
             </FormModal>
             
