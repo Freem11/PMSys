@@ -33,7 +33,7 @@ const addAdminTask = (name, type) => {
 
   const updateAdminTask = (id, name, type) => {
 
-    return db.query(`UPDATE taskNames SET name = $1, type = $2 WHERE id= $5 RETURNING *;`, [name, type, id])
+    return db.query(`UPDATE taskNames SET name = $1, type = $2 WHERE id= $3 RETURNING *;`, [name, type, id])
     .then((response) => {
         return response.rows;
     })

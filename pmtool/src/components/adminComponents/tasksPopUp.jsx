@@ -7,7 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { deleteTask, allAvailableTasks } from '../AxiosFuncs/adminTasksAxiosFuncs'
 import FormModal from '../ModalForms/formModal'
-import EditMaterial from './adminEditMaterial'
+import EditTask from './adminEditTask'
 
 const PositionedMenu = (props) => {
 
@@ -91,7 +91,7 @@ const PositionedMenu = (props) => {
         setAdminTasks={setAdminTasks}
         openup={modal} 
         closeup={toggleModal}>
-        <EditMaterial
+        <EditTask
         adminTasks1={adminTasks}
         formVals2={formVals}
         setAdminTasks={setAdminTasks}
