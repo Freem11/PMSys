@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { Container, Button, Form, FormGroup, Label, Input } from "reactstrap";
-import { allAvailableTasks, updateTaskById, getTaskCats } from '../AxiosFuncs/adminTasksAxiosFuncs'
+import { allAvailableTasks, updateTaskById, getTaskCats, getTaskCategories } from '../AxiosFuncs/adminTasksAxiosFuncs'
 import "./adminEditTask.scss"
 
 const EditTask = (props) => {
@@ -9,7 +9,7 @@ const EditTask = (props) => {
   const [categories, setCategories] = useState("");
   
   useEffect(() => {
-    let data = getTaskCats();
+    let data = getTaskCategories();
 
     Promise.all([data])
       .then((response) => {
@@ -125,7 +125,7 @@ const EditTask = (props) => {
                   values={category.id}
                   className="modalSelect"
                 >
-                  {category.type}
+                  {category.name}
                 </option>
               ))}
           </Input>

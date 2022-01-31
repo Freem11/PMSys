@@ -62,7 +62,6 @@ const delAdminTask = router.delete("/admin/task/delete/:id", (req, res) => {
   
 const getAllTasksCategories = router.get("/admin/taskcats", (req, res) => {
 
-    console.log("route ping")
     db.getTaskTypes()
     .then(zones => {
         res.json(zones);
@@ -74,4 +73,43 @@ const getAllTasksCategories = router.get("/admin/taskcats", (req, res) => {
     });
 });
 
-module.exports = { getTotalAdminTasks, addNewAdminTask, updateAdminTask, delAdminTask, getAllTasksCategories}
+const getAllTaskCategories = router.get("/admin/categories", (req, res) => {
+
+    db.getTaskCategories()
+    .then(zones => {
+        res.json(zones);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message});
+    });
+});
+
+const addNewTaskCategory = router.post("/admin/taskcat", (req, res) => {
+    let name = req.body.name;
+
+    console.log("route", name)
+
+    db.addTaskCat(name)
+      .then((zones) => {
+        res.json(zones);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  }); 
+
+  const delTaskCategory = router.delete("/admin/taskcat/delete/:id", (req, res) => {
+
+    db.deleteTaskCat(req.params.id)
+    .then(projects => {
+        res.json(projects);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message});
+    });
+});
+module.exports = { getTotalAdminTasks, addNewAdminTask, updateAdminTask, delAdminTask, getAllTasksCategories, getAllTaskCategories, addNewTaskCategory, delTaskCategory}

@@ -120,3 +120,18 @@ body {
     
 }
 
+.flexDiv{
+    display: flex;
+    flex-direction: row;
+}
+
+.creatCategoryButton{
+    margin-top: 25px;
+    margin-left: 60%;
+    height: 33px;
+}
+
+.addcat{
+    display: flex;
+    justify-self: flex-end;
+}

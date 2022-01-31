@@ -2,13 +2,15 @@ import { useContext, useState, useEffect } from 'react'
 import { UserContext } from '../userContext'
 import { useNavigate } from "react-router-dom";
 import AdminTasksTable from'./adminTasksTable'
+import AdminTaskCategoriesTable from './adminTasksCategoriesTable'
 import Typography from "@mui/material/Typography";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { styled } from "@mui/material/styles";
-import { allAvailableTasks } from '../AxiosFuncs/adminTasksAxiosFuncs'
+import { allAvailableTasks, getTaskCategories } from '../AxiosFuncs/adminTasksAxiosFuncs'
 import { Button, Form, Input } from "reactstrap";
 import CreateNewTask from "./adminCreateTask"
+import CreateNewTaskCat from "./adminCreateTaskCateg"
 import FormModal from '../ModalForms/formModal'
 import "./materialsPage.scss";
 
@@ -17,7 +19,7 @@ const AdminTasksPage = () => {
     let navigate = useNavigate();
     const { user, setUser } = useContext(UserContext);
     const [adminTasks, setAdminTasks] = useState([])
-
+    const [taskCats, setTaskCats] = useState([])
     const userFromSession = window.sessionStorage.getItem("user")
   
     let jUser
@@ -54,6 +56,12 @@ const AdminTasksPage = () => {
           setModal(!modal);
       }
 
+      const [modal2, setModal2] = useState(false)
+
+      const toggleModal2 = () => {
+          setModal2(!modal2);
+      }
+
       const [ formVals, setFormVals ] = useState({
         text: '',
         type: ''
@@ -61,14 +69,18 @@ const AdminTasksPage = () => {
 
         useEffect(() => {
         let list = allAvailableTasks('','')
+        let list2 = getTaskCategories()
 
-        Promise.all([list])
+        Promise.all([list, list2])
         .then((response) => {
             setAdminTasks(response[0]);
+            setTaskCats(response[1]);
         })
         .catch((error) => {
           console.log(error);
         });
+
+
 
       }, [])
 
@@ -93,6 +105,9 @@ const AdminTasksPage = () => {
     return(
         <div>
           <h2 style={{marginLeft: '5%'}}>Tasks</h2>
+
+        <div className="flexDiv">
+        <div className="leftDiv">
       <div className="buttondiv" style={{marginTop: '4%'}}>
       <Form onSubmit={handleSubmit} style={{width:'100%'}}>
         
@@ -131,18 +146,39 @@ const AdminTasksPage = () => {
 
         </Form>
       </div>
-
-            <FormModal openup={modal} closeup={toggleModal} >
-              <CreateNewTask
-                closeup={toggleModal}
-                adminTasks={adminTasks}
-                setAdminTasks={setAdminTasks}
-                formVals1={formVals}
-              />
-            </FormModal>
             
-            <AdminTasksTable className="projTable" adminTasks={adminTasks} setAdminTasks={setAdminTasks} formVals={formVals}/>
-    
+            <FormModal openup={modal} closeup={toggleModal} >
+                <CreateNewTask
+                  closeup={toggleModal}
+                  adminTasks={adminTasks}
+                  setAdminTasks={setAdminTasks}
+                  formVals1={formVals}
+                />
+              </FormModal>
+              
+              <AdminTasksTable className="projTable" adminTasks={adminTasks} setAdminTasks={setAdminTasks} formVals={formVals}/>
+            </div>
+          
+            <div className="rightDiv">
+
+            <div className='addcat'>
+          <Button onClick={toggleModal2} className="creatCategoryButton" formVals={formVals}>+ Categ</Button>
+          </div>
+
+            <FormModal openup={modal2} closeup={toggleModal2} >
+                <CreateNewTaskCat
+                  closeup={toggleModal2}
+                  taskCats={taskCats}
+                  setTaskCats={setTaskCats}
+                />
+              </FormModal>
+              
+              <AdminTaskCategoriesTable className="projTable" taskCats={taskCats} setTaskCats={setTaskCats}/>
+            </div>
+       
+
+          </div>
+
         </div>
     )
 

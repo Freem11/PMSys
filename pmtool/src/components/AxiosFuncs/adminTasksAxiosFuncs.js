@@ -81,3 +81,40 @@ export const updateTaskById = (info) => {
           return err;
         });
     };
+
+    export const getTaskCategories = () => {
+
+      return axios
+        .get(`http://localhost:5000/admin/categories`)
+        .then((response) => {
+          return response.data;
+        })
+        .catch((err) => {
+          return err;
+        });
+    };
+
+    export const addTaskCat = (info) => {
+
+      return axios
+        .post(`http://localhost:5000/admin/taskcat`, {
+          name: info.name,
+        })
+        .then((response) => {
+          return response.data[0];
+        })
+        .catch((err) => {
+          return err;
+        });
+    };
+
+    export const deleteTaskCat = (id) => {
+
+      return axios
+        .delete(`http://localhost:5000/admin/taskcat/delete/${id}`, {id})
+        .then((response) => {
+        })
+        .catch((err) => {
+          return err;
+        });
+      }

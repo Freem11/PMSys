@@ -10,6 +10,7 @@ DELETE FROM quotes;
 DELETE FROM tasks;
 DELETE FROM taskTypes;
 DELETE FROM taskNames;
+DELETE FROM taskCategories;
 
 ALTER SEQUENCE users_id_seq RESTART WITH 1;
 ALTER SEQUENCE projects_id_seq RESTART WITH 1;
@@ -20,6 +21,7 @@ ALTER SEQUENCE quotes_id_seq RESTART WITH 1;
 ALTER SEQUENCE tasks_id_seq RESTART WITH 1;
 ALTER SEQUENCE taskTypes_id_seq RESTART WITH 1;
 ALTER SEQUENCE taskNames_id_seq RESTART WITH 1;
+ALTER SEQUENCE taskCategories_id_seq RESTART WITH 1;
 
 INSERT INTO users(name, email, password, admin)
 VALUES ('Jerry', 'jerry@gmail.com', '$2b$10$79yCm1nJdNV6S8iAycSTnOlEaRCAjKa8EfxblOIdMjIFyrFXw56a.', true),
@@ -71,11 +73,14 @@ VALUES ('Civil', 'Civil'),
 ('Civil Build', 'Civil'), 
 ('Place Fibre', 'Fibre'), 
 ('Splice', 'Fibre'), 
-('TELUS P408', 'None'), 
-('TELUS P408A', 'None'), 
+('TELUS P408', 'N/A'), 
+('TELUS P408A', 'N/A'), 
 ('Design', 'Fibre'),
 ('Design', 'Coax'),
 ('Place Coax', 'Coax'),
 ('Home Runs', 'Prewire'),
 ('ISW', 'Prewire'),
 ('Node Install', 'Fibre');
+
+INSERT INTO taskCategories(name)
+VALUES ('N/A'), ('Civil'), ('Fibre'), ('Coax'), ('Prewire');

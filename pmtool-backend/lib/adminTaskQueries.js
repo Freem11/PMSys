@@ -54,8 +54,7 @@ const deleteAdminTask = (id) => {
 }
 
 const getTaskTypes = () => {
-    console.log("ping db")
-
+    
     return db.query('SELECT DISTINCT type FROM taskNames')
     .then((response) => {
         return response.rows;
@@ -65,4 +64,43 @@ const getTaskTypes = () => {
     })
   }
 
-module.exports = { getAllAdminTasks, addAdminTask, updateAdminTask, deleteAdminTask, getTaskTypes }
+  const getTaskCategories = () => {
+    console.log("ping db")
+
+    return db.query('SELECT * FROM taskCategories')
+    .then((response) => {
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })
+  }
+
+
+const addTaskCat = (name) => {
+
+    return db
+      .query(
+        `INSERT INTO taskCategories (name)
+      VALUES ($1) RETURNING *;`,[name]
+      )
+      .then((response) => {
+        return response.rows;
+      })
+      .catch((error) => {
+        console.log("unable to query db got error:", error);
+      });
+  };
+
+  const deleteTaskCat = (id) => {
+
+    return db.query(`DELETE FROM taskCategories WHERE id= $1 RETURNING *;`, [id])
+    .then((response) => {
+        return response.rows;
+    })
+    .catch((error) => {
+        console.log("unable to query db got error:", error);
+    })
+}
+
+module.exports = { getAllAdminTasks, addAdminTask, updateAdminTask, deleteAdminTask, getTaskTypes, getTaskCategories, addTaskCat, deleteTaskCat }

@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { Container, Button, Form, FormGroup, Label, Input } from "reactstrap";
-import { allAvailableTasks, addTask, getTaskCats } from '../AxiosFuncs/adminTasksAxiosFuncs'
+import { allAvailableTasks, addTask, getTaskCats, getTaskCategories } from '../AxiosFuncs/adminTasksAxiosFuncs'
 import "./adminCreateTask.scss"
 
 const CreateNewTask = (props) => {
@@ -9,7 +9,7 @@ const CreateNewTask = (props) => {
   const [categories, setCategories] = useState("");
   
   useEffect(() => {
-    let data = getTaskCats();
+    let data = getTaskCategories();
 
     Promise.all([data])
       .then((response) => {
@@ -72,6 +72,7 @@ const CreateNewTask = (props) => {
     return;
   };
 
+  console.log("adjust", categories)
   return (
     <Container fluid>
       <Form onSubmit={handleSubmit}>
@@ -118,7 +119,7 @@ const CreateNewTask = (props) => {
                   values={category.id}
                   className="modalSelect"
                 >
-                  {category.type}
+                  {category.name}
                 </option>
               ))}
           </Input>
