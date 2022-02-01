@@ -17,6 +17,7 @@ import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import ListItem from "@mui/material/ListItem";
 import AdminMaterialsPage from "./adminMaterials"
 import AdminTasksPage from "./adminTasks"
+import AdminLocalsPage from "./adminLocations"
 // import DetailsPage from "./detailsPage";
 // import SchedulePage from './schedulePage';
 import { Button } from "reactstrap";
@@ -271,8 +272,8 @@ export default function MiniDrawer() {
         <DrawerHeader />
         {Nav === 0 ? <AdminMaterialsPage /> : ""}
         {Nav === 1 ? <AdminTasksPage /> : ""}
-        {/* {Nav === 2 ? <QuotesPage /> : ""}
-        {Nav === 3 ? <SchedulePage /> : ""} */}
+        {Nav === 2 ? <AdminLocalsPage /> : ""}
+        {/* {Nav === 3 ? <SchedulePage /> : ""} */}
       </Box>
     </Box>
   );

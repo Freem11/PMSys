@@ -20,7 +20,7 @@ const {
   delProject,
 } = require("./projectRoutes");
 const { getTeam, delTeamMember } = require("./userProjectRoutes");
-const { getZones } = require("./locationRoutes");
+const { getZones, addNewLocation, delLocation } = require("./locationRoutes");
 const { getAllMaterials, getMaterialtypes } = require("./materialRoutes");
 const {
   getProjQuote,
@@ -78,6 +78,8 @@ app.use(delProject);
 
 //Location Routes
 app.use(getZones);
+app.use(addNewLocation);
+app.use(delLocation);
 
 //Team Routes
 app.use(getTeam);
