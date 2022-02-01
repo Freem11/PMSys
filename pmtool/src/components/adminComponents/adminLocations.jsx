@@ -84,7 +84,7 @@ const AdminLocalsPage = () => {
 
         <div className="flexDiv">
         <div className="leftDiv">
-      <div className="buttondiv" style={{marginTop: '4%'}}>
+      <div className="buttondiv" style={{marginTop: '4%', marginTop: '-2%', marginBottom: '-1%'}}>
       <Form style={{width:'100%'}}>
         
         <div id="searchbox">
