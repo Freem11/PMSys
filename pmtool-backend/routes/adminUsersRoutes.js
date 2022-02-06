@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../lib/adminUsersQueries')
+const bcrypt = require('bcrypt')
 
 const getTotalUsers = router.post("/admin/users", (req, res) => {
 
@@ -21,11 +22,10 @@ const getTotalUsers = router.post("/admin/users", (req, res) => {
 const addNewUser = router.post("/admin/user", (req, res) => {
     let name = req.body.name;
     let email = req.body.email;
-    let password = req.body.password;
     let admin = req.body.admin;
+    const hashedPassword = bcrypt.hashSync(req.body.password, 10)
 
-    // console.log("route", req.body)
-    db.addUser(name,email,password,admin)
+    db.addUser(name,email,hashedPassword,admin)
       .then((zones) => {
         res.json(zones);
       })
@@ -36,7 +36,15 @@ const addNewUser = router.post("/admin/user", (req, res) => {
 
   const updateUser = router.post("/admin/user/edit/:id", (req, res) => {
 
-    db.updateUser(req.body.id,req.body.name, req.body.email, req.body.password, req.body.admin)
+    let hashedPassword;
+
+    if (req.body.password.length < 26){
+        hashedPassword = bcrypt.hashSync(req.body.password, 10)
+    } else {
+        hashedPassword = req.body.password
+    }
+    
+    db.updateUser(req.body.id,req.body.name, req.body.email, hashedPassword, req.body.admin)
     .then(projects => {
         res.json(projects);
     })

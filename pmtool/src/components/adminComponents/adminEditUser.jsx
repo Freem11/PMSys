@@ -68,7 +68,7 @@ const EditUser = (props) => {
     <Container fluid>
       <Form onSubmit={handleSubmit}>
         <div className="inputboxerx">
-        <Label style={{marginLeft: '60px', marginBottom: '10px'}}><strong>Edit User</strong></Label>
+        <Label style={{marginLeft: '64px', marginBottom: '10px'}}><strong>Edit User</strong></Label>
         <FormGroup>
         <Label for="user_id" id='nmex'><strong>Name</strong></Label>
           <Input
