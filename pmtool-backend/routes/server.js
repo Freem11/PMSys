@@ -52,6 +52,7 @@ const {
 const { getAllTasksOfType } = require("./taskNameRoutes")
 const { getTotalMaterials, addNewMaterial, updateMaterial, delMaterial } = require("./adminMaterialRoutes")
 const { getTotalAdminTasks, addNewAdminTask, updateAdminTask, delAdminTask, getAllTasksCategories, getAllTaskCategories, addNewTaskCategory, delTaskCategory } = require("./adminTasksRoutes")
+const { getTotalUsers, addNewUser, updateUser, delUser } = require("./adminUsersRoutes")
 
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -85,18 +86,18 @@ app.use(delLocation);
 app.use(getTeam);
 app.use(delTeamMember);
 
-//MaterialRoutes
+//Material Routes
 app.use(getAllMaterials);
 app.use(getMaterialtypes);
 
-//QuoteRoutes
+//Quote Routes
 app.use(getProjQuote);
 app.use(addProjQuote);
 app.use(updateProjQuote);
 app.use(delQuote);
 app.use(getQuoteCosts);
 
-//TaskRoutes
+//Task Routes
 app.use(getProjTasks);
 app.use(updateHiddenTasks);
 app.use(addProjTask);
@@ -116,16 +117,16 @@ app.use(delTask);
 app.use(getProjTaskCat);
 app.use(getMaxSequence);
 
-//TaskNameRoutes
+//TaskName Routes
 app.use(getAllTasksOfType);
 
-//AdminMaterialRoutes
+//AdminMaterial Routes
 app.use(getTotalMaterials);
 app.use(addNewMaterial);
 app.use(updateMaterial);
 app.use(delMaterial);
 
-//AdminTaskRoutes
+//AdminTask Routes
 app.use(getTotalAdminTasks);
 app.use(addNewAdminTask);
 app.use(updateAdminTask);
@@ -134,3 +135,9 @@ app.use(getAllTasksCategories);
 app.use(getAllTaskCategories);
 app.use(addNewTaskCategory);
 app.use(delTaskCategory);
+
+//AdminUser Routes
+app.use(getTotalUsers);
+app.use(addNewUser);
+app.use(updateUser);
+app.use(delUser);

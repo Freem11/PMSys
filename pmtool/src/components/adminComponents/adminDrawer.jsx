@@ -14,12 +14,12 @@ import MenuIcon from "@mui/icons-material/Menu";
 import BuildIcon from '@mui/icons-material/Build';
 import TaskIcon from '@mui/icons-material/Task';
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ListItem from "@mui/material/ListItem";
 import AdminMaterialsPage from "./adminMaterials"
 import AdminTasksPage from "./adminTasks"
 import AdminLocalsPage from "./adminLocations"
-// import DetailsPage from "./detailsPage";
-// import SchedulePage from './schedulePage';
+import AdminUsersPage from "./adminUsers"
 import { Button } from "reactstrap";
 import "../projectsPage.scss";
 
@@ -171,7 +171,7 @@ export default function MiniDrawer() {
         </DrawerHeader>
 
         <List sx={{ backgroundColor: "#66758F", height: 10000 }}>
-          {["Materials", "Tasks", "Locations"].map((text, index) => (
+          {["Materials", "Tasks", "Locations", "Users"].map((text, index) => (
             <ListItem button key={text} onClick={() => handleClicks(index)}>
               {index === 0 ? (
                 <>
@@ -250,7 +250,7 @@ export default function MiniDrawer() {
                     flexDirection: "row",
                   }}
                 >
-                  <AddLocationAltIcon
+                  <AccountCircleIcon
                     sx={{ color: "white", marginRight: 3.5, marginLeft: 0.5 }}
                   />
                   <p style={{ color: "lightgrey", textDecoration: "none", marginTop: 1 }}>
@@ -273,7 +273,7 @@ export default function MiniDrawer() {
         {Nav === 0 ? <AdminMaterialsPage /> : ""}
         {Nav === 1 ? <AdminTasksPage /> : ""}
         {Nav === 2 ? <AdminLocalsPage /> : ""}
-        {/* {Nav === 3 ? <SchedulePage /> : ""} */}
+        {Nav === 3 ? <AdminUsersPage /> : ""}
       </Box>
     </Box>
   );

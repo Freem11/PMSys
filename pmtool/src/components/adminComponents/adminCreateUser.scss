@@ -1,0 +1,52 @@
+
+.inputboxery{
+    display: flex;
+    flex-direction: column;;
+    margin-left: 40%;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.modalInputsy{
+    margin-top: 10px;
+    border-radius: 10px;
+    width: 60%;
+    height: 30px;
+
+}
+
+.selectboxy{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 40%;
+}
+.modalInputs2y{
+    margin-top: 10px;
+    width: 150px;
+    margin-left: -27%;
+    text-align: center;
+    body {
+        overflow-y: hidden;
+    }
+    
+} 
+
+#modalButtoy {
+    width: 140px;
+    height: 30px;
+    margin-left: 25%;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#projnamey {
+    height: 20px;
+    margin-left: -50px;
+}
+
+#locatey{
+    margin-left: 0%;
+    margin-top: -5px;
+}
