@@ -171,7 +171,7 @@ export default function MiniDrawer() {
         </DrawerHeader>
 
         <List sx={{ backgroundColor: "#66758F", height: 10000 }}>
-          {["Materials", "Tasks", "Locations", "Users"].map((text, index) => (
+          {["Users", "Materials", "Tasks", "Locations"].map((text, index) => (
             <ListItem button key={text} onClick={() => handleClicks(index)}>
               {index === 0 ? (
                 <>
@@ -184,7 +184,7 @@ export default function MiniDrawer() {
                       flexDirection: "row",
                     }}
                   >
-                    <BuildIcon
+                    <AccountCircleIcon
                       sx={{ color: "white", marginRight: 3.5, marginLeft: 0.5 }}
                     />
                     <p style={{ color: "lightgrey", textDecoration: "none", marginTop: 1 }}>
@@ -206,7 +206,7 @@ export default function MiniDrawer() {
                    flexDirection: "row",
                  }}
                >
-                 <TaskIcon
+                 <BuildIcon
                    sx={{ color: "white", marginRight: 3.5, marginLeft: 0.5 }}
                  />
                  <p style={{ color: "lightgrey", textDecoration: "none", marginTop: 1 }}>
@@ -228,7 +228,7 @@ export default function MiniDrawer() {
                     flexDirection: "row",
                   }}
                 >
-                  <AddLocationAltIcon
+                  <TaskIcon
                     sx={{ color: "white", marginRight: 3.5, marginLeft: 0.5 }}
                   />
                   <p style={{ color: "lightgrey", textDecoration: "none", marginTop: 1 }}>
@@ -250,7 +250,7 @@ export default function MiniDrawer() {
                     flexDirection: "row",
                   }}
                 >
-                  <AccountCircleIcon
+                  <AddLocationAltIcon
                     sx={{ color: "white", marginRight: 3.5, marginLeft: 0.5 }}
                   />
                   <p style={{ color: "lightgrey", textDecoration: "none", marginTop: 1 }}>
@@ -270,10 +270,11 @@ export default function MiniDrawer() {
         sx={{ flexGrow: 1, p: 3, height: 10000, width: 20000 }}
       >
         <DrawerHeader />
-        {Nav === 0 ? <AdminMaterialsPage /> : ""}
-        {Nav === 1 ? <AdminTasksPage /> : ""}
-        {Nav === 2 ? <AdminLocalsPage /> : ""}
-        {Nav === 3 ? <AdminUsersPage /> : ""}
+        {Nav === 0 ? <AdminUsersPage /> : ""}
+        {Nav === 1 ? <AdminMaterialsPage /> : ""}
+        {Nav === 2 ? <AdminTasksPage /> : ""}
+        {Nav === 3 ? <AdminLocalsPage /> : ""}
+   
       </Box>
     </Box>
   );

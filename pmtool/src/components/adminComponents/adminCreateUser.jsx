@@ -40,8 +40,6 @@ const CreateNewUser = (props) => {
 
      let helper = addUser(formVals)
 
-     console.log("heloooo", formVals)
-
      Promise.all([helper])
       .then((response) => {
 
@@ -107,6 +105,52 @@ const CreateNewUser = (props) => {
             bsSize="lg"
             onChange={handleChange}
           ></Input>
+        </FormGroup>
+
+        <FormGroup >
+          <div className="selectboxa">
+          <Label for="user_id" id='boola'><strong>Admin</strong></Label>
+          <Input
+            onChange={handleChange}
+            className="modalInputs2y"
+            type="select"
+            name="admin"
+            id="booli"
+            bsSize="lg"
+            defaultValue='false'
+          >
+             <option
+                  id={0}
+                  name="blank"
+                  key={0}
+                  values= ''
+                  className="modalSelect"
+                >
+                </option>
+
+                <option
+                  id={1}
+                  name="false"
+                  key={1}
+                  values= 'false'
+                  className="modalSelect"
+                > 
+                false
+                </option>
+
+                <option
+                  id={2}
+                  name="true"
+                  key={2}
+                  values= 'true'
+                  className="modalSelect"
+                > 
+                true
+                </option>
+         
+              ))}
+          </Input>
+          </div>
         </FormGroup>
         </div>
     

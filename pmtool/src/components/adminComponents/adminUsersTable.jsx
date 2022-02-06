@@ -58,7 +58,7 @@ const AdminUsersTable = (props) => {
                         <TableCell  sx={{ color: "#2B2D42", paddingLeft: 5}}><strong>{user.name}</strong></TableCell>
                         <TableCell  align='left' sx={{ color: "#2B2D42" }}><strong>{user.email}</strong></TableCell>
                         <TableCell  align='left' sx={{ color: "#2B2D42" }}><strong>{user.password}</strong></TableCell>
-                        <TableCell  align='center' sx={{ color: "#2B2D42" }}><strong>{user.admin.value}</strong></TableCell>
+                        <TableCell  align='center' sx={{ color: "#2B2D42" }}><strong>{user.admin.toString()}</strong></TableCell>
                         <TableCell align='center' style={{ height: 10}}>
                             <PositionedMenu
                             user={user}

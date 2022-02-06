@@ -70,12 +70,12 @@ const EditUser = (props) => {
         <div className="inputboxerx">
         <Label style={{marginLeft: '64px', marginBottom: '10px'}}><strong>Edit User</strong></Label>
         <FormGroup>
-        <Label for="user_id" id='nmex'><strong>Name</strong></Label>
+        <Label for="user_id" id='nmeg'><strong>Name</strong></Label>
           <Input
             value={formVals.name}
             className="modalInputsx"
             style={{textAlign: 'center'}}
-            id='username'
+            id='usernam0'
             type="text"
             name="name"
             bsSize="lg"
@@ -109,6 +109,52 @@ const EditUser = (props) => {
             bsSize="lg"
             onChange={handleChange}
           ></Input>
+        </FormGroup>
+
+        <FormGroup >
+          <div className="selectboxz">
+          <Label for="user_id" id='boolx'><strong>Admin</strong></Label>
+          <Input
+            onChange={handleChange}
+            className="modalInputs2y"
+            type="select"
+            name="admin"
+            id="bool"
+            bsSize="lg"
+            defaultValue='false'
+          >
+             <option
+                  id={0}
+                  name="blank"
+                  key={0}
+                  values= ''
+                  className="modalSelect"
+                >
+                </option>
+
+                <option
+                  id={1}
+                  name="false"
+                  key={1}
+                  values= 'false'
+                  className="modalSelect"
+                > 
+                false
+                </option>
+
+                <option
+                  id={2}
+                  name="true"
+                  key={2}
+                  values= 'true'
+                  className="modalSelect"
+                > 
+                true
+                </option>
+         
+              ))}
+          </Input>
+          </div>
         </FormGroup>
         </div>
       

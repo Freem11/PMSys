@@ -86,7 +86,7 @@ const EditMaterial = (props) => {
         <div className="inputboxerx">
         <Label style={{marginLeft: '60px', marginBottom: '10px'}}><strong>Edit Item</strong></Label>
         <FormGroup>
-        <Label for="user_id" id='nmex'><strong>Name</strong></Label>
+        <Label for="user_id" id='nmeq'><strong>Name</strong></Label>
           <Input
             value={formVals.name}
             className="modalInputsx"
