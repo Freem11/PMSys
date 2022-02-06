@@ -75,7 +75,7 @@ const EditUser = (props) => {
             value={formVals.name}
             className="modalInputsx"
             style={{textAlign: 'center'}}
-            id='projnamex'
+            id='username'
             type="text"
             name="name"
             bsSize="lg"
@@ -84,12 +84,12 @@ const EditUser = (props) => {
         </FormGroup>
 
         <FormGroup>
-        <Label for="user_id" id='typx'><strong>Email</strong></Label>
+        <Label for="user_id" id='emailx'><strong>Email</strong></Label>
           <Input
             value={formVals.email}
             className="modalInputsx"
             style={{textAlign: 'center'}}
-            id='projnamex'
+            id='useremail'
             type="text"
             name="email"
             bsSize="lg"
@@ -98,12 +98,12 @@ const EditUser = (props) => {
         </FormGroup>
 
         <FormGroup>
-        <Label for="user_id" id='prcx'><strong>Password</strong></Label>
+        <Label for="user_id" id='passx'><strong>Password</strong></Label>
           <Input
             value={formVals.password}
             className="modalInputsx"
             style={{textAlign: 'center'}}
-            id='projnamex'
+            id='userpass'
             type="text"
             name="password"
             bsSize="lg"
