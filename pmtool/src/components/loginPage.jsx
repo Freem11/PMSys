@@ -320,7 +320,7 @@ const LoginPage = () => {
       <button type="button" className="btn4" onClick={handleLoginDisp}>
         Login
       </button>
-      <button type="button" className="btn4" onClick={handleRegisterDisp}>
+      <button type="button" className="btn5" disabled>
         Register
       </button>
     </div>
