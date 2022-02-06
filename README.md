@@ -29,9 +29,15 @@ Set start and end dates for each task as well as progress of tasks, which feeds 
 
 As Materials/Labour items are added to the project plan, Gantt chart is automatically updated with corresponding task
 
-In Progress Features:
+Admin section for:
+registering/removing or editting Labour/ Materials, 
+adding/removing project locations 
+registering/removing or editting Gantt Task options
+registering, editting, removing or updating to admin users 
 
-Admin section, for registering/removing or edtting Labour/ Materials, project locations and Gantt Task options
+
+In Progress Features:
+none at this time
 
 Planned Features:
 
