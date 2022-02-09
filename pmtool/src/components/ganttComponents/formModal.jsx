@@ -9,8 +9,8 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    bgcolor: '#66758F',
-    border: '4px solid #2B2D42',
+    bgcolor: 'rgb(238, 235, 235)',
+    border: '4px solid #102E4A',
     boxShadow: 24,
     p: 1.5,
     borderRadius: '10px',
@@ -28,7 +28,7 @@ const FormModal = (props) => {
                 >
                 <Box sx = {style}>
                     <div className="modalBox">
-                       <Button style={{ backgroundColor: 'maroon'}}className="modalButton2" onClick={closeup}>X</Button>
+                       <Button style={{ color: '#D8DBE2', backgroundColor: 'maroon', boxShadow: '2px 2px 3px 1px rgb(131, 127, 127)'}}className="modalButton2" onClick={closeup}>X</Button>
                     </div>
                     {children}
                 </Box>

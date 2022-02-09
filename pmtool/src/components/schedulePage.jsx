@@ -103,7 +103,7 @@ function SchedulePage() {
               />
             </FormModal>
             
-    <div className="master">
+    <div className="master" style={{width: '1790px',boxShadow: "0px 5px 8px -1px #000000", borderRadius: '15px'}}>
       <Split  sizes={[55,45]}
               maxSize={[975]}
               minSize={[200]}
@@ -121,7 +121,7 @@ function SchedulePage() {
        <GanttTable ganttRows={ganttRows} setTable={setGanttRows} binary={binary} setBinary={setBinary}/>
       </OverLordContext.Provider>
      </div>
-     <div style={{ zIndex:1, maxWidth: '800px', minWidth: '0px', marginTop: '0px', height: 'auto', backgroundColor: '#2B2D42', borderRadius: '0 15px 15px 0' }}>
+     <div style={{ zIndex:1, maxWidth: '800px', minWidth: '0px', marginTop: '0px', height: 'auto', backgroundColor: '#3B747D', borderRadius: '0 15px 15px 0' }}>
     <div style={{ marginTop: '21px', marginRight: '20px'}}>
       {tasks[0] && <Gantt 
         tasks={tasks}

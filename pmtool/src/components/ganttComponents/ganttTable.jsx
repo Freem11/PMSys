@@ -53,14 +53,14 @@ function GanttTable(props) {
   
        <ul id='teamList3' style={{marginBottom: '0px'}}>
            <div className="listHeader2"> 
-               <p style={{minWidth: '40px', marginLeft: '10px', color: 'white'}}><strong>Seq</strong></p>
-               <p style={{minWidth: '127px', marginLeft: '10px', color: 'white', wordWrap: 'break-word'}}><strong>Task</strong></p>
-               <p style={{minWidth: '90px', marginLeft: '-5px', color: 'white'}}><strong>Type</strong></p>
-               <p style={{minWidth: '160px', marginLeft: '10px', color: 'white'}}><strong>Start</strong></p>
-               <p style={{minWidth: '183px', marginLeft: '0px', color: 'white'}}><strong>End</strong></p>
-               <p style={{minWidth: '50px', marginLeft: '-12px', color: 'white'}}><strong>Prg</strong></p>
-               <p style={{minWidth: '150px', marginLeft: '-5px', color: 'white'}}><strong>Dependencies</strong></p>
-               <p style={{minWidth: '100px', marginLeft: '5px', color: 'white'}}><strong>Parent</strong></p>
+               <p style={{minWidth: '40px', marginLeft: '10px', color: '#3B747D'}}><strong>Seq</strong></p>
+               <p style={{minWidth: '127px', marginLeft: '10px', color: '#3B747D', wordWrap: 'break-word'}}><strong>Task</strong></p>
+               <p style={{minWidth: '90px', marginLeft: '-5px', color: '#3B747D'}}><strong>Type</strong></p>
+               <p style={{minWidth: '160px', marginLeft: '10px', color: '#3B747D'}}><strong>Start</strong></p>
+               <p style={{minWidth: '183px', marginLeft: '0px', color: '#3B747D'}}><strong>End</strong></p>
+               <p style={{minWidth: '50px', marginLeft: '-12px', color: '#3B747D'}}><strong>Prg</strong></p>
+               <p style={{minWidth: '150px', marginLeft: '-5px', color: '#3B747D'}}><strong>Dependencies</strong></p>
+               <p style={{minWidth: '100px', marginLeft: '5px', color: '#3B747D'}}><strong>Parent</strong></p>
            </div>
            <p>{list}</p>
        </ul>

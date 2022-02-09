@@ -76,7 +76,7 @@ let jProject;
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <MoreVertIcon sx={{ color: 'lightgrey', marginBottom: -2}}/>
+        <MoreVertIcon sx={{ color: 'white', marginBottom: -2}}/>
       </Button>
       <Menu
         id="demo-positioned-menu"

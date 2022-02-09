@@ -204,8 +204,11 @@ export default function CustomizedAccordions() {
               <Accordion
                 sx={{
                   borderRadius: "15px",
-                  backgroundColor: "#2B2D42",
+                  border: "1px",
+                  backgroundColor: "#3B747D",
                   color: "white",
+                  marginBottom: '10px',
+                  boxShadow: "0px 5px 8px -1px #000000"
                 }}
                 expanded={expanded === work.type}
                 onChange={handleChange(work.type)}
@@ -219,8 +222,8 @@ export default function CustomizedAccordions() {
                 <AccordionDetails
                   sx={{
                     borderRadius: "0 0 15px 15px",
-                    backgroundColor: "rgb(49, 51, 75)",
-                    color: "white",
+                    backgroundColor: "#F3F4F6",
+                    color: "#102E4A",
                   }}
                 >
                   <Typography>

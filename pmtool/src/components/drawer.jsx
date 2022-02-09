@@ -147,10 +147,10 @@ export default function MiniDrawer() {
   };
 
   return (
-    <Box sx={{ display: "flex", backgroundColor: "#66758F" }}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar sx={{ display: "flex", backgroundColor: "#2B2D42" }}>
+        <Toolbar sx={{ display: "flex", backgroundColor: "#102E4A" }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -168,7 +168,7 @@ export default function MiniDrawer() {
           <div className="projectDiv">Project - {jProject.name}</div>
           <div className="topdiv">
             <div className="secdiv">
-              <Button onClick={logoutFunc}>Logout</Button>
+              <Button className="buttonlogout" onClick={logoutFunc}>Logout</Button>
               <div>Logged in as: {jUser.name}</div>
             </div>
           </div>
@@ -179,13 +179,13 @@ export default function MiniDrawer() {
         open={open}
         sx={{ backgrounColor: "lightgrey" }}
       >
-        <DrawerHeader sx={{ backgroundColor: "#2B2D42", color: "white" }}>
+        <DrawerHeader sx={{ backgroundColor: "#102E4A", color: "white" }}>
           <IconButton onClick={handleDrawerClose} sx={{ color: "white" }}>
             {theme.direction === "rtl" ? "" : <MenuIcon />}
           </IconButton>
         </DrawerHeader>
 
-        <List sx={{ backgroundColor: "#66758F", height: 10000 }}>
+        <List sx={{ backgroundColor: "#FFFFFF", height: 10000 }}>
           {["Projects", "Details", "Quotes", "Schedules", "Drafts"].map((text, index) => (
             <ListItem button key={text} onClick={() => handleClicks(index)}>
               {index === 0 ? (
@@ -200,9 +200,9 @@ export default function MiniDrawer() {
                     }}
                   >
                     <KeyboardReturnIcon
-                      sx={{ color: "white", marginRight: 3.5, marginLeft: 0.5 }}
+                      sx={{ color: "black", marginRight: 3.5, marginLeft: 0.5 }}
                     />
-                    <p style={{ color: "lightgrey", textDecoration: "none", marginTop: 1 }}>
+                    <p style={{ color: "#57799E", textDecoration: "none", marginTop: 1 }}>
                       <strong>{text}</strong>
                     </p>
                   </Link>
@@ -222,9 +222,9 @@ export default function MiniDrawer() {
                  }}
                >
                  <HomeIcon
-                   sx={{ color: "white", marginRight: 3.5, marginLeft: 0.5 }}
+                   sx={{ color: "black", marginRight: 3.5, marginLeft: 0.5 }}
                  />
-                 <p style={{ color: "lightgrey", textDecoration: "none", marginTop: 1 }}>
+                 <p style={{ color: "#57799E", textDecoration: "none", marginTop: 1 }}>
                    <strong>{text}</strong>
                  </p>
                </Link>
@@ -244,9 +244,9 @@ export default function MiniDrawer() {
                   }}
                 >
                   <WarehouseIcon
-                    sx={{ color: "white", marginRight: 3.5, marginLeft: 0.5 }}
+                    sx={{ color: "black", marginRight: 3.5, marginLeft: 0.5 }}
                   />
-                  <p style={{ color: "lightgrey", textDecoration: "none", marginTop: 1 }}>
+                  <p style={{ color: "#57799E", textDecoration: "none", marginTop: 1 }}>
                     <strong>{text}</strong>
                   </p>
                 </Link>
@@ -266,9 +266,9 @@ export default function MiniDrawer() {
                   }}
                 >
                   <WatchLaterIcon
-                    sx={{ color: "white", marginRight: 3.5, marginLeft: 0.5 }}
+                    sx={{ color: "black", marginRight: 3.5, marginLeft: 0.5 }}
                   />
-                  <p style={{ color: "lightgrey", textDecoration: "none", marginTop: 1 }}>
+                  <p style={{ color: "#57799E", textDecoration: "none", marginTop: 1 }}>
                     <strong>{text}</strong>
                   </p>
                 </Link>

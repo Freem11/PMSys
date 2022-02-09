@@ -306,10 +306,10 @@ const LoginPage = () => {
 
   const userLoginButtons = (
     <div>
-      <button type="button" className="btn2" onClick={handleLoginDisp}>
+      <button type="button" className="buttonlogin" onClick={handleLoginDisp}>
         Login
       </button>
-      <button type="button" className="btn2" onClick={handleRegisterDisp}>
+      <button type="button" className="buttonlogin" onClick={handleRegisterDisp}>
         Register
       </button>
     </div>
@@ -317,10 +317,10 @@ const LoginPage = () => {
 
   const adminLoginButtons = (
     <div>
-      <button type="button" className="btn4" onClick={handleLoginDisp}>
+      <button type="button" className="buttonadmin" onClick={handleLoginDisp}>
         Login
       </button>
-      <button type="button" className="btn5" disabled>
+      <button type="button" className="buttonadmin2" disabled>
         Register
       </button>
     </div>

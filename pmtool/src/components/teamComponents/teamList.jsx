@@ -81,7 +81,7 @@ if(jTeam.length > 0) {
   <TeamContext.Provider value={{team, setTeam}}>
      <div>
         <ul id='teamList'>
-        <li id='teamHead'><strong>Team Members</strong><Button id="plusbutton" onClick={toggleModal}>+</Button></li>
+        <li style={{color:'white', marginLeft: '10px', marginTop: '10px', marginBottom: '10px'}}><strong>Team Members</strong><Button id="plusbutton" onClick={toggleModal}>+</Button></li>
         {list}
         </ul>
        

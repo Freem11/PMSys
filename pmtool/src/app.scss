@@ -1,3 +1,78 @@
 body {
-    background-color: #66758F;
+    background-color: rgb(238, 235, 235)
 }
+
+.btn {
+    background-color: #D8DBE2;
+    border: none;
+    box-shadow: 3px 4px 5px 1px rgb(99, 99, 99);
+    color: #373F51;
+    border-radius: 10px;
+    font-weight: bolder;
+    padding: 3px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.buttonlogout {
+    background-color: #D8DBE2;
+    border: none;
+    box-shadow: 2px 2px 3px 1px rgb(131, 127, 127);
+    color: #373F51;
+    border-radius: 7px;
+    font-weight: bolder;
+    padding: 3px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.buttonlogin {
+    background-color: #D8DBE2;
+    border-color: #373F51;
+    color: #373F51;
+    border-radius: 10px;
+    font-weight: bolder;
+    width: 80px;
+    margin-right: 10px;
+}
+
+.buttonadmin {
+    background-color: maroon;
+    border-color: #373F51;
+    color: #D8DBE2;
+    border-radius: 10px;
+    font-weight: bolder;
+    width: 80px;
+    margin-right: 10px;
+}
+
+.buttonadmin2 {
+    background-color: #D8DBE2;
+    border-color: rgb(181, 183, 187);
+    color: rgb(181, 183, 187);
+    border-radius: 10px;
+    font-weight: bolder;
+    width: 80px;
+    margin-right: 10px;
+}
+
+// Blue theme
+// #21295C
+// #1B3B6F
+// #065A82
+// #1C7293
+// #1C7293
+
+// Blue/Orange
+// #16697A
+// #489FB5
+// #82C0CC
+// #EDE7E3
+// #FFA62B
+
+// this one
+// #D8DBE2
+// #A9BCD0
+// #58A4B0
+// #373F51
+// #102E4A

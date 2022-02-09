@@ -74,9 +74,9 @@ const ProjectsTable = () => {
 
     return(
      <TableContainer
-    style={{ width: '90%', margin: 'auto', borderRadius: '5px', marginTop: 30}}>
+    style={{ width: '90%', margin: 'auto', borderRadius: '5px', marginTop: 30, boxShadow: '3px 4px 5px 1px rgb(99, 99, 99)'}}>
        {jUser.password && <Table>
-            <TableHead>
+            <TableHead style={{bacgroundColor: '#102E4A'}}>
                 <TableRow>
                     <TableCell style={{color: 'rgb(237, 237, 237)', width: 500, fontSize: 16, paddingLeft: 39}}><strong>Name</strong></TableCell>
                     <TableCell align='center' style={{color: 'rgb(237, 237, 237)', width: 100, fontSize: 16}}><strong>Status</strong></TableCell>
@@ -85,7 +85,7 @@ const ProjectsTable = () => {
             </TableHead>
             <TableBody>
                 {projects && projects.sort((a,b) => a.id - b.id).map((project, index) => (
-                    <TableRow key ={project.id} style={{ padding: 0}}>
+                    <TableRow key ={project.id} style={{ padding: 0 }}>
                         <TableCell onClick={() => twoX(project.id)} sx={{ color: "#2B2D42", paddingLeft: 5}}><strong>{project.name}</strong></TableCell>
                         <TableCell onClick={() => twoX(project.id)} align='center' sx={{ color: "#2B2D42" }}><strong>{project.status}</strong></TableCell>
                         <TableCell align='center' style={{ height: 10}}>

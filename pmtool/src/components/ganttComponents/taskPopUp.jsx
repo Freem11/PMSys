@@ -160,7 +160,7 @@ console.log(error);
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <MoreVertIcon sx={{ color: 'lightgrey', marginBottom: -2}}/>
+        <MoreVertIcon sx={{ color: '#3B747D', marginBottom: -2}}/>
       </Button>
       <Menu
         id="demo-positioned-menu"

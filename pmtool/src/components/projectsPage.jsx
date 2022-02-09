@@ -86,7 +86,7 @@ const ProjectsPage = () => {
 
           <div className="topdiv">
             <div className="secdiv">
-              <Button onClick={logoutFunc}>Logout</Button>
+              <Button className="buttonlogout" onClick={logoutFunc}>Logout</Button>
               <div>Logged in as: {jUser.name}</div>
             </div>
           </div>

@@ -1,6 +1,6 @@
 
 body {
-    background-color: #66758F;
+    background-color: rgb(255, 255, 255);
 }
 
 //Header -------------------------------------------
@@ -35,30 +35,18 @@ body {
 //Table --------------------------------------------
 
 .MuiTableCell-head {
-    background-color: #2B2D42;
-    color: #FFFFF2; 
+    background-color: #102E4A;
+    color: #D8DBE2; 
    
 }
 
 .MuiTableCell-body {
-    background-color: rgb(202, 202, 202); 
+    background-color: #D8DBE2; 
 }
 
 .MuiTableContainer-root {
     margin-top: -50px; 
 }
-
-.btn {
-    background-color: #292929;
-    border-color: #2B2D42;
-    color: #FFFFF2;
-    border-radius: 10px;
-    font-weight: bolder;
-    padding: 3px;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
 
 //Search Area -------------------------------------------
 
@@ -113,3 +101,6 @@ body {
     
 }
 
+.projTable{
+    box-shadow: 3px 4px 5px 1px rgb(99, 99, 99);
+}

@@ -351,7 +351,7 @@ const TeamListItem = (props) => {
             onChange={handleChange}
             onBlur={handleSubmit}
             name="project"
-            style={{fontSize: '15px', color: 'white', minWidth: "80px", maxWidth: "80px", backgroundColor: "rgb(57, 60, 87)", border: 'transparent'}}
+            style={{fontSize: '15px', color: '#3B747D', minWidth: "80px", maxWidth: "80px", backgroundColor: "#F3F4F6", border: 'transparent'}}
             value={formVals.project}
           >
              <option
@@ -375,7 +375,7 @@ const TeamListItem = (props) => {
               ))}
           </Input>
           :   
-          <div style={{ backgroundColor: "rgb(57, 60, 87)", minWidth: '80px', maxWidth: '80px'}}>
+          <div style={{ backgroundColor: "#F3F4F6", minWidth: '80px', maxWidth: '80px'}}>
             <Switch
               checked={swtch}
               name="hideChildren"
@@ -390,7 +390,7 @@ const TeamListItem = (props) => {
             id="inpt"
             style={{
               width: 79,
-              backgroundColor: "rgb(57, 60, 87)",
+              backgroundColor: "#F3F4F6",
               paddingRight: "0px",
               marginLeft: "0px",
               paddingTop: '5px'

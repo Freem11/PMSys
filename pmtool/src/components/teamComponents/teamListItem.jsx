@@ -15,7 +15,7 @@ const TeamListItem = (props) => {
     return (
         <li id={id} className='teamL'>
             <div id='teamBox'>
-            <div id='listItems'>{name}</div> 
+            <div id='listItems'><strong>{name}</strong></div> 
             <div id='teamTog'>
                 <PositionedMenuTeam
                 user1={id}

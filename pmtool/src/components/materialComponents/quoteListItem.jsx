@@ -89,7 +89,7 @@ const QuoteListItem = (props) => {
                     value={formVals.quantity}
                     id='listItems3'
                     onChange={handleChange}
-                    style={{backgroundColor: 'rgb(57, 60, 87)', borderRadius: 5, width: 30}}
+                    style={{backgroundColor: '#3B747D', borderRadius: 5, width: 30}}
                     >
                     </Input>
                 </FormGroup>
