@@ -122,7 +122,7 @@ function SchedulePage() {
 
      <div> 
       <OverLordContext.Provider value={{binary, setBinary}}>
-          <Collapse in={dispGanttTable} orientation='horizontal' collapsedSize='20px'>{GTable}</Collapse> 
+          <Collapse in={dispGanttTable} orientation='horizontal' collapsedSize='170px'>{GTable}</Collapse> 
       </OverLordContext.Provider>
      </div>
      <div style={{ zIndex:1, maxWidth: '800px', minWidth: '0px', marginTop: '0px', height: 'auto', backgroundColor: '#3B747D', borderRadius: '0 15px 15px 0' }}>
