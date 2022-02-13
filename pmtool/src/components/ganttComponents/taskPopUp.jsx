@@ -40,9 +40,11 @@ let jProject;
   };
 
 
-  const doTwo = (taskId) => {
+  const doTwo = (taskId, parent) => {
 
-    if (type === 'project') {
+    console.log("meee", taskId, parent)
+
+    if (type === 'project' || parent === '') {
       let clearParents = deleteParent({ name: name, projId: project1 })
 
       Promise.all([clearParents])
@@ -177,7 +179,7 @@ console.log(error);
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={() => doTwo(taskId)}><DeleteIcon/> Delete</MenuItem>
+        <MenuItem onClick={() => doTwo(taskId, parent)}><DeleteIcon/> Delete</MenuItem>
         
       </Menu>
     </div>
