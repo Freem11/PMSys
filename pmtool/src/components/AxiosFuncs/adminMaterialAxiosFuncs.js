@@ -17,7 +17,7 @@ export const allAvailableMaterials = (values) => {
   }
 
   return axios
-    .post(`http://localhost:5000/admin/materials`,{ text, location })
+    .post(`/admin/materials`,{ text, location })
     .then((response) => {
         return response.data;
     })
@@ -30,7 +30,7 @@ export const addMaterial = (info) => {
 
   // console.log("axios", info)
   return axios
-    .post(`http://localhost:5000/admin/material`, {
+    .post(`/admin/material`, {
       name: info.name,
       type: info.type,
       location: info.location,
@@ -47,7 +47,7 @@ export const addMaterial = (info) => {
 export const updateMaterialById = (info) => {
 
   return axios
-    .post(`http://localhost:5000/material/edit/${info.id}`,{
+    .post(`/material/edit/${info.id}`,{
       id: info.id,
       name: info.name,
       type: info.type,
@@ -65,7 +65,7 @@ export const updateMaterialById = (info) => {
   export const deleteMaterial = (id) => {
 
     return axios
-      .delete(`http://localhost:5000/material/delete/${id}`, {id})
+      .delete(`/material/delete/${id}`, {id})
       .then((response) => {
       })
       .catch((err) => {

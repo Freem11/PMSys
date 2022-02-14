@@ -17,7 +17,7 @@ export const allAvailableUsers = (values) => {
   }
 
   return axios
-    .post(`http://localhost:5000/admin/users`,{ text, email })
+    .post(`/admin/users`,{ text, email })
     .then((response) => {
         return response.data;
     })
@@ -30,7 +30,7 @@ export const addUser = (info) => {
 
   console.log("axios", info)
   return axios
-    .post(`http://localhost:5000/admin/user`, {
+    .post(`/admin/user`, {
       name: info.name,
       email: info.email,
       password: info.password,
@@ -47,7 +47,7 @@ export const addUser = (info) => {
 export const updateUserById = (info) => {
 
   return axios
-    .post(`http://localhost:5000/admin/user/edit/${info.id}`,{
+    .post(`/admin/user/edit/${info.id}`,{
       id: info.id,
       name: info.name,
       email: info.email,
@@ -65,7 +65,7 @@ export const updateUserById = (info) => {
   export const deleteUser = (id) => {
 
     return axios
-      .delete(`http://localhost:5000/admin/user/delete/${id}`, {id})
+      .delete(`/admin/user/delete/${id}`, {id})
       .then((response) => {
       })
       .catch((err) => {

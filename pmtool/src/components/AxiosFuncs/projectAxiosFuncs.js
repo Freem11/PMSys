@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const getUserProjects = (values, text) => {
 
-return axios.post("http://localhost:5000/projects", { userId: values, text: text })
+return axios.post("/projects", { userId: values, text: text })
 .then(response => {
     return response.data
 })
@@ -12,7 +12,7 @@ return axios.post("http://localhost:5000/projects", { userId: values, text: text
 export const registerProject = (values) => {
 
   return axios
-    .post("http://localhost:5000/project", {
+    .post("/project", {
       name: values.title,
       location: values.location,
       status: values.status,
@@ -25,13 +25,13 @@ export const registerProject = (values) => {
       values.team.forEach((user) => {
 
         return axios
-          .post("http://localhost:5000/user", { user })
+          .post("/user", { user })
           .then((response1) => {
         
             let userId = response1.data[0].id;
     
             return axios
-              .post("http://localhost:5000/user_project", { 
+              .post("/user_project", { 
                 userId: userId,
                 projectId: projectId
                })
@@ -55,7 +55,7 @@ export const registerProject = (values) => {
 
 export const getProjectById = (projectId) => {
   return axios
-    .get(`http://localhost:5000/project/${projectId}`)
+    .get(`/project/${projectId}`)
     .then((response) => {
       return response.data[0]
     })
@@ -67,7 +67,7 @@ export const getProjectById = (projectId) => {
   export const updateProjectById = (info) => {
 
     return axios
-      .post(`http://localhost:5000/project/edit/${info.project_id}`,{
+      .post(`/project/edit/${info.project_id}`,{
         name: info.title,
         location: info.location,
         userId: info.user_id,
@@ -84,7 +84,7 @@ export const getProjectById = (projectId) => {
     export const deleteProject = (id) => {
 
       return axios
-        .delete(`http://localhost:5000/project/delete/${id}`, {id})
+        .delete(`/project/delete/${id}`, {id})
         .then((response) => {
         })
         .catch((err) => {

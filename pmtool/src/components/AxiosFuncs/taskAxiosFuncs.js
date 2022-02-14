@@ -3,7 +3,7 @@ import axios from "axios";
 export const allTasks = (projId) => {
 
   return axios
-    .get(`http://localhost:5000/tasks/${projId}`)
+    .get(`/tasks/${projId}`)
     .then((response) => {
       return response.data;
     })
@@ -15,7 +15,7 @@ export const allTasks = (projId) => {
 export const addTask = (info) => {
 
   return axios
-    .post(`http://localhost:5000/task`, {
+    .post(`/task`, {
       seq: info.seq,
       name: info.name,
       start: info.start,
@@ -42,7 +42,7 @@ export const updateHiddenTasks = (info) => {
   let id = info.id
 
   return axios
-    .post(`http://localhost:5000/task/edit/hide/${id}`, {
+    .post(`/task/edit/hide/${id}`, {
       id: info.id,
       swtch: info.holder,
     })
@@ -59,7 +59,7 @@ export const updateRestTasks = (info) => {
   let id = info.id
 
   return axios
-    .post(`http://localhost:5000/task/edit/${id}`, {
+    .post(`/task/edit/${id}`, {
       seq: info.seq,
       name: info.name,
       type: info.type,
@@ -84,7 +84,7 @@ export const getTaskByName = (info) => {
   let id = info.id
  
 return axios
-.post(`http://localhost:5000/task/${id}`, {
+.post(`/task/${id}`, {
   id: info.id,
   name: info.name,
 })
@@ -99,7 +99,7 @@ return axios
 export const getTaskStartMin = (info) => {
 
 return axios
-.post(`http://localhost:5000/tasks/min`, {
+.post(`/tasks/min`, {
   project: info.project,
   projId: info.id,
 })
@@ -114,7 +114,7 @@ return axios
 export const getTaskStart2Min = (info) => {
 
   return axios
-  .post(`http://localhost:5000/tasks/min2`, {
+  .post(`/tasks/min2`, {
     project: info.project,
     projId: info.id,
   })
@@ -130,7 +130,7 @@ export const getTaskEndMax = (info) => {
 
   // console.log("axios", info)
 return axios
-.post(`http://localhost:5000/tasks/max`, {
+.post(`/tasks/max`, {
   project: info.project,
   projId: info.id,
 })
@@ -145,7 +145,7 @@ return axios
 export const getTaskEnd2Max = (info) => {
 
 return axios
-.post(`http://localhost:5000/tasks/max2`, {
+.post(`/tasks/max2`, {
   project: info.project,
   projId: info.id,
 })
@@ -160,7 +160,7 @@ return axios
 export const getprTskPr = (projId) => {
 
   return axios
-    .get(`http://localhost:5000/tasks/project/${projId}`)
+    .get(`/tasks/project/${projId}`)
     .then((response) => {
       return response.data;
     })
@@ -172,7 +172,7 @@ export const getprTskPr = (projId) => {
 export const getAvgProgress = (info) => {
 
 return axios
-.post(`http://localhost:5000/tasks/avgprogress`, {
+.post(`/tasks/avgprogress`, {
   id: info.id,
   project: info.project,
 })
@@ -187,7 +187,7 @@ return axios
 export const getTaskTypes = () => {
 
   return axios
-    .get(`http://localhost:5000/task/types`)
+    .get(`/task/types`)
     .then((response) => {
       return response.data;
     })
@@ -199,7 +199,7 @@ export const getTaskTypes = () => {
 export const getTaskNames = () => {
 
   return axios
-    .get(`http://localhost:5000/task/names`)
+    .get(`/task/names`)
     .then((response) => {
       return response.data;
     })
@@ -212,7 +212,7 @@ export const deleteParent = (info) => {
  
   
     return axios
-      .post(`http://localhost:5000/tasks/delProject`, {
+      .post(`/tasks/delProject`, {
         projId: info.projId,
         project: info.name,
       })
@@ -228,7 +228,7 @@ export const deleteParent = (info) => {
     console.log("axios", info)
     
       return axios
-        .post(`http://localhost:5000/tasks/depenencies`, {
+        .post(`/tasks/depenencies`, {
           projId: info.projId,
           text: info.text,
         })
@@ -244,7 +244,7 @@ export const deleteTask = (id) => {
 
   console.log("axios", id)
   return axios
-    .delete(`http://localhost:5000/task/delete/${id}`, { id })
+    .delete(`/task/delete/${id}`, { id })
     .then((response) => {})
     .catch((err) => {
       return err;
@@ -254,7 +254,7 @@ export const deleteTask = (id) => {
 export const getTaskByCat = (info) => {
   
     return axios
-      .post(`http://localhost:5000/tasks/project/category`, {
+      .post(`/tasks/project/category`, {
         id: info.id,
         category: info.type,
       })
@@ -270,7 +270,7 @@ export const getTaskByCat = (info) => {
 
     // console.log("axios", info)
   return axios
-  .post(`http://localhost:5000/tasks/seqMax`, {
+  .post(`/tasks/seqMax`, {
     projId: info.id,
   })
   .then((response) => {

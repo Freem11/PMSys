@@ -17,7 +17,7 @@ export const allAvailableTasks = (values) => {
   }
   // console.log("axios", text,type)
   return axios
-    .post(`http://localhost:5000/admin/tasks`,{ text, type })
+    .post(`/admin/tasks`,{ text, type })
     .then((response) => {
         return response.data;
     })
@@ -30,7 +30,7 @@ export const addTask = (info) => {
 
   // console.log("axios", info)
   return axios
-    .post(`http://localhost:5000/admin/task`, {
+    .post(`/admin/task`, {
       name: info.name,
       type: info.type,
     })
@@ -45,7 +45,7 @@ export const addTask = (info) => {
 export const updateTaskById = (info) => {
 
   return axios
-    .post(`http://localhost:5000/admin/task/edit/${info.id}`,{
+    .post(`/admin/task/edit/${info.id}`,{
       id: info.id,
       name: info.name,
       type: info.type,
@@ -61,7 +61,7 @@ export const updateTaskById = (info) => {
   export const deleteTask = (id) => {
 
     return axios
-      .delete(`http://localhost:5000/admin/task/delete/${id}`, {id})
+      .delete(`/admin/task/delete/${id}`, {id})
       .then((response) => {
       })
       .catch((err) => {
@@ -73,7 +73,7 @@ export const updateTaskById = (info) => {
     export const getTaskCats = () => {
 
       return axios
-        .get(`http://localhost:5000/admin/taskcats`)
+        .get(`/admin/taskcats`)
         .then((response) => {
           return response.data;
         })
@@ -85,7 +85,7 @@ export const updateTaskById = (info) => {
     export const getTaskCategories = () => {
 
       return axios
-        .get(`http://localhost:5000/admin/categories`)
+        .get(`/admin/categories`)
         .then((response) => {
           return response.data;
         })
@@ -97,7 +97,7 @@ export const updateTaskById = (info) => {
     export const addTaskCat = (info) => {
 
       return axios
-        .post(`http://localhost:5000/admin/taskcat`, {
+        .post(`/admin/taskcat`, {
           name: info.name,
         })
         .then((response) => {
@@ -111,7 +111,7 @@ export const updateTaskById = (info) => {
     export const deleteTaskCat = (id) => {
 
       return axios
-        .delete(`http://localhost:5000/admin/taskcat/delete/${id}`, {id})
+        .delete(`/admin/taskcat/delete/${id}`, {id})
         .then((response) => {
         })
         .catch((err) => {

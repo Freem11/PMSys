@@ -2,7 +2,7 @@ import axios from "axios";
 
  export const allLocations = () => {
     return axios
-      .get("http://localhost:5000/locations")
+      .get("/locations")
       .then((response) => {
           return response.data;
       })
@@ -14,7 +14,7 @@ import axios from "axios";
   export const addLocation = (info) => {
 
     return axios
-      .post(`http://localhost:5000/admin/location`, {
+      .post(`/admin/location`, {
         name: info.name,
       })
       .then((response) => {
@@ -28,7 +28,7 @@ import axios from "axios";
   export const deleteLocation = (id) => {
 
     return axios
-      .delete(`http://localhost:5000/admin/location/delete/${id}`, {id})
+      .delete(`/admin/location/delete/${id}`, {id})
       .then((response) => {
       })
       .catch((err) => {

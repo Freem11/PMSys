@@ -7,9 +7,8 @@ import { allTasks } from './AxiosFuncs/taskAxiosFuncs'
 import { Button } from "reactstrap";
 import FormModal from './ganttComponents/formModal'
 import Collapse from "@mui/material/Collapse";
-import Split from 'react-split'
 import CreateNewTask from "./ganttComponents/createTask"
-import {formatForGannt, sortDataGantt } from './ganttComponents/gantthelper'
+import { formatForGannt, sortDataGantt } from './ganttComponents/gantthelper.js'
 import "./schedulePage.scss"; 
 
 import {

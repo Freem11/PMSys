@@ -1,4 +1,4 @@
-const formatForGannt = (data) => {
+export const formatForGannt = (data) => {
   let arr = [];
 
   data.forEach((tsk) => {
@@ -27,7 +27,7 @@ const formatForGannt = (data) => {
   return arr;
 };
 
-const formatForTable = (data) => {
+export const formatForTable = (data) => {
   let arr = [];
 
   data.forEach((tsk) => {
@@ -46,7 +46,7 @@ const formatForTable = (data) => {
   return arr;
 };
 
-const sortDataGantt = (data) => {
+export const sortDataGantt = (data) => {
 
   let sorted = data.sort(function (a, b) {
     var nameA = a.seq;
@@ -65,7 +65,7 @@ const sortDataGantt = (data) => {
   return sorted;
 };
 
-const updateParentStartDate = (parentData, maxStart, maxStart2, newValue, oldStart, oldEnd, currentTask, del) => {
+export const updateParentStartDate = (parentData, maxStart, maxStart2, newValue, oldStart, oldEnd, currentTask, del) => {
       
       let finalVal;
       let start = new Date(oldStart)
@@ -118,7 +118,7 @@ const updateParentStartDate = (parentData, maxStart, maxStart2, newValue, oldSta
   }
 };
 
-const updateParentEndDate = (parentData, maxEnd, maxEnd2, newValue, oldEnd, del) => {
+export const updateParentEndDate = (parentData, maxEnd, maxEnd2, newValue, oldEnd, del) => {
   let finalVal;
 
   if(del){
@@ -159,7 +159,7 @@ const updateParentEndDate = (parentData, maxEnd, maxEnd2, newValue, oldEnd, del)
   return finalVal;
 };
 
-const updateParentChildArray = (parentData, newChild, exParent, del) => {
+export const updateParentChildArray = (parentData, newChild, exParent, del) => {
   let finalVal = []; 
 
   if(del){
@@ -192,7 +192,7 @@ const updateParentChildArray = (parentData, newChild, exParent, del) => {
   return finalVal
 };
 
-const manageDependencyArray = (data, newVal) => {
+export const manageDependencyArray = (data, newVal) => {
 
   let finalArr = newVal
 
@@ -206,7 +206,7 @@ const manageDependencyArray = (data, newVal) => {
   return finalArr
 };
 
-const handleAvgProgress = (parent, progressList, taskName, newVal, del) => {
+export const handleAvgProgress = (parent, progressList, taskName, newVal, del) => {
   let progressArray =[];
 
   if(del){
@@ -225,6 +225,7 @@ const handleAvgProgress = (parent, progressList, taskName, newVal, del) => {
       progressArray.push(task.progress)
     
   });
+  
   const averagei = Math.round(progressArray.reduce((a,b) => a+b, 0) / progressArray.length)
   return averagei
   } 
@@ -242,13 +243,3 @@ const handleAvgProgress = (parent, progressList, taskName, newVal, del) => {
 
 };
 
-module.exports = {
-  formatForGannt,
-  sortDataGantt,
-  updateParentStartDate,
-  updateParentEndDate,
-  updateParentChildArray,
-  manageDependencyArray,
-  handleAvgProgress,
-  formatForTable,
-};

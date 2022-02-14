@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const login = ({ email, password }) => {
     return axios
-      .post("http://localhost:5000/session", { email: email, pass: password })
+      .post("/session", { email: email, pass: password })
       .then((response) => {
         if (response.data[0]) {
           return response.data[0];
@@ -15,7 +15,7 @@ export const login = ({ email, password }) => {
 
 export const checkEmail = ({ email }) => {
     return axios
-      .post("http://localhost:5000/sessions", { email })
+      .post("/sessions", { email })
       .then((response) => {
         if (response.data[0]) {
           return response.data[0];
@@ -28,7 +28,7 @@ export const checkEmail = ({ email }) => {
 
 export const register = ({ regName, regEmail, regPassword }) => {
     return axios
-      .post("http://localhost:5000/register", {
+      .post("/register", {
         name: regName,
         email: regEmail,
         pass: regPassword,
@@ -45,7 +45,7 @@ export const register = ({ regName, regEmail, regPassword }) => {
 
   export const allUsers = () => {
     return axios
-      .get("http://localhost:5000/users")
+      .get("/users")
       .then((response) => {
           return response.data;
       })
@@ -57,7 +57,7 @@ export const register = ({ regName, regEmail, regPassword }) => {
   export const userByName = (user) => {
 
     return axios
-      .post("http://localhost:5000/user", { user })
+      .post("/user", { user })
       .then((response) => {
           return response.data;
       })
@@ -68,7 +68,7 @@ export const register = ({ regName, regEmail, regPassword }) => {
 
   export const createUserProject = ({ userId, projectId }) => {
     return axios
-      .post("http://localhost:5000/user_project", {
+      .post("/user_project", {
         user_id: userId,
         project_id: projectId,
       })
@@ -85,7 +85,7 @@ export const register = ({ regName, regEmail, regPassword }) => {
   export const userById = (id) => {
 
     return axios
-      .get(`http://localhost:5000/user/${id}`)
+      .get(`/user/${id}`)
       .then((response) => {
           return response.data;
       })

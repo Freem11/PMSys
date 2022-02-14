@@ -3,7 +3,7 @@ import axios from "axios";
 export const allMaterials = (location) => {
 
   return axios
-    .get(`http://localhost:5000/materials/${location}`)
+    .get(`/materials/${location}`)
     .then((response) => {
         return response.data;
     })
@@ -15,7 +15,7 @@ export const allMaterials = (location) => {
 export const materialtypes = (location) => {
 
   return axios
-    .get(`http://localhost:5000/materials/types/${location}`)
+    .get(`/materials/types/${location}`)
     .then((response) => {
         return response.data;
     })

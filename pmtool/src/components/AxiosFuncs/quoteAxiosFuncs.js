@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const allQuote = (projId) => {
   return axios
-    .get(`http://localhost:5000/quotes/${projId}`)
+    .get(`/quotes/${projId}`)
     .then((response) => {
       return response.data;
     })
@@ -14,7 +14,7 @@ export const allQuote = (projId) => {
 export const addQuote = (info) => {
 
   return axios
-    .post(`http://localhost:5000/quote`, {
+    .post(`/quote`, {
       name: info.name,
       price: info.price,
       quantity: info.quantity,
@@ -32,7 +32,7 @@ export const addQuote = (info) => {
 export const updateQuote = (info) => {
 
   return axios
-    .post(`http://localhost:5000/quote/edit`, {
+    .post(`/quote/edit`, {
       id: info.id,
       name: info.name,
       price: info.price,
@@ -50,7 +50,7 @@ export const updateQuote = (info) => {
 
 export const deleteQuoteItem = (id) => {
   return axios
-    .delete(`http://localhost:5000/quote/delete/${id}`, { id })
+    .delete(`/quote/delete/${id}`, { id })
     .then((response) => {})
     .catch((err) => {
       return err;
@@ -60,7 +60,7 @@ export const deleteQuoteItem = (id) => {
 export const quoteTotal = (projId) => {
  
   return axios
-    .get(`http://localhost:5000/quotes/total/${projId}`)
+    .get(`/quotes/total/${projId}`)
     .then((response) => {
       return response.data[0];
     })

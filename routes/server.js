@@ -1,7 +1,7 @@
-const express = require("express"),
-  app = express(),
-  port = process.env.PORT || 5000,
-  cors = require("cors");
+const express = require("express");
+app = express();
+const path = require("path");
+cors = require("cors");
 const bodyParser = require("body-parser");
 const {
   getUser,
@@ -59,6 +59,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(cors());
+
+port = process.env.PORT || 5000
+
+if (process.env.NODE_ENV === "production") {
+ app.use(express.static(path.join(__dirname, "pmtool/build")))
+}
+
 app.listen(port, () => console.log("Backend server live on " + port));
 
 //User Routes
@@ -141,3 +148,8 @@ app.use(getTotalUsers);
 app.use(addNewUser);
 app.use(updateUser);
 app.use(delUser);
+
+
+app.get("*", (req, res) => {
+    res.sendfile(path.join(__dirname, "pmtool/build/index.html"))
+})

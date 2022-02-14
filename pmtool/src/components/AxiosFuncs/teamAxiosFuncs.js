@@ -3,7 +3,7 @@ import axios from "axios";
 export const getTeamByProjectId = (projectId) => {
 
   return axios
-    .get(`http://localhost:5000/user_project/${projectId}`)
+    .get(`/user_project/${projectId}`)
     .then((response) => {
         return response
       })
@@ -17,7 +17,7 @@ export const getTeamByProjectId = (projectId) => {
   export const registerUserProject = (userId, projectId) => {
 
   return axios
-    .post("http://localhost:5000/user_project", { 
+    .post("/user_project", { 
       userId: userId,
       projectId: projectId
       })
@@ -33,7 +33,7 @@ export const getTeamByProjectId = (projectId) => {
   export const deleteUserProject = (userId, projectId) => {
 
   return axios
-    .post("http://localhost:5000/user_project/delete", { 
+    .post("/user_project/delete", { 
       userId: userId,
       projectId: projectId
       })
