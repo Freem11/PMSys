@@ -149,7 +149,7 @@ app.use(addNewUser);
 app.use(updateUser);
 app.use(delUser);
 
-console.log("this", __dirname)
+console.log("this", path.join(__dirname, "/pmtool/build/index.html"))
 app.get("*", (req, res) => {
     res.sendfile(path.join(__dirname, "/pmtool/build/index.html"))
 })
