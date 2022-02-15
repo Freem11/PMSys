@@ -62,7 +62,7 @@ app.use(cors());
 
 port = process.env.PORT || 5000
 
-let newDir = __dirname.substring(0, __dirname.length - 6)
+let newDir = __dirname.substring(0, __dirname.length - 7)
 
 if (process.env.NODE_ENV === "production") {
  app.use(express.static(path.join(newDir, "pmtool/build")))
