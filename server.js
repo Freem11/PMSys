@@ -10,7 +10,7 @@ const {
   getUsers,
   getUserName,
   getUserNameId,
-} = require("./userRoutes");
+} = require("./routes/userRoutes");
 const {
   getProjects,
   createProject,
@@ -18,17 +18,17 @@ const {
   getSingleProject,
   updateProject,
   delProject,
-} = require("./projectRoutes");
-const { getTeam, delTeamMember } = require("./userProjectRoutes");
-const { getZones, addNewLocation, delLocation } = require("./locationRoutes");
-const { getAllMaterials, getMaterialtypes } = require("./materialRoutes");
+} = require("./routes/projectRoutes");
+const { getTeam, delTeamMember } = require("./routes/userProjectRoutes");
+const { getZones, addNewLocation, delLocation } = require("./routes/locationRoutes");
+const { getAllMaterials, getMaterialtypes } = require("./routes/materialRoutes");
 const {
   getProjQuote,
   addProjQuote,
   updateProjQuote,
   delQuote,
   getQuoteCosts,
-} = require("./quoteRoutes");
+} = require("./routes/quoteRoutes");
 const {
   getProjTasks,
   updateHiddenTasks,
@@ -48,11 +48,11 @@ const {
   addProjTask,
   getProjTaskCat,
   getMaxSequence,
-} = require("./taskRoutes");
-const { getAllTasksOfType } = require("./taskNameRoutes")
-const { getTotalMaterials, addNewMaterial, updateMaterial, delMaterial } = require("./adminMaterialRoutes")
-const { getTotalAdminTasks, addNewAdminTask, updateAdminTask, delAdminTask, getAllTasksCategories, getAllTaskCategories, addNewTaskCategory, delTaskCategory } = require("./adminTasksRoutes")
-const { getTotalUsers, addNewUser, updateUser, delUser } = require("./adminUsersRoutes")
+} = require("./routes/taskRoutes");
+const { getAllTasksOfType } = require("./routes/taskNameRoutes")
+const { getTotalMaterials, addNewMaterial, updateMaterial, delMaterial } = require("./routes/adminMaterialRoutes")
+const { getTotalAdminTasks, addNewAdminTask, updateAdminTask, delAdminTask, getAllTasksCategories, getAllTaskCategories, addNewTaskCategory, delTaskCategory } = require("./routes/adminTasksRoutes")
+const { getTotalUsers, addNewUser, updateUser, delUser } = require("./routes/adminUsersRoutes")
 
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -62,10 +62,8 @@ app.use(cors());
 
 port = process.env.PORT || 5000
 
-let newDir = __dirname.substring(0, __dirname.length - 7)
-
 if (process.env.NODE_ENV === "production") {
- app.use(express.static(path.join(newDir, "pmtool/build")))
+ app.use(express.static(path.join(__dirname, "pmtool/build")))
 }
 
 app.listen(port, () => console.log("Backend server live on " + port));
@@ -151,7 +149,7 @@ app.use(addNewUser);
 app.use(updateUser);
 app.use(delUser);
 
-console.log("this", newDir)
+console.log("this", __dirname)
 app.get("*", (req, res) => {
-    res.sendfile(path.join(newDir, "pmtool/build/index.html"))
+    res.sendfile(path.join(__dirname, "pmtool/build/index.html"))
 })
