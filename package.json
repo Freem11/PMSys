@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/Freem11/PMSys/issues"
   },
-  "homepage": "https://github.com/Freem11/PMSys#readme",
+  "homepage": "/",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
