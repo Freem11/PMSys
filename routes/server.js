@@ -151,5 +151,5 @@ app.use(delUser);
 
 
 app.get("*", (req, res) => {
-    res.sendfile(path.join(__dirname, "pmtool/build/index.html"))
+    res.sendfile(path.join(__dirname, "pmtool/build/"))
 })
