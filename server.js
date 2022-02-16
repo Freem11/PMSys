@@ -60,10 +60,16 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-port = process.env.PORT || 5000
+port = process.env.PORT || 5000;
+
+console.log("root is", process.env.NODE_ENV)
 
 if (process.env.NODE_ENV === "production") {
- app.use(express.static(path.join(__dirname, "/pmtool/build")))
+  const root = require('path').join(__dirname, 'pmtool', 'build')
+app.use(express.static(root));
+  app.get("*", (req, res) => {
+      res.sendFile('index.html', { root });
+  })
 }
 
 app.listen(port, () => console.log("Backend server live on " + port));
@@ -149,7 +155,6 @@ app.use(addNewUser);
 app.use(updateUser);
 app.use(delUser);
 
-console.log("this", path.join(__dirname, "/pmtool/build/index.html"))
 app.get("*", (req, res) => {
-    res.sendfile(path.join(__dirname, "/pmtool/build/index.html"))
+    res.sendfile(root)
 })
