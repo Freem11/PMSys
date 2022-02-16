@@ -62,7 +62,7 @@ app.use(cors());
 
 port = process.env.PORT || 5000;
 
-// app.use(express.static(path.join(__dirname, "pmtool/build")));
+app.use(express.static(path.join(__dirname, "pmtool/build")));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "pmtool/build")));
