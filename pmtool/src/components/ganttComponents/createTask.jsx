@@ -143,7 +143,11 @@ const CreateNewTask = (props) => {
       if (formVals.project !== '') {
       newParentChildrenArray = updateParentChildArray(response1[0], formVals.name)
       } else {
-      newParentChildrenArray = response1[0].barChildren
+        if (response1[0]) {
+          newParentChildrenArray = response1[0].barChildren
+        } else {
+          newParentChildrenArray = ''
+        }
       }
 
       let updatie = updateRestTasks( {...response1[0], progress: newParentProgress, start: newParentStartDate, end: newParentEndDate, barchildren: newParentChildrenArray } )

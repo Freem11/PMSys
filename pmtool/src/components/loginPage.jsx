@@ -105,7 +105,6 @@ const LoginPage = () => {
     error2,
   } = state;
   const { setUser } = useContext(UserContext);
-
   const [dispAdmins, setDispAdmins] = useState(false);
   const [dispRegular, setDispRegular] = useState(true);
 
@@ -276,6 +275,7 @@ const LoginPage = () => {
           placeholder="Email"
           className="inpt"
           value={email}
+          autoFocus={true}
           onChange={(e) =>
             dispatch({
               type: "field",
