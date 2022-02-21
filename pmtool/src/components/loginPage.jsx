@@ -147,6 +147,8 @@ const LoginPage = () => {
       try {
         let log = await login({ email, password });
 
+        console.log("log is ", log)
+
         if (log === undefined || log === Error) {
           dispatch({ type: "error" });
         } else {
