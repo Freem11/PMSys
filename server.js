@@ -62,10 +62,10 @@ app.use(cors());
 
 port = process.env.PORT || 5000;
 
-app.use(express.static(path.join(__dirname, "pmtool/build/index.html")));
+app.use(express.static(path.join(__dirname, "pmtool/build")));
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "pmtool/build/index.html")));
+  app.use(express.static(path.join(__dirname, "pmtool/build")));
 }
 
 app.listen(port, () => console.log("Backend server live on " + port));
