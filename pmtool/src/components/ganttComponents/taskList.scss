@@ -3,9 +3,10 @@
     background-color: #3B747D;
     border-radius: 15px 0 0 15px ;
     list-style-type: none;
-    width: 99%;
-    padding: 10px;
-    padding-right: -10px;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
     resize: vertical;
     margin-top: 0px;
 }
@@ -54,7 +55,8 @@
     flex-direction: row;
     color: white;
     padding: 10px;
-    padding-left: -10;
+    padding-left: 10px;
+    padding-right: 10px;
     min-width: 50px;
     width: auto;
     margin: 3px;

@@ -114,7 +114,7 @@ function SchedulePage() {
               />
             </FormModal>
 
-          <button type="button" className="buttonlogin" onClick={handleGTableDisp} style={{height: '30px', width: '150px', textOrientation: 'upright', writingMode: 'vertical-rl'}}>
+          <button type="button" className="buttonlogin" onClick={handleGTableDisp} style={{height: '30px', width: '150px'}}>
             Show/Hide Table
           </button> 
     <div className="master" style={{width: '1790px', borderRadius: '15px', marginTop: '10px'}}>
