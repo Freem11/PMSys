@@ -112,35 +112,27 @@ const CreateNewTask = (props) => {
     } else if (e.target.name === "start") {
       let endDate = formVals.end;
       let startDate = e.target.value;
-      console.log("start", startDate);
-      console.log("end", endDate);
       if (endDate !== "" && startDate > endDate) {
         setFormVals({ ...formVals, [e.target.name]: formVals.start });
-        console.log("notwant", formVals);
       } else {
         opt = e.target.value;
         setFormVals({ ...formVals, start: opt });
-        console.log("want", formVals);
       }
     } else if (e.target.name === "end") {
       let endDate = e.target.value;
       let startDate = formVals.start;
-      console.log("start", startDate);
-      console.log("end", endDate);
       if (startDate !== "" && startDate > endDate) {
         setFormVals({ ...formVals, [e.target.name]: formVals.end });
-        console.log("want", formVals);
       } else {
         opt = e.target.value;
         setFormVals({ ...formVals, [e.target.name]: opt });
-        console.log("notwant", formVals);
       }
     } else {
       opt = e.target.value;
       setFormVals({ ...formVals, [e.target.name]: opt });
     }
   };
-  console.log("after?", formVals);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 

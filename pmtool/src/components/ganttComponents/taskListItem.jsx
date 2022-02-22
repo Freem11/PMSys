@@ -123,7 +123,25 @@ const TeamListItem = (props) => {
   }, [swtch]);
 
   const handleChange = (e) => {
-    setFormVals({ ...formVals, [e.target.name]: e.target.value });
+    if (e.target.name === "start") {
+      let endDate = formVals.end;
+      let startDate = e.target.value;
+      if (endDate !== "" && startDate > endDate) {
+        setFormVals({ ...formVals, [e.target.name]: formVals.start });
+      } else {
+        setFormVals({ ...formVals, start: e.target.value });
+      }
+    } else if (e.target.name === "end") {
+      let endDate = e.target.value;
+      let startDate = formVals.start;
+      if (startDate !== "" && startDate > endDate) {
+        setFormVals({ ...formVals, [e.target.name]: formVals.end });
+      } else {
+        setFormVals({ ...formVals, [e.target.name]: e.target.value });
+      }
+    } else {
+      setFormVals({ ...formVals, [e.target.name]: e.target.value });
+    }
   };
 
   const handleSubmit = (e) => {
