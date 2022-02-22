@@ -80,7 +80,7 @@ const ProjectsPage = () => {
     return(
         <div>
          <AppBar position="fixed">
-        <Toolbar sx={{ display: "flex", backgroundColor: "#2B2D42", zIndex: 0 }}>
+        <Toolbar sx={{ display: "flex", backgroundColor: "#102E4A", zIndex: 0 }}>
            <div className="title">My Projects</div> 
           <Typography variant="h6" noWrap component="div"></Typography>
 
