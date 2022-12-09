@@ -5,20 +5,20 @@ The aim is have this app follow the "living document" philosophy common in proje
 
 This means that work done in the early stages will be reusable as you progress to later stages 
 
-#Setup
+# Setup
 Install back-end dependencies with npm install, (inside the pm-project folder)
 
 Install front-end dependencies with npm install(inside the pmtool folder) 
 
 setup Postgress Db credentials in .env file
 
-#Run Backend 
+# Run Backend 
 node.server.js
 
-#Run Frontend
+# Run Frontend
 npm start
 
-Current Features:
+# Current Features:
 
 Users can login/ register
 
@@ -41,17 +41,13 @@ Set start and end dates for each task as well as progress of tasks, which feeds 
 
 As Materials/Labour items are added to the project plan, Gantt chart is automatically updated with corresponding task
 
-Admin section for:
+# Admin section for:
 registering/removing or editting Labour/ Materials, 
 adding/removing project locations 
 registering/removing or editting Gantt Task options
 registering, editting, removing or updating to admin users 
 
-
-In Progress Features:
-none at this time
-
-Planned Features:
+# Planned Features:
 
 Map view of projects (polygon for footprint of construction project sites)
 
