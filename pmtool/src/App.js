@@ -8,6 +8,9 @@ import { UserContext } from './components/userContext';
 import { ProjectContext } from './components/projectContext'
 import { ProjectsContext } from './components/projectsContext'
 import "./app.scss"; 
+
+//hooray
+
 function App() {
 
   const [user, setUser] = useState('')
